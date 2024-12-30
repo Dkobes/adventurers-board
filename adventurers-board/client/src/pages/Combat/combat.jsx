@@ -34,16 +34,19 @@ export default function Combat() {
         <div>
             <div className="combat">
                 {/* Display weapons from inventory with their damage and attack modifiers. Choose spells to display */}
-                <h3>Weapons</h3>
-                <div>
+                <section className='weapons'>
+                    <h3>Weapons</h3>
                     <p><span>Longsword</span> <button onClick={() => diceRoll(1, 21, 5)}>To Hit: +5</button> <button onClick={() => diceRoll(1, 9, 3)}>Damage: 1d8+3</button></p>
-                </div>
-                <h3>Spells</h3>
-                <div>
+                    <button>Add Weapon</button>
+                </section>
+                
+                <section className='spells'>
+                    <h3>Spells</h3>
                     <p><span>Firebolt</span> <button onClick={() => diceRoll(1, 21, 5)}>To Hit: +5</button> <button onClick={() => diceRoll(1, 11, 0)}>Damage: 1d10</button></p>
-                </div>
+                    <button>Add Spell</button>
+                </section>
             </div>
-            <div>
+            <div className='dice'>
                 {/* Roll a dice */}
                 <button onClick={() => diceRoll(1, 5, 0)}>d4: {d4}</button>
                 <button onClick={() => diceRoll(1, 7, 0)}>d6: {d6}</button>

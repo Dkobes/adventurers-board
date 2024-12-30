@@ -1,10 +1,26 @@
 .combat {
-    background-color: gray;
-    border-radius: 15px;
+  display: flex;
+}
+
+.weapons {
+  flex: 1;
+  margin-right: 20px;
+  background-color: gray;
+  border-radius: 15px;
+}
+
+.spells {
+  flex: 1;
+  background-color: gray;
+  border-radius: 15px;
+}
+
+.dice {
+  margin: 15px
 }
 
 span {
-    border-radius: 8px;
+  border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
