@@ -5,7 +5,7 @@ const Spellbook = () => {
     const [spellcastingAbility, setSpellcastingAbility] = useState('primaryStat');
     const [spellcastingModifier, setSpellcastingModifier] = useState(3);
     const [proficiencyBonus, setProficiencyBonus] = useState(2);
-    const [spellLevels, setSpellLevels] useState(Array(9).fill(0));
+    const [spellLevels, setSpellLevels] = useState(Array(9).fill(0));
 
     const calculateSpellSaveDC = () => {
         return 8 + proficiencyBonus + spellcastingModifier;
