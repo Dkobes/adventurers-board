@@ -6,9 +6,30 @@ const Inventory = () => {
 
     const addItem = () => {
         if (itemName) {
-            setItems([...items, itemName]);
+            // Check if the item already exists
+            const existingItem = items.find(item => item.name === itemName);
+            if (existingItem) {
+                // If it exists, increase the quantity
+                existingItem.quantity += 1;
+                setItems([...items]);
+            } else {
+                // If it doesn't exist, add a new item with quantity 1
+                setItems([...items, { name: itemName, quantity: 1 }]);
+            }
             setItemName('');
         }
+    };
+
+    const handleIncrease = (itemName) => {
+        setItems(items.map(item => 
+            item.name === itemName ? { ...item, quantity: item.quantity + 1 } : item
+        ));
+    };
+
+    const handleDecrease = (itemName) => {
+        setItems(items.map(item => 
+            item.name === itemName ? { ...item, quantity: item.quantity - 1 } : item
+        ));
     };
 
     return (
@@ -23,11 +44,15 @@ const Inventory = () => {
             <button onClick={addItem}>Add Item</button>
             <ul>
                 {items.map((item, index) => (
-                    <li key={index}>{item}</li>
+                    <li key={index}>
+                        {item.name}: {item.quantity}
+                        <button onClick={() => handleIncrease(item.name)}>+</button>
+                        <button onClick={() => handleDecrease(item.name)}>-</button>
+                        </li>
                 ))}
             </ul>
         </div>
     );
 };
 
-export default Inventory;
+export default Inventory; 
