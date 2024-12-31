@@ -1,5 +1,5 @@
 const CharacterSelect = () => {
-    return (  );
+    return (character); 
 }
  
 export default CharacterSelect;
