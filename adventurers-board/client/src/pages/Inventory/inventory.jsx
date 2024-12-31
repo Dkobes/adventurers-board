@@ -6,14 +6,13 @@ const Inventory = () => {
 
     const addItem = () => {
         if (itemName) {
-            // Check if the item already exists
             const existingItem = items.find(item => item.name === itemName);
             if (existingItem) {
-                // If it exists, increase the quantity
+                // increase quantity, if one exists, number will increase
                 existingItem.quantity += 1;
                 setItems([...items]);
             } else {
-                // If it doesn't exist, add a new item with quantity 1
+                // add new item with quantity starting at 1
                 setItems([...items, { name: itemName, quantity: 1 }]);
             }
             setItemName('');
@@ -26,7 +25,7 @@ const Inventory = () => {
         ));
     };
 
-    const handleDecrease = (itemName) => {
+    const handleDecrease = (itemName) => { // fix amount going into negatives
         setItems(items.map(item => 
             item.name === itemName ? { ...item, quantity: item.quantity - 1 } : item
         ));
