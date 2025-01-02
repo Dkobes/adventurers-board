@@ -2,17 +2,20 @@ import React, { useState, useEffect } from "react";
 
 const Profile = () => {
     const [character, setCharacter] = useState({
-        name: '',
-        class: '',
-        level: '',
-        background: '',
-        playerName: '',
-        race: '',
-        alignment: '',
-        age: '',
-        height: '',
-        skin: '',
-        hair: '',
+        
+        characterbasics: {
+        Name: '',
+        Class: '',
+        Level: '',
+        Background: '',
+        PlayerName: '',
+        Race: '',
+        Alignment: '',
+        Age: '',
+        Height: '',
+        Skin: '',
+        Hair: '',
+        },
 
         stats: {
             strength: 10,
@@ -55,72 +58,86 @@ const Profile = () => {
         
     });
 
-    const [levelResource, setLevelResource] = useState(null);
 
-    useEffect(() => {
-        const fetchLevelResource = async () => {
-            if (character.class && character.level) {
-                try {
-                    const response = await fetch(`https://www.dnd5eapi.co/api/classes/${character.class}/levels/${character.level}`);
-                    if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                    }
-                    const data = await response.json();
-                    setLevelResource(data);
-                } catch (error) {
-                    console.error("Error fetching level resource:", error);
-                }
-            }
-        };
 
-        fetchLevelResource();
-    }, [character.class, character.level]);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setCharacter((prevState) => ({
+            ...prevState,
+            characterbasics: {
+                ...prevState.characterbasics,
+                [name]: value,
+            },
+        }));
+    };
+
+    const handleStatsChange = (e) => {
+        const { name, value } = e.target;
+        setCharacter((prevState) => ({
+            ...prevState,
+            stats: {
+                ...prevState.stats,
+                [name]: value,
+            },
+        }));
+    };
+
+    const handleSavingThrowsChange = (e) => {
+        const { name, value } = e.target;
+        setCharacter((prevState) => ({
+            ...prevState,
+            savingThrows: {
+                ...prevState.savingThrows,
+                [name]: value,
+            },
+        }));
+    };
+
+    const handleSkillsChange = (e) => {
+        const { name, value } = e.target;
+        setCharacter((prevState) => ({
+            ...prevState,
+            skills: {
+                ...prevState.skills,
+                [name]: value,
+            },
+        }));
+    };
 
     return ( 
         <div>
-        <h1>{character.name}</h1>
-        <p>Class: {character.class}</p>
-        <p>Level: {character.level}</p>
-        {/* Render level resource if available */}
-        {levelResource && (
-                <div>
-                    <h2>Level Resource</h2>
-                    <pre>{JSON.stringify(levelResource, null, 2)}</pre>
-                </div>
-            )}
-        <p>Background: {character.background}</p>
-        <p>Player Name: {character.playerName}</p>
-        <p>Race: {character.race}</p>
-        <p>Alignment: {character.alignment}</p>
-        <p>Age: {character.age}</p>
-        <p>Height: {character.height}</p>
-        <p>Skin: {character.skin}</p>
-        <p>Hair: {character.hair}</p>
+            <h2>Character Info</h2>
+        <ul>
+            {Object.entries(character.characterbasics).map(([key, value]) => (
+                <li key={key}>{key}: <input type="string" name={key} value={value} onChange={handleChange} /></li>
+            ))}
+        </ul>
+
 
         <h2>Stats</h2>
         <ul>
-            <li>Strength: {character.stats.strength}</li>
-            <li>Dexterity: {character.stats.dexterity}</li>
-            <li>Constitution: {character.stats.constitution}</li>
-            <li>Intelligence: {character.stats.intelligence}</li>
-            <li>Wisdom: {character.stats.wisdom}</li>
-            <li>Charisma: {character.stats.charisma}</li>
+            <li>Strength: <input type="number" name="strength" value={character.stats.strength} onChange={handleStatsChange} /> </li>
+            <li>Dexterity: <input type="number" name="dexterity" value={character.stats.dexterity} onChange={handleStatsChange} /> </li>
+            <li>Constitution: <input type="number" name="constitution" value={character.stats.constitution} onChange={handleStatsChange} /></li>
+            <li>Intelligence: <input type="number" name="intelligence" value={character.stats.intelligence} onChange={handleStatsChange} /></li>
+            <li>Wisdom: <input type="number" name="wisdom" value={character.stats.wisdom} onChange={handleStatsChange} /></li>
+            <li>Charisma: <input type="number" name="charisma" value={character.stats.intelligence} onChange={handleStatsChange} /> </li>
         </ul>
 
         <h2>Saving Throws</h2>
         <ul>
-            <li>Strength: {character.savingThrows.strength}</li>
-            <li>Dexterity: {character.savingThrows.dexterity}</li>
-            <li>Constitution: {character.savingThrows.constitution}</li>
-            <li>Intelligence: {character.savingThrows.intelligence}</li>
-            <li>Wisdom: {character.savingThrows.wisdom}</li>
-            <li>Charisma: {character.savingThrows.charisma}</li>
+            <li>Strength: <input type="number" name="strength" value={character.savingThrows.strength} onChange={handleSavingThrowsChange} /></li>
+            <li>Dexterity: <input type="number" name="dexterity" value={character.savingThrows.dexterity} onChange={handleSavingThrowsChange} /></li>
+            <li>Constitution: <input type="number" name="constitution" value={character.savingThrows.constitution} onChange={handleSavingThrowsChange} /></li>
+            <li>Intelligence: <input type="number" name="intelligence" value={character.savingThrows.intelligence} onChange={handleSavingThrowsChange} /></li>
+            <li>Wisdom: <input type="number" name="wisdom" value={character.savingThrows.wisdom} onChange={handleSavingThrowsChange} /></li>
+            <li>Charisma: <input type="number" name="charisma" value={character.savingThrows.charima} onChange={handleSavingThrowsChange} /></li>
         </ul>
 
         <h2>Skills</h2>
         <ul>
             {Object.entries(character.skills).map(([skill, value]) => (
-                <li key={skill}>{skill}: {value}</li>
+                <li key={skill}>{skill}: <input type="number" name={skill} value={value} onChange={handleSkillsChange} /></li>
             ))}
         </ul>
     </div>
