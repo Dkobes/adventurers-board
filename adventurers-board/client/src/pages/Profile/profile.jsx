@@ -58,6 +58,8 @@ const Profile = () => {
         
     });
 
+    const [profileImage, setProfileImage] = useState(null);
+
 
 
     const handleChange = (e) => {
@@ -104,6 +106,13 @@ const Profile = () => {
         }));
     };
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setProfileImage(URL.createObjectURL(file));
+        }
+    };
+
     return ( 
         <div>
             <h2>Character Info</h2>
@@ -112,6 +121,10 @@ const Profile = () => {
                 <li key={key}>{key}: <input type="string" name={key} value={value} onChange={handleChange} /></li>
             ))}
         </ul>
+
+        <h2>Profile Image</h2>
+            <input type="file" accept="image/*" onChange={handleImageChange} />
+            {profileImage && <img src={profileImage} alt="Profile" style={{ width: '100px', height: '100px' }} />}
 
 
         <h2>Stats</h2>
