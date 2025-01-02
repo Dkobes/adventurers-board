@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import Home from './pages/Home/home.jsx';
 import Profile from "./pages/Profile/profile.jsx"; 
 // import CharacterSelect from './pages/CharacterSelect/characterselect.jsx';
 import Inventory from './pages/Inventory/inventory.jsx';
@@ -15,7 +16,7 @@ function App() {
     <Router>
       <main>
       <Routes>
-        {/* <Route path="./pages/Home" element={<Home />} /> */}
+        <Route path="/" element={<Home />} />
         {/* <Route path="/characterselect" element={<CharacterSelect />} /> */}
         <Route path="/profile" element={<Profile />} />
         <Route path="/combat" element={<Combat />} />
