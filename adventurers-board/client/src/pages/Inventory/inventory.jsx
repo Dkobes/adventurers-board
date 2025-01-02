@@ -27,7 +27,8 @@ const Inventory = () => {
 
     const handleDecrease = (itemName) => { // fix amount going into negatives
         setItems(items.map(item => 
-            item.name === itemName ? { ...item, quantity: item.quantity - 1 } : item
+            item.name === itemName 
+            ? { ...item, quantity: Math.max(item.quantity - 1, 0)  } : item
         ));
     };
 
