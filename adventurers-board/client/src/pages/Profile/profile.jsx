@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import CharacterSelect from "../CharacterSelect/characterselect";
+
 
 const Profile = () => {
     const [character, setCharacter] = useState({
@@ -114,6 +116,7 @@ const Profile = () => {
     };
 
     return ( 
+
         <div>
             <h2>Character Info</h2>
         <ul>
