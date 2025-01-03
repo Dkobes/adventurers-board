@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './spellbook.css'
 
 const Spellbook = () => {
-    const [spellcastingAbility, setSpellcastingAbility] = useState('primaryStat');
+    const [spellcastingAbility, setSpellcastingAbility] = useState('Charisma');
     const [spellcastingModifier, setSpellcastingModifier] = useState(3);
     const [proficiencyBonus, setProficiencyBonus] = useState(2);
     const [spellLevels, setSpellLevels] = useState(Array(9).fill(0));
@@ -98,4 +98,4 @@ const Spellbook = () => {
 
 //Level  9
 
-export default spellbook
+export default Spellbook
