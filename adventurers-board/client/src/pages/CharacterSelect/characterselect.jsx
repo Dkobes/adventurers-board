@@ -48,29 +48,29 @@ const CharacterSelect = () => {
                 <input type="text" required value={Background} onChange={(e) => setBackground(e.target.value)} />   
                 <label>Player Name:</label>
                 <input type="text" required value={PlayerName} onChange={(e) => setPlayerName(e.target.value)} />
-                <label>Race</label>
+                <label>Race:</label>
                 <input type="text" required value={Race} onChange={(e) => setRace(e.target.value)} />
-                <label>Alignment</label>
+                <label>Alignment:</label>
                 <input type="text" required value={Alignment} onChange={(e) => setAlignment(e.target.value)} />
-                <label>Age</label>
+                <label>Age:</label>
                 <input type="text" required value={Age} onChange={(e) => setAge(e.target.value)} />
-                <label>Height</label>
+                <label>Height:</label>
                 <input type="text" required value={Height} onChange={(e) => setHeight(e.target.value)} />
-                <label>Skin</label>
+                <label>Skin:</label>
                 <input type="text" required value={Skin} onChange={(e) => setSkin(e.target.value)} />
-                <label>Hair</label>
+                <label>Hair:</label>
                 <input type="text" required value={Hair} onChange={(e) => setHair(e.target.value)} />
-                <label>Strength</label>
+                <label>Strength:</label>
                 <input type="number" required value={strength} onChange={(e) => setStrength(e.target.value)} />
-                <label>Dexterity</label>
+                <label>Dexterity:</label>
                 <input type="number" required value={dexterity} onChange={(e) => setDexterity(e.target.value)} />
-                <label>Constitution</label>
+                <label>Constitution:</label>
                 <input type="number" required value={constitution} onChange={(e) => setConstitution(e.target.value)} />
-                <label>Intelligence</label>
+                <label>Intelligence:</label>
                 <input type="number" required value={intelligence} onChange={(e) => setIntelligence(e.target.value)} />
-                <label>Wisdom</label>
+                <label>Wisdom:</label>
                 <input type="number" required value={wisdom} onChange={(e) => setWisdom(e.target.value)} />
-                <label>Charisma</label>
+                <label>Charisma:</label>
                 <input type="number" required value={charisma} onChange={(e) => setCharisma(e.target.value)} />
 
                 <button type="submit">Submit</button>
