@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './spellbook.css'
 
 const Spellbook = () => {
@@ -6,6 +6,15 @@ const Spellbook = () => {
     const [spellcastingModifier, setSpellcastingModifier] = useState(3);
     const [proficiencyBonus, setProficiencyBonus] = useState(2);
     const [spellLevels, setSpellLevels] = useState(Array(9).fill(0));
+    const [spells, setSpells] = useState([]);
+    const [selectedSpell, setSelectedSpell] = useState(null);
+
+    useEffect(() => {
+        fetch('https://www.dnd5eapi.co/api/spells')
+            .then((response) => response.json())
+            .then((data) => setSpells(data.results))
+            .catch((error) => console.error('Error fetching spells:', error));
+    }, []);
 
     const calculateSpellSaveDC = () => {
         return 8 + proficiencyBonus + spellcastingModifier;
@@ -19,6 +28,11 @@ const Spellbook = () => {
         const newSpellLevels = [...spellLevels];
         newSpellLevels[level - 1] = value;
         setSpellLevels(newSpellLevels);
+    };
+
+    const handleSpellSelect = (spellIndex) => {
+        const selected = spells[spellIndex];
+        setSelectedSpell(selected);
     };
 
     return (
@@ -74,28 +88,30 @@ const Spellbook = () => {
                 </div>
             ))}
         </div>
+
+        <div className='spell-selector'>
+                <h2>Select a Spell</h2>
+                <select
+                    onChange={(e) => handleSpellSelect(e.target.value)}
+                    defaultValue="">
+                    <option value="" disabled>
+                        Choose a spell
+                    </option>
+                    {spells.map((spell, index) => (
+                        <option key={spell.index} value={index}>
+                            {spell.name}
+                        </option>
+                    ))}
+                </select>
+                {selectedSpell && (
+                    <div className='selected-spell-details'>
+                        <h3>{selectedSpell.name}</h3>
+                        <p>URL: <a href={`https://www.dnd5eapi.co${selectedSpell.url}`} target="_blank" rel="noopener noreferrer">{selectedSpell.url}</a></p>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
-
-//Cantrips
-
-//Level 1
-
-//Level 2
-
-//Level  3
-
-//Level  4
-
-//Level  5
-
-//Level  6
-
-//Level  7
-
-//Level  8
-
-//Level  9
 
 export default Spellbook
