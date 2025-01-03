@@ -4,7 +4,7 @@ import Home from './pages/Home/home.jsx';
 import Profile from "./pages/Profile/profile.jsx"; 
 // import CharacterSelect from './pages/CharacterSelect/characterselect.jsx';
 import Inventory from './pages/Inventory/inventory.jsx';
-// import Spellbook from './pages/Spellbook/spellbook.jsx';
+import Spellbook from './pages/Spellbook/spellbook.jsx';
 import Combat from './pages/Combat/combat.jsx';
 import Notes from './pages/Notes/notes.jsx';
 import './App.css'
@@ -21,7 +21,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/combat" element={<Combat />} />
         <Route path="/inventory" element={<Inventory />} />
-        {/* <Route path="/spellbook" element={<Spellbook />} /> */}
+        <Route path="/spellbook" element={<Spellbook />} /> 
         <Route path="/notes" element={<Notes />} />
 
 
