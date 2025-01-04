@@ -4,6 +4,7 @@ import './combat.css';
 export default function Combat() {
     const [weapons, setWeapons] = useState([]);
     const [spells, setSpells] = useState([]);
+    const [spellList, setSpellList] = useState([]);
     const [skillName, setSkillName] = useState('');
     const [skills, setSkills] = useState([]);
     const [diceCount, setDiceCount] = useState(1);
@@ -14,11 +15,6 @@ export default function Combat() {
     const [d12, setD12] = useState();
     const [d20, setD20] = useState();
     const [d100, setD100] = useState();
-
-    const addSkill = (name, modifier, diceAmount, diceValue) => {
-        setSkills([...skills, {name: name, atk: modifier, dmg: `${diceAmount}${diceValue}`}]);
-        console.log(skills);
-    }
 
     const skillPrompt = () => {
         return (
@@ -62,9 +58,42 @@ export default function Combat() {
         )
     }
 
+    const addSkill = (name, modifier, diceAmount, diceValue) => {
+        setSkills([...skills, {name: name, atk: modifier, dmg: `${diceAmount}${diceValue}`}]);
+        console.log(skills);
+    }
+
     const deleteSkill = (index) => {
         const newSkills = skills.filter((skill, i) => index !== i);
         setSkills(newSkills);
+    }
+
+    const spellSelect = () => {
+        return (
+            <>
+            <label htmlFor='spellOptions'>Add Spell: </label>
+            <select id='spellOptions'>
+                {spellList.map((spell, index) => (
+                    <option key={index} value={JSON.stringify(spell)}>{spell.name}</option>
+                ))}
+            </select>
+            <button onClick={() => addSpell(spellOptions.value)}>Add Spell</button>
+            </>
+        )
+    }
+
+    const addSpell = (newSpell) => {
+        setSpells([...spells, JSON.parse(newSpell)]);
+    }
+
+    const deleteSpell = (index) => {
+        const newSpells = spells.filter((spell, i) => index !== i);
+        setSpells(newSpells);
+    }
+
+    const deleteWeapon = (index) => {
+        const newWeapons = weapons.filter((weapon, i) => index !== i);
+        setWeapons(newWeapons);
     }
 
     function diceRoll(min, max, modifier) {
@@ -95,16 +124,17 @@ export default function Combat() {
                     <h3>Weapons</h3>
                     {weapons.map((weapon, index) => (
                         <p key={index}><span>{weapon.name}</span> <button onClick={() => diceRoll(1, 21, 5)}>To Hit: +{weapon.atk}</button> 
-                        <button onClick={() => diceRoll(1, 9, 3)}>Damage: {weapon.dmg}</button> <button>X</button></p>
+                        <button onClick={() => diceRoll(1, 9, 3)}>Damage: {weapon.dmg}</button> <button onClick={() => deleteWeapon(index)}>X</button></p>
                     ))}
                 </section>
                 
                 <section className='spells'>
                     <h3>Spells</h3>
                     {spells.map((spell, index) => (
-                        <p key={index}><span>{spell.name}</span> <button onClick={() => diceRoll(1, 21, 5)}>To Hit: +{spell.atk}</button> 
-                        <button onClick={() => diceRoll(1, 11, 0)}>Damage: {spell.dmg}</button> <button>X</button></p>
+                        <p key={index}><span>{spell.name}</span> {spell.atk === null ? <span>DC: {spell.dc}</span> : <button onClick={() => diceRoll(1, 21, spell.atk)}>To Hit: +{spell.atk}</button>} 
+                        <button onClick={() => diceRoll(1, 11, 0)}>Damage: {spell.dmg}</button> <button onClick={() => deleteSpell(index)}>X</button></p>
                     ))}
+                    {spellSelect()}
                 </section>
 
                 <section className='skills'>
