@@ -32,6 +32,10 @@ const Inventory = () => {
         ));
     };
 
+    const handleRemoveItem = (itemName) => {
+        setItems(items.filter(item => item.name !== itemName));
+    };
+
     return (
         <div>
             <h2>Inventory</h2>
@@ -48,6 +52,7 @@ const Inventory = () => {
                         {item.name}: {item.quantity}
                         <button onClick={() => handleIncrease(item.name)}>+</button>
                         <button onClick={() => handleDecrease(item.name)}>-</button>
+                        <button onClick={() => handleRemoveItem(item.name)}>Remove</button>
                         </li>
                 ))}
             </ul>
