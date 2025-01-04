@@ -8,6 +8,7 @@ const Spellbook = () => {
     const [spellLevels, setSpellLevels] = useState(Array(9).fill(0));
     const [spells, setSpells] = useState([]);
     const [selectedSpell, setSelectedSpell] = useState(null);
+    const [selectedSpellDetails, setSelectedSpellDetails] = useState(null);
     const [savedSpells, setSavedSpells] = useState([]);
 
     useEffect(() => {
@@ -31,9 +32,19 @@ const Spellbook = () => {
         setSpellLevels(newSpellLevels);
     };
 
-    const handleSpellSelect = (spellIndex) => {
+    const handleSpellSelect = async (spellIndex) => {
         const selected = spells[spellIndex];
         setSelectedSpell(selected);
+
+        if (selected) {
+            try {
+                const response = await fetch(`https://www.dnd5eapi.co${selected.url}`);
+                const details = await response.json();
+                setSelectedSpellDetails(details);
+            } catch (error) {
+                console.error('Error fetching spell details:', error);
+            }
+        }
     };
 
     const handleSaveSpell = () => {
@@ -54,6 +65,7 @@ const Spellbook = () => {
             <label>Spellcasting Ability: </label>
             <select value={spellcastingAbility}
             onChange={(e) => setSpellcastingAbility(e.target.value)}>
+                
                 <option value="Charisma">Charisma</option>
                 <option value="Intelligence">Intelligence</option>
                 <option value="Wisdom">Wisdom</option>
@@ -110,18 +122,15 @@ const Spellbook = () => {
                     </option>
                     {spells.map((spell, index) => (
                         <option key={spell.index} value={index}>
-                            {spell.name}
+                            {spell.name} ( Level {spell.level || 'N/A'})
                         </option>
                     ))}
                 </select>
-                {selectedSpell && (
+                {selectedSpellDetails && (
                     <div className='selected-spell-details'>
-                        <h3>{selectedSpell.name}</h3>
-                        <p>URL: <a href={`https://www.dnd5eapi.co${selectedSpell.url}`} 
-                        target="_blank" 
-                        rel="noopener noreferrer">
-                            {selectedSpell.url}</a>
-                            </p>
+                        <h3>{selectedSpellDetails.name}</h3>
+                        <p><strong>Level:</strong> {selectedSpellDetails.level}</p>
+                        <p><strong>Description:</strong> {selectedSpellDetails.desc?.join(' ')}</p>
                             <button onClick={handleSaveSpell}>Save Spell</button>
                     </div>
                 )}
@@ -132,7 +141,9 @@ const Spellbook = () => {
                 <ul>
                     {savedSpells.map((spell, index) => (
                         <li key={spell.index}>
-                            <span>{spell.name}</span>
+                            <h3>{spell.name}</h3>
+                            <p><strong>Level:</strong> {spell.level}</p>
+                            <p><strong>Description:</strong> {spell.desc?.join(' ')}</p>
                             <button onClick={() => handleRemoveSpell(index)}>Remove</button>
                         </li>
                     ))}
