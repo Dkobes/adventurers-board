@@ -8,6 +8,7 @@ const Spellbook = () => {
     const [spellLevels, setSpellLevels] = useState(Array(9).fill(0));
     const [spells, setSpells] = useState([]);
     const [selectedSpell, setSelectedSpell] = useState(null);
+    const [savedSpells, setSavedSpells] = useState([]);
 
     useEffect(() => {
         fetch('https://www.dnd5eapi.co/api/spells')
@@ -33,6 +34,16 @@ const Spellbook = () => {
     const handleSpellSelect = (spellIndex) => {
         const selected = spells[spellIndex];
         setSelectedSpell(selected);
+    };
+
+    const handleSaveSpell = () => {
+        if (selectedSpell && !savedSpells.find((spell) => spell.index === selectedSpell.index)) {
+            setSavedSpells([...savedSpells, selectedSpell]);
+        }
+    };
+
+    const handleRemoveSpell = (spellIndex) => {
+        setSavedSpells(savedSpells.filter((spell, index) => index !== spellIndex));
     };
 
     return (
@@ -106,9 +117,26 @@ const Spellbook = () => {
                 {selectedSpell && (
                     <div className='selected-spell-details'>
                         <h3>{selectedSpell.name}</h3>
-                        <p>URL: <a href={`https://www.dnd5eapi.co${selectedSpell.url}`} target="_blank" rel="noopener noreferrer">{selectedSpell.url}</a></p>
+                        <p>URL: <a href={`https://www.dnd5eapi.co${selectedSpell.url}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer">
+                            {selectedSpell.url}</a>
+                            </p>
+                            <button onClick={handleSaveSpell}>Save Spell</button>
                     </div>
                 )}
+            </div>
+
+            <div className="saved-spells">
+                <h2>Saved Spells</h2>
+                <ul>
+                    {savedSpells.map((spell, index) => (
+                        <li key={spell.index}>
+                            <span>{spell.name}</span>
+                            <button onClick={() => handleRemoveSpell(index)}>Remove</button>
+                        </li>
+                    ))}
+                </ul>
             </div>
         </div>
     );
