@@ -65,7 +65,7 @@ const Spellbook = () => {
             <label>Spellcasting Ability: </label>
             <select value={spellcastingAbility}
             onChange={(e) => setSpellcastingAbility(e.target.value)}>
-                
+
                 <option value="Charisma">Charisma</option>
                 <option value="Intelligence">Intelligence</option>
                 <option value="Wisdom">Wisdom</option>
@@ -143,7 +143,6 @@ const Spellbook = () => {
                         <li key={spell.index}>
                             <h3>{spell.name}</h3>
                             <p><strong>Level:</strong> {spell.level}</p>
-                            <p><strong>Description:</strong> {spell.desc?.join(' ')}</p>
                             <button onClick={() => handleRemoveSpell(index)}>Remove</button>
                         </li>
                     ))}
