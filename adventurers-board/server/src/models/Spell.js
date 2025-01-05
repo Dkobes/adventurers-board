@@ -1,6 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
-import sequelize from '../config'; // Adjust the path as necessary
-import Character from './Character'; // Import Character model
+import sequelize from '../config/connection.js'; 
+import Character from './Character.js'; // Import Character model
 
 class Spell extends Model {}
 
