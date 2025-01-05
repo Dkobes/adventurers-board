@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Profile from "../Profile/profile";
+import auth from "../../utils/auth";
 
 
 const CharacterSelect = () => {
-    const [Name, setName] = useState('');
-    const [Class, setClass] = useState('');
-    const [Level, setLevel] = useState('');
-    const [Background, setBackground] = useState('');
-    const [PlayerName, setPlayerName] = useState('');
-    const [Race, setRace] = useState('');
-    const [Alignment, setAlignment] = useState('');
-    const [Age, setAge] = useState('');
-    const [Height, setHeight] = useState('');
-    const [Skin, setSkin] = useState('');
-    const [Hair, setHair] = useState('');
+    const [name, setName] = useState('');
+    const [characterClass, setClass] = useState('');
+    const [level, setLevel] = useState('');
+    const [background, setBackground] = useState('');
+    const [race, setRace] = useState('');
+    const [alignment, setAlignment] = useState('');
+    const [age, setAge] = useState('');
+    const [height, setHeight] = useState('');
+    const [skin, setSkin] = useState('');
+    const [hair, setHair] = useState('');
 
     const [strength, setStrength] = useState('');
     const [dexterity, setDexterity] = useState('');
@@ -25,8 +25,40 @@ const CharacterSelect = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const formData = {
+            name,
+            characterClass,
+            level,
+            background,
+            race,
+            alignment,
+            age,
+            height,
+            skin,
+            hair,
+            strength,
+            dexterity,
+            constitution,
+            intelligence,
+            wisdom,
+            charisma,
+        }
         console.log(formData);
-    
+
+        fetch("/api/characters", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                 Authorization: `Bearer ${auth.getToken()}`
+            },
+            body: JSON.stringify(formData),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+            }
+        )
+        
     };
 
   
@@ -39,27 +71,25 @@ const CharacterSelect = () => {
             <h2>Create a new character</h2>
             <form onSubmit={handleSubmit}>
                 <label>Name:</label>
-                <input type="text" required value={Name} onChange={(e) => setName(e.target.value)} />
+                <input type="text" required value={name} onChange={(e) => setName(e.target.value)} />
                 <label>Class:</label> 
-                <input type="text" required value={Class} onChange={(e) => setClass(e.target.value)} /> 
+                <input type="text" required value={characterClass} onChange={(e) => setClass(e.target.value)} /> 
                 <label>Label:</label> 
-                <input type="text" required value={Level} onChange={(e) => setLevel(e.target.value)} />  
+                <input type="text" required value={level} onChange={(e) => setLevel(e.target.value)} />  
                 <label>Background:</label>
-                <input type="text" required value={Background} onChange={(e) => setBackground(e.target.value)} />   
-                <label>Player Name:</label>
-                <input type="text" required value={PlayerName} onChange={(e) => setPlayerName(e.target.value)} />
+                <input type="text" required value={background} onChange={(e) => setPlayerName(e.target.value)} />
                 <label>Race:</label>
-                <input type="text" required value={Race} onChange={(e) => setRace(e.target.value)} />
+                <input type="text" required value={race} onChange={(e) => setRace(e.target.value)} />
                 <label>Alignment:</label>
-                <input type="text" required value={Alignment} onChange={(e) => setAlignment(e.target.value)} />
+                <input type="text" required value={alignment} onChange={(e) => setAlignment(e.target.value)} />
                 <label>Age:</label>
-                <input type="text" required value={Age} onChange={(e) => setAge(e.target.value)} />
+                <input type="text" required value={age} onChange={(e) => setAge(e.target.value)} />
                 <label>Height:</label>
-                <input type="text" required value={Height} onChange={(e) => setHeight(e.target.value)} />
+                <input type="text" required value={height} onChange={(e) => setHeight(e.target.value)} />
                 <label>Skin:</label>
-                <input type="text" required value={Skin} onChange={(e) => setSkin(e.target.value)} />
+                <input type="text" required value={skin} onChange={(e) => setSkin(e.target.value)} />
                 <label>Hair:</label>
-                <input type="text" required value={Hair} onChange={(e) => setHair(e.target.value)} />
+                <input type="text" required value={hair} onChange={(e) => setHair(e.target.value)} />
                 <label>Strength:</label>
                 <input type="number" required value={strength} onChange={(e) => setStrength(e.target.value)} />
                 <label>Dexterity:</label>

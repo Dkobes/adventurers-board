@@ -6,17 +6,17 @@ const Profile = () => {
     const [character, setCharacter] = useState({
         
         characterbasics: {
-        Name: '',
-        Class: '',
-        Level: '',
-        Background: '',
-        PlayerName: '',
-        Race: '',
-        Alignment: '',
-        Age: '',
-        Height: '',
-        Skin: '',
-        Hair: '',
+        name: '',
+        class: '',
+        level: '',
+        background: '',
+        playerName: '',
+        race: '',
+        alignment: '',
+        age: '',
+        height: '',
+        skin: '',
+        hair: '',
         },
 
         stats: {

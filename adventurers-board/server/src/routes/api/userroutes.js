@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import User from '../../models/User.js';
+import jwt from 'jsonwebtoken';
 const router = Router();
 
 const getAllUsers = async (_req, res) => {
@@ -30,10 +31,39 @@ const getUserById = async (req, res) => {
 
   // POST /users - Create a new user
 router.post('/', async (req, res) => {
-    const { username, email, password } = req.body;
+    const { username, password } = req.body;
     try {
-      const newUser = await User.create({ username, email, password });
+      const newUser = await User.create({ username, password });
       res.status(201).json(newUser);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  });
+
+  router.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const user = await User.findOne({ where: { username } });
+
+        if(!user) {
+            return res.status(400).json({ message: 'Incorrect username or password' });
+        }
+
+        const validPassword = await user.isCorrectPassword(password);
+
+        if (!validPassword) {
+            return res.status(400).json({ message: 'Incorrect username or password' });
+        }
+
+        // create a token to be sent back to client
+        const secretKey = process.env.JWT_SECRET_KEY || 'helloworld';
+
+        const token = jwt.sign({ username }, secretKey, { expiresIn: '1h' });
+
+        res.status(201).json({
+            message: 'You are now logged in!',
+            token: token
+        });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
