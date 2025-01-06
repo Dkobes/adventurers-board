@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Chest from '/src/assets/images/treasure-chest.jpg';
 
 const Inventory = () => {
     const [items, setItems] = useState([]);
@@ -37,7 +38,8 @@ const Inventory = () => {
     };
 
     return (
-        <div>
+        <div className="inventory">
+            <img src={Chest} alt="Treasure chest flowing with gems and coin" className="inventory"></img>
             <h2>Inventory</h2>
             <input 
                 type="text" 
