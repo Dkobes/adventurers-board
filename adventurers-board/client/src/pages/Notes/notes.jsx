@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import NotePaper from '/src/assets/images/note-paper.jpg';
 
 const Notes = () => {
     const [notes, setNotes] = useState([]);
@@ -12,7 +13,8 @@ const Notes = () => {
     };
 
     return (
-        <div>
+        <div className="note-paper">
+            <img src={NotePaper} alt="Stained note paper" className="note-paper"></img>
             <h2>Notes</h2>
             <textarea 
                 value={noteText} 
