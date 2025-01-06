@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { DiceRoll } from '@dice-roller/rpg-dice-roller';
 import './combat.css';
 import Colosseum from '/src/assets/images/colosseum.jpg';
 
@@ -60,7 +61,7 @@ export default function Combat() {
     }
 
     const addSkill = (name, modifier, diceAmount, diceValue) => {
-        setSkills([...skills, {name: name, atk: modifier, dmg: `${diceAmount}d${diceValue}`, die: diceValue}]);
+        setSkills([...skills, {name: name, atk: modifier, count: diceAmount, type: diceValue}]);
         console.log(skills);
     }
 
@@ -97,23 +98,23 @@ export default function Combat() {
         setWeapons(newWeapons);
     }
 
-    function diceRoll(min, max, modifier) {
-        const result = Math.floor(Math.random() * (max - min) + min + modifier);
-        console.log(result);
-        if (max - min === 4) {
-            setD4(result);
-        } else if (max - min === 6) {
-            setD6(result);
-        } else if (max - min === 8) {
-            setD8(result);
-        } else if (max - min === 10) {
-            setD10(result);
-        } else if (max - min === 12) {
-            setD12(result);
-        } else if (max - min === 20) {
-            setD20(result);
-        } else {
-            setD100(result);
+    function diceRoll(count, type, modifier) {
+        const roll = new DiceRoll(`${count}d${type} + ${modifier}`);
+        console.log(roll.output);
+        if (type === 4) {
+            setD4(roll.total);
+        } else if (type === 6) {
+            setD6(roll.total);
+        } else if (type === 8) {
+            setD8(roll.total);
+        } else if (type === 10) {
+            setD10(roll.total);
+        } else if (type === 12) {
+            setD12(roll.total);
+        } else if (type === 20) {
+            setD20(roll.total);
+        } else if (type === 100) {
+            setD100(roll.total);
         }
     }
 
@@ -129,16 +130,16 @@ export default function Combat() {
                 <section className='weapons'>
                     <h3>Weapons</h3>
                     {weapons.map((weapon, index) => (
-                        <p key={index}><span>{weapon.name}</span> <button onClick={() => diceRoll(1, 21, weapon.atk)}>To Hit: +{weapon.atk}</button> 
-                        <button onClick={() => diceRoll(1, (weapon.die + 1), 0)}>Damage: {weapon.dmg}</button> <button onClick={() => deleteWeapon(index)}>X</button></p>
+                        <p key={index}><span>{weapon.name}</span> <button onClick={() => diceRoll(1, 20, weapon.atk)}>To Hit: +{weapon.atk}</button> 
+                        <button onClick={() => diceRoll(weapon.count, weapon.type, 0)}>Damage: {weapon.count}d{weapon.type}</button> <button onClick={() => deleteWeapon(index)}>X</button></p>
                     ))}
                 </section>
                 
                 <section className='spells'>
                     <h3>Spells</h3>
                     {spells.map((spell, index) => (
-                        <p key={index}><span>{spell.name}</span> {spell.atk === null ? <span>DC: {spell.dc}</span> : <button onClick={() => diceRoll(1, 21, spell.atk)}>To Hit: +{spell.atk}</button>} 
-                        <button onClick={() => diceRoll(1, (spell.die + 1), 0)}>Damage: {spell.dmg}</button> <button onClick={() => deleteSpell(index)}>X</button></p>
+                        <p key={index}><span>{spell.name}</span> {spell.atk === null ? <span>DC: {spell.dc}</span> : <button onClick={() => diceRoll(1, 20, spell.atk)}>To Hit: +{spell.atk}</button>} 
+                        <button onClick={() => diceRoll(spell.count, spell.type, 0)}>Damage: {spell.count}d{spell.type}</button> <button onClick={() => deleteSpell(index)}>X</button></p>
                     ))}
                     {spellSelect()}
                 </section>
@@ -146,21 +147,21 @@ export default function Combat() {
                 <section className='skills'>
                     <h3>Skills</h3>
                     {skills.map((skill, index) => (
-                        <p key={index}><span>{skill.name}</span> <button onClick={() => diceRoll(1, 21, skill.atk)}>To Hit: +{skill.atk}</button> 
-                        <button onClick={() => diceRoll(1, (skill.die + 1), 0)}>Damage: {skill.dmg}</button> <button onClick={() => deleteSkill(index)}>X</button></p>
+                        <p key={index}><span>{skill.name}</span> {skill.atk === null ? <span>DC: {skill.dc}</span> : <button onClick={() => diceRoll(1, 20, skill.atk)}>To Hit: +{skill.atk}</button>} 
+                        <button onClick={() => diceRoll(skill.count, skill.type, 0)}>Damage: {skill.count}d{skill.type}</button> <button onClick={() => deleteSkill(index)}>X</button></p>
                     ))}
                     {skillPrompt()}
                 </section>
             </div>
             <div className='dice'>
                 {/* Roll a dice */}
-                <button onClick={() => diceRoll(1, 5, 0)}>d4: {d4}</button>
-                <button onClick={() => diceRoll(1, 7, 0)}>d6: {d6}</button>
-                <button onClick={() => diceRoll(1, 9, 0)}>d8: {d8}</button>
-                <button onClick={() => diceRoll(1, 11, 0)}>d10: {d10}</button>
-                <button onClick={() => diceRoll(1, 13, 0)}>d12: {d12}</button>
-                <button onClick={() => diceRoll(1,21, 0)}>d20: {d20}</button>
-                <button onClick={() => diceRoll(1, 101, 0)}>d100: {d100}</button>
+                <button onClick={() => diceRoll(1, 4, 0)}>d4: {d4}</button>
+                <button onClick={() => diceRoll(1, 6, 0)}>d6: {d6}</button>
+                <button onClick={() => diceRoll(1, 8, 0)}>d8: {d8}</button>
+                <button onClick={() => diceRoll(1, 10, 0)}>d10: {d10}</button>
+                <button onClick={() => diceRoll(1, 12, 0)}>d12: {d12}</button>
+                <button onClick={() => diceRoll(1, 20, 0)}>d20: {d20}</button>
+                <button onClick={() => diceRoll(1, 100, 0)}>d100: {d100}</button>
             </div>
         </div>
     )
