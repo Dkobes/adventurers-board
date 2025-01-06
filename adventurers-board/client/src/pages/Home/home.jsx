@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './home.css';
 import Auth from '../../utils/auth';
+import EmptyGuildBoard from '/src/assets/images/empty-guild-board.jpg';
 
 const Home = () => {
     const [username, setUsername] = useState('');
@@ -43,6 +44,7 @@ const Home = () => {
 
     return (
         <div className="home">
+            <img src={EmptyGuildBoard} alt="A board with empty pages on it" className="home"></img>
             <h1>Adventurer's Board</h1>
 
             {
