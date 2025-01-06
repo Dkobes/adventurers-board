@@ -30,3 +30,8 @@ span {
   cursor: default;
   transition: border-color 0.25s;
 }
+
+.header-image {
+  max-width: 100%;
+  
+}

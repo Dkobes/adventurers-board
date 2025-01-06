@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './combat.css';
+import Colosseum from '/src/assets/images/colosseum.jpg';
 
 export default function Combat() {
     const [weapons, setWeapons] = useState([]);
@@ -118,6 +119,11 @@ export default function Combat() {
 
     return (
         <div>
+            <div>
+                <header className="colosseum-header">
+                    <img src={Colosseum} alt="A colosseum full of people" className="header-image"></img>
+                </header>
+            </div>
             <div className="combat">
                 {/* Display weapons from inventory with their damage and attack modifiers. Choose spells to display */}
                 <section className='weapons'>
