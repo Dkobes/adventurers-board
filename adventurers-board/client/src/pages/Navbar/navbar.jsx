@@ -1,11 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './navbar.css';
 
 const Navbar = () => {
     return (
         <header>
             <nav>
                 <ul>
+                    <li>
+                        <Link to ="/characterselect">Character Select</Link>
+                    </li>
                     <li>
                         <Link to ="/profile">Profile</Link>
                     </li>
@@ -17,6 +21,9 @@ const Navbar = () => {
                     </li>
                     <li>
                         <Link to ="/spellbook">Spellbook</Link>
+                    </li>
+                    <li>
+                        <Link to ="/notes">Notes</Link>
                     </li>
                 </ul>
             </nav>

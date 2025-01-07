@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './spellbook.css'
+import Fantasyspells from '/src/assets/images/spellbook.jpg';
 
 const Spellbook = () => {
     const [spellcastingAbility, setSpellcastingAbility] = useState('Charisma');
@@ -59,8 +60,8 @@ const Spellbook = () => {
 
     return (
         <div className='spellbook-sheet'>
-            <h1>SpellCasting</h1>
-
+            <h1>SpellBook</h1>
+                <img src={Fantasyspells} alt="An opened spellbook" className="spellbook"></img>
         <div className='spellcasting-ability'>
             <label>Spellcasting Ability: </label>
             <select value={spellcastingAbility}
