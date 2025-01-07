@@ -9,14 +9,11 @@ export default function Combat() {
     const [spellList, setSpellList] = useState([]);
     const [skillName, setSkillName] = useState('');
     const [skills, setSkills] = useState([]);
+    const [skillDice, setSkillDice] = useState(1);
+    const [dice, setDice] = useState();
+    const [diceName, setDiceName] = useState(4);
     const [diceCount, setDiceCount] = useState(1);
-    const [d4, setD4] = useState();
-    const [d6, setD6] = useState();
-    const [d8, setD8] = useState();
-    const [d10, setD10] = useState();
-    const [d12, setD12] = useState();
-    const [d20, setD20] = useState();
-    const [d100, setD100] = useState();
+    const [style, setStyle] = useState({display: 'none'});
 
     const skillPrompt = () => {
         return (
@@ -30,20 +27,20 @@ export default function Combat() {
             />
             <label htmlFor='modifier'>Choose a modifier:</label>
             <select id='modifier'>
-                <option value='STR'>Strength</option>
-                <option value='DEX'>Dexterity</option>
-                <option value='CON'>Constitution</option>
-                <option value='INT'>Intelligence</option>
-                <option value='WIS'>Wisdom</option>
-                <option value='CHA'>Charisma</option>
+                <option value='STR'>STR</option>
+                <option value='DEX'>DEX</option>
+                <option value='CON'>CON</option>
+                <option value='INT'>INT</option>
+                <option value='WIS'>WIS</option>
+                <option value='CHA'>CHA</option>
             </select>
             <label htmlFor='diceCount'>Number of dice:</label>
             <input
                 name='diceCount'
                 type='number'
-                value={diceCount}
+                value={skillDice}
                 min='1'
-                onChange={(event) => setDiceCount(event.target.value)}
+                onChange={(event) => setSkillDice(event.target.value)}
             />
             <label htmlFor='diceType'>Die type:</label>
             <select id='diceType'>
@@ -55,7 +52,7 @@ export default function Combat() {
                 <option value='20'>d20</option>
                 <option value='100'>d100</option>
             </select>
-            <button onClick={() => addSkill(skillName, modifier.value, diceCount, diceType.value)}>Add Skill</button>
+            <button onClick={() => addSkill(skillName, modifier.value, skillDice, diceType.value)}>Add Skill</button>
             </div>
         )
     }
@@ -101,21 +98,7 @@ export default function Combat() {
     function diceRoll(count, type, modifier) {
         const roll = new DiceRoll(`${count}d${type} + ${modifier}`);
         console.log(roll.output);
-        if (type === 4) {
-            setD4(roll.total);
-        } else if (type === 6) {
-            setD6(roll.total);
-        } else if (type === 8) {
-            setD8(roll.total);
-        } else if (type === 10) {
-            setD10(roll.total);
-        } else if (type === 12) {
-            setD12(roll.total);
-        } else if (type === 20) {
-            setD20(roll.total);
-        } else if (type === 100) {
-            setD100(roll.total);
-        }
+        setDice(roll.total);
     }
 
     return (
@@ -155,14 +138,19 @@ export default function Combat() {
             </div>
             <div className='dice'>
                 {/* Roll a dice */}
-                <button onClick={() => diceRoll(1, 4, 0)}>d4: {d4}</button>
-                <button onClick={() => diceRoll(1, 6, 0)}>d6: {d6}</button>
-                <button onClick={() => diceRoll(1, 8, 0)}>d8: {d8}</button>
-                <button onClick={() => diceRoll(1, 10, 0)}>d10: {d10}</button>
-                <button onClick={() => diceRoll(1, 12, 0)}>d12: {d12}</button>
-                <button onClick={() => diceRoll(1, 20, 0)}>d20: {d20}</button>
-                <button onClick={() => diceRoll(1, 100, 0)}>d100: {d100}</button>
+                <button onClick={() => setDiceCount(diceCount + 1)}>+</button>
+                <button onClick={() => diceRoll(diceCount, diceName, 0)}>{diceCount}d{diceName}</button>
+                <button onClick={() => {if (diceCount > 1) setDiceCount(diceCount - 1)}}>-</button>
+                <button onClick={() => {JSON.stringify(style) === '{}' ? setStyle({display: 'none'}) : setStyle({})}}>^</button>
+                <button style={style} onClick={() => setDiceName(4)}>d4</button>
+                <button style={style} onClick={() => setDiceName(6)}>d6</button>
+                <button style={style} onClick={() => setDiceName(8)}>d8</button>
+                <button style={style} onClick={() => setDiceName(10)}>d10</button>
+                <button style={style} onClick={() => setDiceName(12)}>d12</button>
+                <button style={style} onClick={() => setDiceName(20)}>d20</button>
+                <button style={style} onClick={() => setDiceName(100)}>d100</button>
             </div>
+            <h2>{dice}</h2>
         </div>
     )
 }
