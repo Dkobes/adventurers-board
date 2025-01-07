@@ -73,15 +73,19 @@ const CharacterSelect = () => {
       },
       body: JSON.stringify(formData),
     })
-    const data = response.json();
-    return data;
-      // .then((response) => {
-      //   return response.json();
-      // })
-      // .then((data) => {
-      //   console.log(data);
-      // });
-  };
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.error) {
+          alert(data.error);
+        } else {
+          alert("Character created successfully!");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Failed to create character.");
+  });
 
   return (
     <div>
@@ -213,5 +217,5 @@ const CharacterSelect = () => {
     </div>
   );
 };
-
+}
 export default CharacterSelect;
