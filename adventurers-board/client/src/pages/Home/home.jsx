@@ -44,9 +44,8 @@ const Home = () => {
 
     return (
         <div className="home">
-            <img src={EmptyGuildBoard} alt="A board with empty pages on it" className="home"></img>
+            <img src={EmptyGuildBoard} alt="A board with empty pages on it" className="home-img"></img>
             <h1>Adventurer's Board</h1>
-
             {
                 Auth.loggedIn() ? (
                     // if already loggedin, do not show auth form
