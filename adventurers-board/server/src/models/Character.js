@@ -22,7 +22,7 @@ Character.init({
         type: DataTypes.STRING(255),
         allowNull: false,
     },
-    class: {
+    characterClass: {
         type: DataTypes.STRING(50),
         allowNull: false,
     },

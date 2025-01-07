@@ -27,7 +27,7 @@ const alignments = [
 
 const CharacterSelect = () => {
   const [name, setName] = useState('');
-  const [characterClass, setClass] = useState('');
+  const [characterClass, setCharacterClass] = useState('');
   const [level, setLevel] = useState('');
   const [background, setBackground] = useState('');
   const [race, setRace] = useState('');
@@ -65,7 +65,7 @@ const CharacterSelect = () => {
     };
     console.log(formData);
 
-    fetch("/api/characters", {
+    const response = fetch("/api/characters", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -73,11 +73,20 @@ const CharacterSelect = () => {
       },
       body: JSON.stringify(formData),
     })
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((data) => {
         console.log(data);
-      });
-  };
+        if (data.error) {
+          alert(data.error);
+        } else {
+          alert("Character created successfully!");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Failed to create character.");
+  });
+};
 
   return (
     <div>
@@ -90,7 +99,7 @@ const CharacterSelect = () => {
         <input type="text" required value={name} onChange={(e) => setName(e.target.value)} />
 
         <label>Class:</label>
-        <select required value={characterClass} onChange={(e) => setClass(e.target.value)}>
+        <select required value={characterClass} onChange={(e) => setCharacterClass(e.target.value)}>
           <option value="">Select Class</option>
           {classes.map((cls) => (
             <option key={cls} value={cls}>
