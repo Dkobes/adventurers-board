@@ -12,6 +12,10 @@ const Notes = () => {
         }
     };
 
+    const removeNote = (index) => {
+        setNotes(notes.filter((_, i) => i !== index));
+    };
+
     return (
         <div className="note-paper">
             <img src={NotePaper} alt="Stained note paper" className="note-paper"></img>
@@ -24,7 +28,11 @@ const Notes = () => {
             <button onClick={addNote}>Add Note</button>
             <ul>
                 {notes.map((note, index) => (
-                    <li key={index}>{note}</li>
+                    <li key={index}>{note}
+                        <button onClick={() => removeNote(index)} style={{ marginLeft: '10px' }}>
+                            Remove
+                        </button>
+                    </li>
                 ))}
             </ul>
         </div>
