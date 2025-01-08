@@ -46,14 +46,6 @@ Character.init({
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    height: {
-        type: DataTypes.STRING(25),
-        allowNull: false,
-    },
-    skin: {
-        type: DataTypes.STRING(30),
-        allowNull: false,
-    },
     hair: {
         type: DataTypes.STRING(30),
         allowNull: false,
