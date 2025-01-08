@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import './home.css';
 import Auth from '../../utils/auth';
 import EmptyGuildBoard from '/src/assets/images/empty-guild-board.jpg';
@@ -7,118 +7,95 @@ import EmptyGuildBoard from '/src/assets/images/empty-guild-board.jpg';
 const Home = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     const handleSignIn = () => {
-        if (!username || !password) {
-            alert('Please enter both username and password.');
-            return;
-        }
-
         console.log('Sign In clicked', { username, password });
 
-        fetch('/api/users/login', {
-            method: 'POST',
+        fetch("/api/users/login", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({ username, password }),
         })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Invalid username or password.');
-                }
-                return response.json();
-            })
+            .then((response) => response.json())
             .then((data) => {
                 console.log(data);
 
-                Auth.login(data.token); 
-                navigate('/characterselect'); 
+                Auth.login(data.token)
+                navigate('/characterselect');
             })
-            .catch((error) => {
-                console.error(error);
-                alert(error.message);
-            });
     };
 
     const handleRegister = () => {
-        if (!username || !password) {
-            alert('Please enter both username and password.');
-            return;
-        }
 
         console.log('Register New User clicked', { username, password });
 
-        fetch('/api/users', {
-            method: 'POST',
+        fetch("/api/users", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({ username, password }),
         })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Failed to register. Username might already be taken.');
-                }
-                return response.json();
-            })
+            .then((response) => response.json())
             .then((data) => {
                 console.log(data);
-
             })
-            .catch((error) => {
-                console.error(error);
-                alert(error.message);
-            });
     };
 
     return (
         <div className="home">
-            <img
-                src={EmptyGuildBoard}
-                alt="A board with empty pages on it"
-                className="home-img"
-            />
+            <img src={EmptyGuildBoard} alt="A board with empty pages on it" className="home-img"/>
             <h1>Adventurer's Board</h1>
-            {Auth.loggedIn() ? (
-                <div className="auth-form">
-                    <button onClick={Auth.logout} className="sign-out-button">
-                        Sign Out
-                    </button>
-                </div>
-            ) : (
-                <div className="auth-form">
-                    <div className="form-group">
-                        <label htmlFor="username">Username:</label>
-                        <input
-                            type="text"
-                            id="username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            placeholder="Enter your username"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password:</label>
-                        <input
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Enter your password"
-                        />
-                    </div>
-                    <div className="button-group">
-                        <button onClick={handleSignIn} className="sign-in-button">
-                            Sign In
-                        </button>
-                        <button onClick={handleRegister} className="register-button">
-                            Register New User
+            {
+                Auth.loggedIn() ? (
+                    // if already loggedin, do not show auth form
+                    <div className="auth-form">
+
+                        <button onClick={Auth.logout} className="sign-out-button">
+                            Sign Out
                         </button>
                     </div>
-                </div>
-            )}
+                ) : (
+                    // else show auth form
+                    <div className="auth-form">
+                        <div className="form-group">
+                            <label htmlFor="username">Username:</label>
+                            <input
+                                type="text"
+                                id="username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                placeholder="Enter your username"
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="password">Password:</label>
+                            <input
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Enter your password"
+                            />
+                        </div>
+
+                        <div className="button-group">
+                            <button onClick={handleSignIn} className="sign-in-button">
+                                Sign In
+                            </button>
+                            <button onClick={handleRegister} className="register-button">
+                                Register New User
+                            </button>
+                        </div>
+                    </div>
+                )
+
+
+            }
         </div>
     );
 };
