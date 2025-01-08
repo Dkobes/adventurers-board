@@ -103,11 +103,10 @@ export default function Combat() {
 
     return (
         <div>
-            <div>
-                <header className="colosseum-header">
-                    <img src={Colosseum} alt="A colosseum full of people" className="header-image"></img>
-                </header>
+            <div className="colosseum">
+                <img src={Colosseum} alt="A colosseum full of people" className="colosseum-img"></img>
             </div>
+            <div className="overlay">
             <div className="combat">
                 {/* Display weapons from inventory with their damage and attack modifiers. Choose spells to display */}
                 <section className='weapons'>
@@ -151,6 +150,7 @@ export default function Combat() {
                 <button style={style} onClick={() => setDiceName(100)}>d100</button>
             </div>
             <h2>{dice}</h2>
+        </div>
         </div>
     )
 }
