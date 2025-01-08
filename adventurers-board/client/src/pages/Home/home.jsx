@@ -6,10 +6,11 @@ import EmptyGuildBoard from '/src/assets/images/empty-guild-board.jpg';
 const Home = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSignIn = () => {
-        // Sign in stuff
         console.log('Sign In clicked', { username, password });
+
         fetch("/api/users/login", {
             method: "POST",
             headers: {
@@ -21,12 +22,12 @@ const Home = () => {
             .then((data) => {
                 console.log(data);
 
-                Auth.login(data.token)
+                Auth.login(data.token);
+                navigate('/characterselect');
             })
     };
 
     const handleRegister = () => {
-        // Register Stuff
         console.log('Register New User clicked', { username, password });
 
         fetch("/api/users", {
