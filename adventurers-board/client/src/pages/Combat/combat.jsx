@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { DiceRoll } from '@dice-roller/rpg-dice-roller';
+import auth from '../../utils/auth.js'
 import './combat.css';
 import Colosseum from '/src/assets/images/colosseum.jpg';
 
@@ -14,6 +15,61 @@ export default function Combat() {
     const [diceName, setDiceName] = useState(4);
     const [diceCount, setDiceCount] = useState(1);
     const [style, setStyle] = useState({display: 'none'});
+    let spellData = useRef([])
+
+    useEffect(() => {
+        const fetchSpells = async (spell) => {
+            try {
+                const response = await fetch(`https://www.dnd5eapi.co/api/spells/${spell}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${auth.getToken()}`
+                    }
+                })
+
+                const data = await response.json();
+                console.log(data);
+                const spells = {name: data.name, atk: data.dc || !data.damage ? null : 3, dc: data.dc ? data.dc.type.name : null, count: 1, type: 6};
+                spellData.current = [...spellData.current, spells];
+                console.log(spellData.current);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        const getSpellList = async () => {
+            try {
+                const response = await fetch('/api/spells', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${auth.getToken()}`
+                    },
+                })
+
+                const data = await response.json()
+                if (!response.ok) {
+                    throw new Error('Invalid response')
+                }
+
+                console.log(data);
+                data.forEach(async (spell) => {
+                    const res = spell.name.toLowerCase();
+                    const regex1 = / /g;
+                    const regex2 = /'/g;
+                    const string = res.replace(regex1, "-");
+                    const altString = string.replace(regex2, "");
+                    console.log(altString);
+                    await fetchSpells(altString);
+                });
+                return setSpellList(spellData.current);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        getSpellList();
+    }, [])
 
     const skillPrompt = () => {
         return (
@@ -25,7 +81,7 @@ export default function Combat() {
                 onChange={(event) => setSkillName(event.target.value)}
                 placeholder='Enter name'
             />
-            <label htmlFor='modifier'>Choose a modifier:</label>
+            <label htmlFor='modifier'> Choose a modifier: </label>
             <select id='modifier'>
                 <option value='STR'>STR</option>
                 <option value='DEX'>DEX</option>
@@ -34,15 +90,16 @@ export default function Combat() {
                 <option value='WIS'>WIS</option>
                 <option value='CHA'>CHA</option>
             </select>
-            <label htmlFor='diceCount'>Number of dice:</label>
+            <label htmlFor='diceCount'>Number of dice: </label>
             <input
                 name='diceCount'
                 type='number'
                 value={skillDice}
                 min='1'
+                max='999'
                 onChange={(event) => setSkillDice(event.target.value)}
             />
-            <label htmlFor='diceType'>Die type:</label>
+            <label htmlFor='diceType'>Die type: </label>
             <select id='diceType'>
                 <option value='4'>d4</option>
                 <option value='6'>d6</option>
@@ -69,7 +126,7 @@ export default function Combat() {
 
     const spellSelect = () => {
         return (
-            <>
+            <div>
             <label htmlFor='spellOptions'>Add Spell: </label>
             <select id='spellOptions'>
                 {spellList.map((spell, index) => (
@@ -77,7 +134,7 @@ export default function Combat() {
                 ))}
             </select>
             <button onClick={() => addSpell(spellOptions.value)}>Add Spell</button>
-            </>
+            </div>
         )
     }
 
@@ -140,7 +197,7 @@ export default function Combat() {
                 <button onClick={() => setDiceCount(diceCount + 1)}>+</button>
                 <button onClick={() => diceRoll(diceCount, diceName, 0)}>{diceCount}d{diceName}</button>
                 <button onClick={() => {if (diceCount > 1) setDiceCount(diceCount - 1)}}>-</button>
-                <button onClick={() => {JSON.stringify(style) === '{}' ? setStyle({display: 'none'}) : setStyle({})}}>^</button>
+                <button onClick={() => {JSON.stringify(style) === '{}' ? setStyle({display: 'none'}) : setStyle({})}}>{JSON.stringify(style) === '{}' ? '<' : '>'}</button>
                 <button style={style} onClick={() => setDiceName(4)}>d4</button>
                 <button style={style} onClick={() => setDiceName(6)}>d6</button>
                 <button style={style} onClick={() => setDiceName(8)}>d8</button>
