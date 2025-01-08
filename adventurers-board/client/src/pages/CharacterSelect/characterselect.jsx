@@ -33,8 +33,6 @@ const CharacterSelect = () => {
   const [race, setRace] = useState('');
   const [alignment, setAlignment] = useState('');
   const [age, setAge] = useState(18);
-  const [height, setHeight] = useState('');
-  const [skin, setSkin] = useState('');
   const [hair, setHair] = useState('');
   const [strength, setStrength] = useState('');
   const [dexterity, setDexterity] = useState('');
