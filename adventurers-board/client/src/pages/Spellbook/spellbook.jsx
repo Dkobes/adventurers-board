@@ -60,8 +60,8 @@ const Spellbook = () => {
 
     return (
         <div className='spellbook-sheet'>
-            <h1>SpellBook</h1>
-                <img src={Fantasyspells} alt="An opened spellbook" className="spellbook"></img>
+            <img src={Fantasyspells} alt="An open spellbook" className='spellbook'></img>
+            <div className='overlay'>
         <div className='spellcasting-ability'>
             <label>Spellcasting Ability: </label>
             <select value={spellcastingAbility}
@@ -149,6 +149,7 @@ const Spellbook = () => {
                     ))}
                 </ul>
             </div>
+        </div>
         </div>
     );
 };

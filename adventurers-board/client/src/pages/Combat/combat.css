@@ -16,7 +16,7 @@
 }
 
 .dice {
-  margin: 15px
+  margin: 15px;
 }
 
 span {
@@ -33,5 +33,5 @@ span {
 
 .header-image {
   max-width: 100%;
-  
+  opacity: 70%;
 }

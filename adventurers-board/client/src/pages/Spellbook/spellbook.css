@@ -1,4 +1,88 @@
 .spellbook {
     width: 100%;
     height: auto;
+    opacity: 70%
+}
+
+.overlay {
+    position: absolute;
+    top: 155px;
+}
+
+.spellcasting-ability {
+    font-weight: bold;
+    font-size:18px;
+    background-color:rgba(255, 235, 205, 0.683);
+    margin:48px;
+    border-radius: 10px;
+}
+
+.spellcasting-modifier {
+    position: relative;
+    left: 400px;
+    bottom: 83px;
+    font-weight: bold;
+    font-size: 18px;
+    background-color:rgba(255, 235, 205, 0.683);
+    padding: 2px;
+    border-radius: 10px;
+}
+
+.proficiency-bonus {
+    position: relative;
+    left: 800px;
+    bottom: 130px;
+    font-weight: bold;
+    font-size: 18px;
+    background-color:rgba(255, 235, 205, 0.683);
+    border-radius: 10px;
+}
+
+.spell-save-dc {
+    position: relative;
+    left: 175px;
+    bottom: 200px;
+    font-weight: bold;
+    font-size: 18px;
+    background-color:rgba(255, 235, 205, 0.683);
+    margin: 100px;
+    border-radius: 10px;
+}
+
+.spell-attack-bonus {
+    position: relative;
+    left: 640px;
+    bottom: 327px;
+    font-weight: bold;
+    font-size: 18px;
+    background-color:rgba(255, 235, 205, 0.683);
+    margin: 90px;
+    border-radius: 10px;
+}
+
+.spell-levels {
+    position: relative;
+    bottom: 390px;
+    left: 50px;
+    background-color:rgba(255, 235, 205, 0.683);
+    margin:25px;
+    border-radius: 10px;
+}
+
+.spell-selector {
+    position: absolute;
+    left: 470px;
+    bottom: 883px;
+    background-color:rgba(255, 235, 205, 0.683);
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.saved-spells {
+    position: relative;
+    left: 820px;
+    bottom: 900px;
+    background-color:rgba(255, 235, 205, 0.683);
+    margin: 50px;
+    border-radius: 10px;
 }
