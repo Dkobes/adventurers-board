@@ -53,8 +53,6 @@ const CharacterSelect = () => {
       race,
       alignment,
       age,
-      height,
-      skin,
       hair,
       strength,
       dexterity,
@@ -155,12 +153,6 @@ const CharacterSelect = () => {
           min={1}
           onChange={(e) => setAge(Number(e.target.value))}
         />
-
-        <label>Height:</label>
-        <input type="text" required value={height} onChange={(e) => setHeight(e.target.value)} />
-
-        <label>Skin:</label>
-        <input type="text" required value={skin} onChange={(e) => setSkin(e.target.value)} />
 
         <label>Hair:</label>
         <input type="text" required value={hair} onChange={(e) => setHair(e.target.value)} />

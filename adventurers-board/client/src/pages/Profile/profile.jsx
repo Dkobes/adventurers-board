@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CharacterSelect from "../CharacterSelect/characterselect";
+import "./profile.css"
 
 
 const Profile = () => {
@@ -7,15 +8,13 @@ const Profile = () => {
         
         characterbasics: {
         name: '',
-        class: '',
+        characterClass: '',
         level: '',
         background: '',
         playerName: '',
         race: '',
         alignment: '',
         age: '',
-        height: '',
-        skin: '',
         hair: '',
         },
 
@@ -25,7 +24,7 @@ const Profile = () => {
             constitution: 10,
             intelligence: 10,
             wisdom: 10,
-            charima: 10,
+            charisma: 10,
         },
 
         savingThrows: {
@@ -34,7 +33,7 @@ const Profile = () => {
             constitution: 0,
             intelligence: 0,
             wisdom: 0,
-            charima: 0,
+            charisma: 0,
         },
 
         skills: {
