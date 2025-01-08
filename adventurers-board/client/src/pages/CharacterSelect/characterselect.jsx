@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import auth from "../../utils/auth";
+import { Link } from "react-router-dom";
 
 const classes = [
   "Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", 
@@ -40,6 +41,21 @@ const CharacterSelect = () => {
   const [intelligence, setIntelligence] = useState('');
   const [wisdom, setWisdom] = useState('');
   const [charisma, setCharisma] = useState('');
+  const [characterList, setCharacterList] = useState([]);
+
+  useEffect(() => { 
+    // Fetch existing characters when the component mounts
+    fetch("/api/characters", {
+      headers: {
+        Authorization: `Bearer ${auth.getToken()}`
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        setCharacterList(data); // Set the character list from the response
+      })
+      .catch(err => console.error(err));
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -76,6 +92,7 @@ const CharacterSelect = () => {
           alert(data.error);
         } else {
           alert("Character created successfully!");
+          setCharacterList([...characterList, data]); // Add the new character to the list
         }
       })
       .catch((err) => {
@@ -88,6 +105,13 @@ const CharacterSelect = () => {
     <div>
       <h1>Character Select</h1>
       <h2>Choose your character</h2>
+      {characterList.map((character) => (
+        <div className="characterList" key={character.id}>
+          <Link to={`/profile/${character.id}`}>
+            <h2>{character.name}</h2>
+          </Link>
+        </div>
+      ))}
       <br />
       <h2>Create a new character</h2>
       <form onSubmit={handleSubmit}>
