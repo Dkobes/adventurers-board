@@ -1,0 +1,10 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.character-img {
+    width: 100%;
+    height: auto;
+    opacity: 70%;
+}

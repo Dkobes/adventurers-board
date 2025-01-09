@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import auth from "../../utils/auth";
 import { Link } from "react-router-dom";
+import './characterselect.css';
+import Character from '/src/assets/images/character-select.jpg';
 
 const classes = [
   "Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", 
@@ -102,7 +104,8 @@ const CharacterSelect = () => {
 };
 
   return (
-    <div>
+    <div className="container">
+      <img src={Character} alt="A man puppet mastering people" className="character-img"></img>
       <h1>Character Select</h1>
       <h2>Choose your character</h2>
       {characterList.map((character) => (
