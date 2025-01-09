@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './navbar.css';
 
-const Navbar = () => {
+const Navbar = ({ characterId }) => {
     return (
         <header>
             <nav>
@@ -11,19 +11,19 @@ const Navbar = () => {
                         <Link to ="/characterselect">Character Select</Link>
                     </li>
                     <li>
-                        <Link to ="/profile">Profile</Link>
+                        <Link to ={`/profile/${characterId}`}>Profile</Link>
                     </li>
                     <li>
-                        <Link to ="/inventory">Inventory</Link>
+                        <Link to ={`/inventory/${characterId}`}>Inventory</Link>
                     </li>
                     <li>
-                        <Link to ="/combat">Combat</Link>
+                        <Link to ={`/combat/${characterId}`}>Combat</Link>
                     </li>
                     <li>
-                        <Link to ="/spellbook">Spellbook</Link>
+                        <Link to ={`/spellbook/${characterId}`}>Spellbook</Link>
                     </li>
                     <li>
-                        <Link to ="/notes">Notes</Link>
+                        <Link to ={`/notes/${characterId}`}>Notes</Link>
                     </li>
                 </ul>
             </nav>

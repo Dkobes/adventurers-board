@@ -22,10 +22,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/characterselect" element={<CharacterSelect />} />
         <Route path="/profile/:id" element={<Profile />} />
-        <Route path="/combat" element={<Combat />} />
-        <Route path="/inventory" element={<Inventory />} />
-        <Route path="/spellbook" element={<Spellbook />} /> 
-        <Route path="/notes" element={<Notes />} />
+        <Route path="/combat/:id" element={<Combat />} />
+        <Route path="/inventory/:id" element={<Inventory />} />
+        <Route path="/spellbook/:id" element={<Spellbook />} /> 
+        <Route path="/notes/:id" element={<Notes />} />
 
 
       </Routes>
