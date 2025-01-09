@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import auth from '../../utils/auth.js';
 import './spellbook.css'
 import Fantasyspells from '/src/assets/images/spellbook.jpg';
 
@@ -17,6 +18,19 @@ const Spellbook = () => {
             .then((response) => response.json())
             .then((data) => setSpells(data.results))
             .catch((error) => console.error('Error fetching spells:', error));
+    }, []);
+
+    useEffect(() => {
+        fetch('/api/spells', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${auth.getToken()}`
+            }
+        })
+        .then((response) => response.json())
+        .then((data) => setSavedSpells(data))
+        .catch((error) => console.error('Error fetching saved spells:', error));
     }, []);
 
     const calculateSpellSaveDC = () => {
@@ -48,13 +62,52 @@ const Spellbook = () => {
         }
     };
 
-    const handleSaveSpell = () => {
+    const handleSaveSpell = async () => {
         if (selectedSpell && !savedSpells.find((spell) => spell.index === selectedSpell.index)) {
-            setSavedSpells([...savedSpells, selectedSpell]);
+            const character_id = 1;
+            const name = selectedSpell.name;
+            const level = selectedSpell.level;
+            const description = selectedSpellDetails.desc?.join(' ');
+
+            try {
+                const response = await fetch('/api/spells', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${auth.getToken()}`
+                    },
+                    body: JSON.stringify({character_id, name, level, description})
+                })
+                const data = await response.json();
+                const spellData = {...data, index: selectedSpell.index}
+                setSavedSpells([...savedSpells, spellData])
+                if (!response.ok) {
+                    throw new Error('Invalid Response')
+                }
+            } catch (error) {
+                console.error(error);
+                console.log('Failed to save spell to database');
+            }
         }
     };
 
-    const handleRemoveSpell = (spellIndex) => {
+    const handleRemoveSpell = async (spellIndex) => {
+        const id = savedSpells[spellIndex].id;
+
+        try {
+            const response = await fetch(`/api/spells/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${auth.getToken()}`
+                }
+            })
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Failed to delete spell:', error)
+        }
+
         setSavedSpells(savedSpells.filter((spell, index) => index !== spellIndex));
     };
 
