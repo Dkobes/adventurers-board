@@ -10,6 +10,8 @@ const Profile = () => {
     const [character, setCharacter] = useState(null); // State to hold character data
     const [error, setError] = useState(null); // State to hold any error messages
     const [isLoading, setIsLoading] = useState(true); // State to manage loading state
+    const [isEditing, setIsEditing] = useState(false); // State to manage edit mode
+    const [editableCharacter, setEditableCharacter] = useState({});
 
     useEffect(() => {
         // Fetch character data when the component mounts
@@ -26,6 +28,7 @@ const Profile = () => {
             })
             .then(data => {
                 setCharacter(data); // Set the character data from the response
+                setEditableCharacter(data); // Initialize editable character state with fetched data
                 setIsLoading(false); // Set loading to false
             })
             .catch(err => {
@@ -34,6 +37,47 @@ const Profile = () => {
                 console.error(err);
             });
     }, [id]); // Dependency array includes id to refetch if it changes
+
+    const handleSave = () => {
+        fetch(`/api/characters/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${auth.getToken()}`
+            },
+            body: JSON.stringify(editableCharacter) // Send updated character data
+        })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('Failed to update character data');
+                }
+                return res.json();
+            })
+            .then(data => {
+                setCharacter(data); // Update character with the saved data
+                setEditableCharacter(data); // Update editable character state
+                setIsEditing(false); // Exit edit mode
+                alert("Character updated successfully!"); // Notify user
+            })
+            .catch(err => {
+                setError(err.message); // Set error message
+                console.error(err);
+            });
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setEditableCharacter((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
+
+    const handleCancel = () => {
+        // Reset editableCharacter to original character data
+        setEditableCharacter(character);
+        setIsEditing(false);
+    };
 
     if (isLoading) {
         return <div>Loading...</div>; // Show loading state
@@ -47,8 +91,30 @@ const Profile = () => {
         <div className="profile">
             <h1>Character Profile</h1>
             {character ? (
+                isEditing ? (
+                    <div>
+                        <p>Name: <input type="text" name="name" value={editableCharacter.name} onChange={handleChange} /></p>
+                        <p>Class: <select type="text" name="characterClass"  value={editableCharacter.characterClass} onChange={handleChange}><option value="barbarian">Barbarian</option>
+                        <option value="bard">Bard</option><option value="cleric">Cleric</option><option value="druid">Druid</option><option value="fighter">Fighter</option>
+                        <option value="monk">Monk</option><option value="paladin">Paladin</option><option value="ranger">Ranger</option><option value="rogue">Rogue</option>
+                        <option value="sorcerer">Sorcerer</option><option value="warlock">Warlock</option><option value="wizard">Wizard</option></select></p>
+                        <p>Level: <input type="number" name="level" value={editableCharacter.level} onChange={handleChange} /></p>
+                        <p>Background: <input type="text" name="background" value={editableCharacter.background} onChange={handleChange} /></p>
+                        <p>Race: <input type="text" name="race" value={editableCharacter.race} onChange={handleChange} /></p>
+                        <p>Alignment: <input type="text" name="alignment" value={editableCharacter.alignment} onChange={handleChange} /></p>
+                        <p>Age: <input type="number" name="age" value={editableCharacter.age} onChange={handleChange} /></p>
+                        <p>Hair: <input type="text" name="hair" value={editableCharacter.hair} onChange={handleChange} /></p>
+                        <p>Strength: <input type="number" name="strength" value={editableCharacter.strength} onChange={handleChange} /></p>
+                        <p>Dexterity: <input type="number" name="dexterity" value={editableCharacter.dexterity} onChange={handleChange} /></p>
+                        <p>Constitution: <input type="number" name="constitution" value={editableCharacter.constitution} onChange={handleChange} /></p>
+                        <p>Intelligence: <input type="number" name="intelligence" value={editableCharacter.intelligence} onChange={handleChange} /></p>
+                        <p>Wisdom: <input type="number" name="wisdom" value={editableCharacter.wisdom} onChange={handleChange} /></p>
+                        <p>Charisma: <input type="number" name="charisma" value={editableCharacter.charisma} onChange={handleChange} /></p>
+                        <button onClick={handleSave}>Save</button>
+                        <button onClick={handleCancel}>Cancel</button>
+                    </div>) : (
                 <div>
-                    <h2>Name: {character.name}</h2>
+                    <p>Name: {character.name}</p>
                     <p>Class: {character.characterClass}</p>
                     <p>Level: {character.level}</p>
                     <p>Background: {character.background}</p>
@@ -62,9 +128,10 @@ const Profile = () => {
                     <p>Intelligence: {character.intelligence}</p>
                     <p>Wisdom: {character.wisdom}</p>
                     <p>Charisma: {character.charisma}</p>
+                    <button onClick={() => setIsEditing(true)}>Edit</button>   
                 </div>
-            ) : (
-                <p>No character found.</p>
+            ) ) : (
+                <div>No character data found</div>
             )}
         </div>
     );
