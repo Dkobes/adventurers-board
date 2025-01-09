@@ -51,7 +51,9 @@ const Home = () => {
     return (
         <div className="home">
             <img src={EmptyGuildBoard} alt="A board with empty pages on it" className="home-img"/>
+            <div className="title">
             <h1>Adventurer's Board</h1>
+            </div>
             {
                 Auth.loggedIn() ? (
                     // if already loggedin, do not show auth form
@@ -64,7 +66,7 @@ const Home = () => {
                 ) : (
                     // else show auth form
                     <div className="auth-form">
-                        <div className="form-group">
+                        <div className="form-group" id="username">
                             <label htmlFor="username">Username:</label>
                             <input
                                 type="text"
@@ -75,7 +77,7 @@ const Home = () => {
                             />
                         </div>
 
-                        <div className="form-group">
+                        <div className="form-group" id="password">
                             <label htmlFor="password">Password:</label>
                             <input
                                 type="password"
@@ -87,10 +89,10 @@ const Home = () => {
                         </div>
 
                         <div className="button-group">
-                            <button onClick={handleSignIn} className="sign-in-button">
+                            <button onClick={handleSignIn} className="sign-in-button" id="sign-in-button">
                                 Sign In
                             </button>
-                            <button onClick={handleRegister} className="register-button">
+                            <button onClick={handleRegister} className="register-button" id="register-button">
                                 Register New User
                             </button>
                         </div>
