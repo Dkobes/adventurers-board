@@ -3,28 +3,21 @@ import Inventory from '../../models/Inventory.js';
 const router = Router();
 
 // GET all inventory items
-router.get('/', async (_req, res) => {
+router.get('/characters/:character_id', async (req, res) => {
     try {
-        const inventory = await Inventory.findAll();
-        res.status(200).json(inventory);
+        const inventory = await Inventory.findAll({
+            where: { character_id: req.params.character_id } // Use character_id to filter
+        });
+        if (inventory.length > 0) {
+            res.status(200).json(inventory);
+        } else {
+            res.status(404).json({ message: 'No inventory items found for this character' });
+        }
     } catch (error) {
-        res.status(500).json({ message: 'Error retrieving inventory', error });
+        res.status(500).json({ message: 'Error retrieving inventory items', error });
     }
 });
 
-// GET a single inventory item by ID
-router.get('/:id', async (req, res) => {
-    try {
-        const inventory = await Inventory.findByPk(req.params.id);
-        if (inventory) {
-            res.status(200).json(inventory);
-        } else {
-            res.status(404).json({ message: 'Inventory item not found' });
-        }
-    } catch (error) {
-        res.status(500).json({ message: 'Error retrieving inventory item', error });
-    }
-});
 
 // POST a new inventory item
 router.post('/', async (req, res) => {

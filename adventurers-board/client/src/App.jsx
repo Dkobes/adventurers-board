@@ -11,7 +11,7 @@ import './App.css'
 import Navbar from './pages/Navbar/navbar.jsx';
 
 function App() {
-  const [characterId, setCharacterId] = useState(null);
+  const [characterId, setCharacterId] = useState();
   
 
   return (
