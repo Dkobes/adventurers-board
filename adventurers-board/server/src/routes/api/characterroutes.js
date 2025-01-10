@@ -13,9 +13,9 @@ router.get('/', async (_req, res) => {
 });
 
 // GET a single character by ID
-router.get('/:id', async (req, res) => {
+router.get('/:character_id', async (req, res) => {
     try {
-        const character = await Character.findByPk(req.params.id);
+        const character = await Character.findByPk(req.params.character_id);
         if (character) {
             res.status(200).json(character);
         } else {

@@ -2,15 +2,18 @@ import React, { useState, useEffect } from 'react';
 import Chest from '/src/assets/images/treasure-chest.jpg';
 import './inventory.css';
 import { useParams } from 'react-router-dom';
+import auth from '../../utils/auth';
 
 const Inventory = () => {
     const { id } = useParams(); // Get the character ID from the URL
     const [items, setItems] = useState([]);
+    const [isLoading, setIsLoading] = useState(true); 
     const [itemName, setItemName] = useState('');
+    const [error, setError] = useState(null); 
 
         useEffect(() => {
             // Fetch character data when the component mounts
-            fetch(`/api/inventories/${id}`, {
+            fetch(`/api/inventories/characters/${id}`, {
                 headers: {
                     Authorization: `Bearer ${auth.getToken()}`
                 }
@@ -22,13 +25,13 @@ const Inventory = () => {
                     return res.json();
                 })
                 .then(data => {
-                    setItems(data.items); // Set the items from the response
+                    setItems(data.inventory); // Set the items from the response
                     setIsLoading(false); // Set loading to false
                 })
                 .catch(err => {
                     setError(err.message); // Set error message
-                    setIsLoading(false); // Set loading to false
-                    console.error(err);
+                    setIsLoading(false); 
+                  console.error(err);
                 });
         }, [id]); // Dependency array includes id to refetch if it changes
 
