@@ -105,19 +105,26 @@ const CharacterSelect = () => {
 
   return (
     <div className="container">
-      <img src={Character} alt="A man puppet mastering people" className="character-img"></img>
+      <img src={Character} alt="A man puppet-mastering people" className="character-img"></img>
+      <div className="character-select">
       <h1>Character Select</h1>
+      </div>
+      <div className="existing-character">
       <h2>Choose your character</h2>
+      </div>
       {characterList.map((character) => (
         <div className="characterList" key={character.id}>
           <Link to={`/profile/${character.id}`}>
             <h2>{character.name}</h2>
           </Link>
-        </div>
+          </div>
       ))}
+
       <br />
+      <div className="new-character">
       <h2>Create a new character</h2>
-      <form onSubmit={handleSubmit}>
+      </div>
+      <form onSubmit={handleSubmit} id="form-submit">
         <label>Name:</label>
         <input type="text" required value={name} onChange={(e) => setName(e.target.value)} />
 
