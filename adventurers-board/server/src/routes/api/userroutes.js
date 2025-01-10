@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import User from '../../models/User.js';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 const router = Router();
 
 const getAllUsers = async (_req, res) => {
@@ -58,7 +59,7 @@ router.post('/', async (req, res) => {
         // create a token to be sent back to client
         const secretKey = process.env.JWT_SECRET_KEY || 'helloworld';
 
-        const token = jwt.sign({ username }, secretKey, { expiresIn: '1h' });
+        const token = jwt.sign({ id: user.id, username }, secretKey, { expiresIn: '1h' });
 
         res.status(201).json({
             message: 'You are now logged in!',

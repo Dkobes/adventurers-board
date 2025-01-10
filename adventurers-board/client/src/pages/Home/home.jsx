@@ -4,13 +4,15 @@ import './home.css';
 import Auth from '../../utils/auth';
 import EmptyGuildBoard from '/src/assets/images/empty-guild-board.jpg';
 
-const Home = () => {
+const Home = ({ handleLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    const handleSignIn = () => {
+    const handleSignIn = (event) => {
+        event.preventDefault()
         console.log('Sign In clicked', { username, password });
+        
     
         // Validation check
         if (!username || !password) {
@@ -42,7 +44,10 @@ const Home = () => {
             });
     };
     
-    const handleRegister = () => {
+    const handleRegister = (event) => {
+        event.preventDefault()
+
+       
         console.log('Register New User clicked', { username, password });
     
         // Validation check
@@ -64,6 +69,7 @@ const Home = () => {
     
                 if (data.token) { // Ensure token exists before logging in
                     Auth.login(data.token);
+                    handleLogin(data.userId);
                     navigate('/characterselect');
                 } else {
                     alert("Registration failed. Please try again.");
@@ -92,7 +98,7 @@ const Home = () => {
                     </div>
                 ) : (
                     // else show auth form
-                    <div className="auth-form">
+                    <form className="auth-form">
                         <div className="form-group" id="username">
                             <label htmlFor="username">Username:</label>
                             <input
@@ -123,7 +129,7 @@ const Home = () => {
                                 Register New User
                             </button>
                         </div>
-                    </div>
+                    </form>
                 )
 
 

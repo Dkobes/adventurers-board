@@ -12,6 +12,11 @@ import Navbar from './pages/Navbar/navbar.jsx';
 
 function App() {
   const [characterId, setCharacterId] = useState();
+  const [userId, setUserId] = useState(); // Add userId state
+
+  const handleLogin = (id) => {
+    setUserId(id); // Set userId when user logs in
+  };
   
 
   return (
@@ -20,8 +25,8 @@ function App() {
       <Navbar characterId={characterId}/>
       <main>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/characterselect" element={<CharacterSelect setCharacterId={setCharacterId}/>} />
+        <Route path="/" element={<Home handleLogin={handleLogin}/>} />
+        <Route path="/characterselect" element={<CharacterSelect userId={userId} setCharacterId={setCharacterId}/>} />
         <Route path="/profile/:id" element={<Profile setCharacterId={setCharacterId}/>} />
         <Route path="/combat/:id" element={<Combat />} />
         <Route path="/inventory/:id" element={<Inventory />} />
