@@ -11,21 +11,22 @@ import './App.css'
 import Navbar from './pages/Navbar/navbar.jsx';
 
 function App() {
+  const [characterId, setCharacterId] = useState(null);
   
 
   return (
     <Router>
       <div className="App">
-      <Navbar />
+      <Navbar characterId={characterId}/>
       <main>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/characterselect" element={<CharacterSelect />} />
-        <Route path="/profile/:id" element={<Profile />} />
-        <Route path="/combat" element={<Combat />} />
-        <Route path="/inventory" element={<Inventory />} />
-        <Route path="/spellbook" element={<Spellbook />} /> 
-        <Route path="/notes" element={<Notes />} />
+        <Route path="/characterselect" element={<CharacterSelect setCharacterId={setCharacterId}/>} />
+        <Route path="/profile/:id" element={<Profile setCharacterId={setCharacterId}/>} />
+        <Route path="/combat/:id" element={<Combat />} />
+        <Route path="/inventory/:id" element={<Inventory />} />
+        <Route path="/spellbook/:id" element={<Spellbook />} /> 
+        <Route path="/notes/:id" element={<Notes />} />
 
 
       </Routes>
