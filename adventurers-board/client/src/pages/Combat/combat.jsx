@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { DiceRoll } from '@dice-roller/rpg-dice-roller';
 import auth from '../../utils/auth.js'
 import './combat.css';
@@ -15,29 +15,8 @@ export default function Combat() {
     const [diceName, setDiceName] = useState(4);
     const [diceCount, setDiceCount] = useState(1);
     const [style, setStyle] = useState({display: 'none'});
-    let spellData = useRef([])
 
     useEffect(() => {
-        const fetchSpells = async (spell) => {
-            try {
-                const response = await fetch(`https://www.dnd5eapi.co/api/spells/${spell}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${auth.getToken()}`
-                    }
-                })
-
-                const data = await response.json();
-                console.log(data);
-                const spells = {name: data.name, atk: data.dc || !data.damage ? null : 3, dc: data.dc ? data.dc.type.name : null, count: 1, type: 6};
-                spellData.current = [...spellData.current, spells];
-                console.log(spellData.current);
-            } catch (err) {
-                console.error(err);
-            }
-        }
-
         const getSpellList = async () => {
             try {
                 const response = await fetch('/api/spells', {
@@ -52,18 +31,8 @@ export default function Combat() {
                 if (!response.ok) {
                     throw new Error('Invalid response')
                 }
-
-                console.log(data);
-                data.forEach(async (spell) => {
-                    const res = spell.name.toLowerCase();
-                    const regex1 = / /g;
-                    const regex2 = /'/g;
-                    const string = res.replace(regex1, "-");
-                    const altString = string.replace(regex2, "");
-                    console.log(altString);
-                    await fetchSpells(altString);
-                });
-                return setSpellList(spellData.current);
+                setSpellList(data);
+                return data;
             } catch (err) {
                 console.error(err);
             }
@@ -138,8 +107,33 @@ export default function Combat() {
         )
     }
 
-    const addSpell = (newSpell) => {
-        setSpells([...spells, JSON.parse(newSpell)]);
+    const addSpell = async (newSpell) => {
+        const spellChoice = JSON.parse(newSpell);
+
+        if (!spells.find((spell) => spell.name === spellChoice.name)) {
+
+            const regex1 = / /g;
+            const regex2 = /'/g;
+            const spellName = spellChoice.name.toLowerCase();
+            const hyphenSpell = spellName.replace(regex1, "-");
+            const spellQuery = hyphenSpell.replace(regex2, "");
+
+            try {
+                const response = await fetch(`https://www.dnd5eapi.co/api/spells/${spellQuery}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${auth.getToken()}`
+                    }
+                })
+
+                const data = await response.json();
+                const spell = {name: data.name, atk: data.dc || !data.damage ? null : 3, dc: data.dc ? data.dc.type.name : null, count: 1, type: 6};
+                return setSpells([...spells, spell]);
+            } catch (err) {
+                console.error(err);
+            }
+        }
     }
 
     const deleteSpell = (index) => {
