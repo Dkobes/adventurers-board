@@ -11,7 +11,13 @@ const Home = () => {
 
     const handleSignIn = () => {
         console.log('Sign In clicked', { username, password });
-
+    
+        // Validation check
+        if (!username || !password) {
+            alert("Please enter both username and password.");
+            return; // Exit the function if validation fails
+        }
+    
         fetch("/api/users/login", {
             method: "POST",
             headers: {
@@ -22,16 +28,29 @@ const Home = () => {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
-
-                Auth.login(data.token)
-                navigate('/characterselect');
+    
+                if (data.token) { // Ensure token exists before logging in
+                    Auth.login(data.token);
+                    navigate('/characterselect');
+                } else {
+                    alert("Login failed. Please check your credentials.");
+                }
             })
+            .catch((error) => {
+                console.error("Error during login:", error);
+                alert("An error occurred during login.");
+            });
     };
-
+    
     const handleRegister = () => {
-
         console.log('Register New User clicked', { username, password });
-
+    
+        // Validation check
+        if (!username || !password) {
+            alert("Please enter both username and password.");
+            return; // Exit the function if validation fails
+        }
+    
         fetch("/api/users", {
             method: "POST",
             headers: {
@@ -42,12 +61,20 @@ const Home = () => {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
-
-                Auth.login(data.token)
-                navigate('/characterselect');
+    
+                if (data.token) { // Ensure token exists before logging in
+                    Auth.login(data.token);
+                    navigate('/characterselect');
+                } else {
+                    alert("Registration failed. Please try again.");
+                }
             })
+            .catch((error) => {
+                console.error("Error during registration:", error);
+                alert("An error occurred during registration.");
+            });
     };
-
+    
     return (
         <div className="home">
             <img src={EmptyGuildBoard} alt="A board with empty pages on it" className="home-img"/>
