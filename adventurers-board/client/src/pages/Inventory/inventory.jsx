@@ -69,25 +69,81 @@ const Inventory = ({ characterId }) => {
                     .catch(err => {
                         setError(err.message); 
                         console.error(err);
-                    }
-                )
+                    });
             }
             setItemName('');
         }
     };
 
     const handleIncrease = (itemName) => {
-        setItems(items.map(item => 
+        const updatedItems = items.map(item => 
             item.name === itemName ? { ...item, quantity: item.quantity + 1 } : item
-        ));
+        );
+        setItems(updatedItems);
+
+        const itemToUpdate = updatedItems.find(item => item.name === itemName);
+
+        // Send the updated quantity to the server
+        fetch(`/api/inventories/${itemToUpdate.id}`, { 
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${auth.getToken()}`
+            },
+            body: JSON.stringify({ quantity: itemToUpdate.quantity })
+        })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Failed to update item quantity');
+            }
+            return res.json();
+        })
+        .then(data => {
+            console.log('Item updated:', data);
+        })
+        .catch(err => {
+            setError(err.message);
+            console.error(err);
+        });
     };
+    
 
     const handleDecrease = (itemName) => { // fix amount going into negatives
         setItems(items.map(item => 
             item.name === itemName 
             ? { ...item, quantity: Math.max(item.quantity - 1, 0)  } : item
         ));
-    };
+    const updatedItems = items.map(item => 
+        item.name === itemName 
+        ? { ...item, quantity: Math.max(item.quantity - 1, 0)  } : item
+    );
+    setItems(updatedItems);
+
+    const itemToUpdate = updatedItems.find(item => item.name === itemName);
+
+    // Send the updated quantity to the server
+    fetch(`/api/inventories/${itemToUpdate.id}`, { 
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth.getToken()}`
+        },
+        body: JSON.stringify({ quantity: itemToUpdate.quantity })
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error('Failed to update item quantity');
+        }
+        return res.json();
+    })
+    .then(data => {
+        console.log('Item updated:', data);
+    })
+    .catch(err => {
+        setError(err.message);
+        console.error(err);
+    });
+};
 
     const handleRemoveItem = (itemName) => {
         setItems(items.filter(item => item.name !== itemName));
