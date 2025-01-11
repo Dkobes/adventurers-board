@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import auth from '../../utils/auth.js';
 import NotePaper from '/src/assets/images/note-paper.jpg';
 import './notes.css';
 
@@ -6,15 +7,60 @@ const Notes = () => {
     const [notes, setNotes] = useState([]);
     const [noteText, setNoteText] = useState('');
 
-    const addNote = () => {
+    useEffect(() => {
+        fetch('/api/notes', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${auth.getToken()}`
+            }
+        })
+        .then((response) => response.json())
+        .then((data) => setNotes(data))
+        .catch((error) => console.error('Error fetching notes:', error));
+    }, [])
+
+    const addNote = async () => {
         if (noteText) {
-            setNotes([...notes, noteText]);
+            try {
+                const response = await fetch('/api/notes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${auth.getToken()}`
+                    },
+                    body: JSON.stringify(noteText)
+                })
+    
+                const data = await response.json();
+                console.log(data);
+                setNotes([...notes, data]);
+                return data;
+            } catch (error) {
+                console.error('Error saving note:', error);
+            }    
             setNoteText('');
         }
     };
 
-    const removeNote = (index) => {
+    const removeNote = async (index) => {
+        const id = notes[index].id;
         setNotes(notes.filter((_, i) => i !== index));
+
+        try {
+            const response = await fetch(`/api/notes/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${auth.getToken()}`
+                }
+            })
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error deleting note:', error);
+        }
     };
 
     return (
@@ -32,7 +78,7 @@ const Notes = () => {
             <div className='button-overlay'>
                 <button onClick={addNote}>Add Note</button>
                     <ul>
-                        <div class="list">
+                        <div className="list">
                         {notes.map((note, index) => (
                             <li key={index}>{note}
                                 <button onClick={() => removeNote(index)} style={{ marginLeft: '10px' }}>
