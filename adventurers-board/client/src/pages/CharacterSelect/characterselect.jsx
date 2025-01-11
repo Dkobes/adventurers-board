@@ -44,6 +44,7 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
   const [wisdom, setWisdom] = useState('');
   const [charisma, setCharisma] = useState('');
 
+  const user_id = auth.getUserId();
 
 
 

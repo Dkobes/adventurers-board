@@ -13,8 +13,10 @@ const Inventory = () => {
 
         useEffect(() => {
             // Fetch character data when the component mounts
-            fetch(`/api/inventories/characters/${id}`, {
+            fetch(`/api/inventories/characters/${character_id}`, {
+                method: 'GET',
                 headers: {
+                    "Content-Type": "application/json",
                     Authorization: `Bearer ${auth.getToken()}`
                 }
             })

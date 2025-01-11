@@ -20,7 +20,7 @@ router.get('/characters/:character_id', async (req, res) => {
 
 
 // POST a new inventory item
-router.post('/', async (req, res) => {
+router.post('/:character_id', async (req, res) => {
     try {
         const newInventory = await Inventory.create(req.body);
         res.status(201).json(newInventory);

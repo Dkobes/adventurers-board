@@ -53,7 +53,7 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<Home handleLogin={handleLogin} />} />
-            <Route path="/characterselect" element={<CharacterSelect characterId={characterId} setCharacterId={setCharacterId} characterList={characterList} />} />
+            <Route path="/characterselect" element={<CharacterSelect characterId={characterId} setCharacterId={setCharacterId} characterList={characterList} setCharacterList={setCharacterList} />} />
             <Route path="/profile/:id" element={<Profile setCharacterId={setCharacterId} />} />
             <Route path="/combat/:id" element={<Combat />} />
             <Route path="/inventory/:id" element={<Inventory />} />
