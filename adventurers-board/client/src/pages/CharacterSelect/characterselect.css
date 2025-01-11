@@ -40,6 +40,15 @@
     margin: 10px 0;
 }
 
+.character-card-option-selected {
+    background-color: rgb(231, 135, 135);
+}
+
+.character-card-option {
+    background-color: rgb(170, 170, 255);
+}
+
+
 @media (min-width: 768px) {
     .character-select {
         position: relative;
@@ -94,6 +103,6 @@
     #form-submit {
         position: relative;
         max-width: 1500px;
-        bottom: 325px;
+        /* bottom: 325px; */
     }
 }

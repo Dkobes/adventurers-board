@@ -5,20 +5,20 @@ import './characterselect.css';
 import Character from '/src/assets/images/character-select.jpg';
 
 const classes = [
-  "Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", 
+  "Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk",
   "Paladin", "Ranger", "Rogue", "Sorcerer", "Warlock", "Wizard"
 ];
 
 const levels = Array.from({ length: 20 }, (_, i) => i + 1);
 
 const backgrounds = [
-  "Acolyte", "Charlatan", "Criminal", "Entertainer", "Folk Hero", 
-  "Guild Artisan", "Hermit", "Noble", "Outlander", "Sage", 
+  "Acolyte", "Charlatan", "Criminal", "Entertainer", "Folk Hero",
+  "Guild Artisan", "Hermit", "Noble", "Outlander", "Sage",
   "Sailor", "Soldier", "Urchin"
 ];
 
 const races = [
-  "Dragonborn", "Dwarf", "Elf", "Gnome", "Half-Elf", 
+  "Dragonborn", "Dwarf", "Elf", "Gnome", "Half-Elf",
   "Half-Orc", "Halfling", "Human", "Tiefling"
 ];
 
@@ -28,7 +28,7 @@ const alignments = [
   "Chaotic Good", "Chaotic Neutral", "Chaotic Evil"
 ];
 
-const CharacterSelect = () => {
+const CharacterSelect = ({ characterId, setCharacterId, characterList }) => {
   const [name, setName] = useState('');
   const [characterClass, setCharacterClass] = useState('');
   const [level, setLevel] = useState('');
@@ -43,25 +43,9 @@ const CharacterSelect = () => {
   const [intelligence, setIntelligence] = useState('');
   const [wisdom, setWisdom] = useState('');
   const [charisma, setCharisma] = useState('');
-  const [characterList, setCharacterList] = useState([]);
 
-  const user_id = auth.getUserId();
-  console.log(user_id);
 
-  useEffect(() => { 
-    // Fetch existing characters when the component mounts
-    fetch(`/api/characters/all?user_id=${user_id}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${auth.getToken()}`
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        setCharacterList(data); // Set the character list from the response
-      })
-      .catch(err => console.error(err));
-  }, [user_id]);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -105,29 +89,49 @@ const CharacterSelect = () => {
       .catch((err) => {
         console.error(err);
         alert("Failed to create character.");
-  });
-};
+      });
+  };
 
   return (
     <div className="container">
       <img src={Character} alt="A man puppet-mastering people" className="character-img"></img>
       <div className="character-select">
-      <h1>Character Select</h1>
+        <h1>Character Select</h1>
       </div>
       <div className="existing-character">
-      <h2>Choose your character</h2>
+        <h2>Choose your character</h2>
       </div>
-      {characterList.map((character) => (
-        <div className="characterList" key={character.id}>
-          <Link to={`/profile/${character.id}`}>
-            <h2>{character.name}</h2>
-          </Link>
+
+      <br />
+      <br />
+      <br />
+
+      <ul>
+        {characterList.map((character) => (
+          <div className="characterList" key={character.id}>
+            {/* <Link to={`/profile/${character.id}`}> */}
+
+            <li
+              key={character.id}
+              onClick={() => setCharacterId(character.id)}
+            >
+              {
+                characterId === character.id ?
+                (<h2 className="character-card-option-selected">{character.name}</h2>) : 
+                (<h2 className="character-card-option">{character.name}</h2>)
+        
+              }
+              
+
+            </li>          {/* </Link> */}
           </div>
-      ))}
+        ))}
+      </ul>
+
 
       <br />
       <div className="new-character">
-      <h2>Create a new character</h2>
+        <h2>Create a new character</h2>
       </div>
       <form onSubmit={handleSubmit} id="form-submit">
         <label>Name:</label>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import CharacterSelect from "../CharacterSelect/characterselect";
 import auth from "../../utils/auth";
 import { useParams } from "react-router-dom";
@@ -13,8 +14,11 @@ const Profile = () => {
     const [isEditing, setIsEditing] = useState(false); // State to manage edit mode
     const [editableCharacter, setEditableCharacter] = useState({});
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         // Fetch character data when the component mounts
+    //    if(id != 0) {
         fetch(`/api/characters/${id}`, {
             headers: {
                 Authorization: `Bearer ${auth.getToken()}`
@@ -35,7 +39,15 @@ const Profile = () => {
                 setError(err.message); // Set error message
                 setIsLoading(false); // Set loading to false
                 console.error(err);
+                // navigate("/characterselect"); 
             });
+    //    } else {
+    //     setError("You must select a character first!"); // Set error message
+    //     setIsLoading(false);
+    //     setTimeout(() => {
+    //         navigate("/characterselect");
+    //     }, 3000);
+    //    }
     }, [id]); // Dependency array includes id to refetch if it changes
 
     const handleSave = () => {
