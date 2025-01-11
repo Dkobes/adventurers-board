@@ -1,4 +1,5 @@
 .home {
+    position: relative;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -18,31 +19,48 @@
     color: black;
 }
 
-.sign-out-button {
-    position: relative;
-    bottom: 500px;
+.auth-form {
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -70%); 
+    background: rgba(255, 255, 255, 0.6); 
+    padding: 30px; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); 
 }
 
 .form-group {
     margin-bottom: 15px;
+    width: 100%;
+    max-width: 400px;
 }
 
-#username {
-    height: 20px;
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: black;
 }
 
+#username,
 #password {
-    position: relative;
+    height: 55px;
+    width: 100%; 
+    padding: 0;
+    border: 1px solid; 
+    border-radius: 5px;
+    background-color: white;
 }
 
-#sign-in-button {
-    position: relative;
-    bottom: 600px;
-    right: 95px;
+.button-group {
+    display: flex;
+    justify-content: space-between; 
+    width: 100%;
+    max-width: 400px; 
 }
 
+#sign-in-button,
 #register-button {
-    position: relative;
-    bottom: 600px;
-    left:  115px;
+    height: 60px; 
+    width: 48%; 
 }
