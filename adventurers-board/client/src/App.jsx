@@ -56,7 +56,7 @@ function App() {
             <Route path="/characterselect" element={<CharacterSelect characterId={characterId} setCharacterId={setCharacterId} characterList={characterList} setCharacterList={setCharacterList} />} />
             <Route path="/profile/:id" element={<Profile setCharacterId={setCharacterId} />} />
             <Route path="/combat/:id" element={<Combat />} />
-            <Route path="/inventory/:id" element={<Inventory />} />
+            <Route path="/inventory/:id" element={<Inventory characterId={characterId}/>} />
             <Route path="/spellbook/:id" element={<Spellbook />} />
             <Route path="/notes/:id" element={<Notes />} />
 

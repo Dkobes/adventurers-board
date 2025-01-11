@@ -4,7 +4,7 @@ import './inventory.css';
 import { useParams } from 'react-router-dom';
 import auth from '../../utils/auth';
 
-const Inventory = () => {
+const Inventory = ({characterId}) => {
     const { id } = useParams(); // Get the character ID from the URL
     const [items, setItems] = useState([]);
     const [isLoading, setIsLoading] = useState(true); 
@@ -13,7 +13,7 @@ const Inventory = () => {
 
         useEffect(() => {
             // Fetch character data when the component mounts
-            fetch(`/api/inventories/characters/${character_id}`, {
+            fetch(`/api/inventories/characters/${characterId}`, {
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json",
