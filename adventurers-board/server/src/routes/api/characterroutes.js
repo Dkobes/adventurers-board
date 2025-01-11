@@ -2,8 +2,8 @@ import { Router } from 'express';
 import Character from '../../models/Character.js';
 const router = Router();
 
-// GET all characters
-router.get('/', async (_req, res) => {
+// GET all characters by user Id
+router.get('/:user_id', async (_req, res) => {
     try {
         const characters = await Character.findAll();
         res.status(200).json(characters);

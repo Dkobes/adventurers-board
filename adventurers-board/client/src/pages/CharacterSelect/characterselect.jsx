@@ -45,11 +45,11 @@ const CharacterSelect = () => {
   const [charisma, setCharisma] = useState('');
   const [characterList, setCharacterList] = useState([]);
 
-  const userId = auth.getUserId();
+  const user_id = auth.getUserId();
 
   useEffect(() => { 
     // Fetch existing characters when the component mounts
-    fetch(`/api/characters?userId=${userId}`, {
+    fetch(`/api/characters?user_id=${user_id}`, {
       headers: {
         Authorization: `Bearer ${auth.getToken()}`
       }
@@ -59,7 +59,7 @@ const CharacterSelect = () => {
         setCharacterList(data); // Set the character list from the response
       })
       .catch(err => console.error(err));
-  }, [userId]);
+  }, [user_id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -78,11 +78,11 @@ const CharacterSelect = () => {
       intelligence,
       wisdom,
       charisma,
-      userId
+      user_id
     };
     console.log(formData);
 
-    const response = fetch("/api/characters", {
+    const response = fetch(`api/characters?user_id=${user_id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
