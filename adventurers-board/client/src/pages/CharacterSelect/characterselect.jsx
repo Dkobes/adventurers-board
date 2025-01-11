@@ -109,27 +109,17 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
       <br />
       <br />
 
-      <ul>
-        {characterList.map((character) => (
-          <div className="characterList" key={character.id}>
-            {/* <Link to={`/profile/${character.id}`}> */}
-
-            <li
-              key={character.id}
-              onClick={() => setCharacterId(character.id)}
-            >
-              {
-                characterId === character.id ?
-                (<h2 className="character-card-option-selected">{character.name}</h2>) : 
-                (<h2 className="character-card-option">{character.name}</h2>)
-        
-              }
-              
-
-            </li>          {/* </Link> */}
-          </div>
-        ))}
-      </ul>
+      <ul className="characterList">
+  {characterList.map((character) => (
+    <li key={character.id} onClick={() => setCharacterId(character.id)}>
+      {characterId === character.id ? (
+        <h2 className="character-card-option-selected">{character.name}</h2>
+      ) : (
+        <h2 className="character-card-option">{character.name}</h2>
+      )}
+    </li>
+  ))}
+</ul>
 
 
       <br />
