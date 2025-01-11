@@ -68,6 +68,7 @@ const Inventory = () => {
     };
 
     return (
+        <div className="inventory-page">
         <div className="image-container">
             <img src={Chest} alt="Treasure room flowing with gems and coin" className="inventory-img"></img>
             <h2 className="overlay-text">Inventory</h2>
@@ -90,6 +91,7 @@ const Inventory = () => {
                 ))}
             </ul>
         </div>
+    </div>
     </div>
     );
 };

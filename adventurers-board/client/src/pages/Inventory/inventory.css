@@ -55,7 +55,8 @@ h2 {
     margin-top: 30px;
 }
 
-input, button {
+.inventory-page input, 
+.inventory-page button {
     padding: 8px;
     margin: 5px;
     width: 100%;
@@ -64,19 +65,13 @@ input, button {
 ul {
     list-style-type: none;
     padding: 2px;
+    gap: 10px;
     width: 100%;
     max-height: 400px;
     overflow-y: auto;
 }
 
-.item-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 10px;
-    width: 100%;
-}
-
-.item-list li {
+ul.item-list li {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -99,7 +94,7 @@ ul {
         font-size: 20px;
     }
 
-    .item-list li {
+    ul.item-list li {
         flex-direction: row;
     }
 }
