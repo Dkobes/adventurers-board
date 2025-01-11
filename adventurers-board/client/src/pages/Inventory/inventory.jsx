@@ -43,8 +43,34 @@ const Inventory = ({ characterId }) => {
                 existingItem.quantity += 1;
                 setItems([...items]);
             } else {
+                const newItem = { character_id: characterId, name: itemName, quantity: 1 };
                 // add new item with quantity starting at 1
                 setItems([...items, { name: itemName, quantity: 1 }]);
+
+                fetch(`/api/inventories/${characterId}`, {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${auth.getToken()}`
+                    },
+                    body: JSON.stringify(newItem)
+                })
+                    .then(res => {
+                        if (!res.ok) {
+                            throw new Error('Failed to add item');
+                        }
+                        return res.json();
+                    })
+                    .then(data => {
+                        setItems([...items, data]);
+                        setItemName('');
+                        console.log(data);
+                    })
+                    .catch(err => {
+                        setError(err.message); 
+                        console.error(err);
+                    }
+                )
             }
             setItemName('');
         }
