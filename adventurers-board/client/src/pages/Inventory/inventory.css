@@ -85,7 +85,7 @@ ul.item-list li {
     box-sizing: border-box;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 480px) {
     .overlay-content {
         top: 30%;
     }
@@ -96,5 +96,19 @@ ul.item-list li {
 
     ul.item-list li {
         flex-direction: row;
+    }
+}
+
+@media (max-width: 480px) {
+    .overlay-content {
+        top: 20%;
+    }
+
+    .overlay-text {
+        font-size: 16px;
+    }
+
+    ul.item-list li {
+        flex-direction: column;
     }
 }

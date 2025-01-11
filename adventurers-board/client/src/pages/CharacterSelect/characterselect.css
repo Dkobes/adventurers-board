@@ -29,7 +29,10 @@
 }
 
 #form-submit {
-    max-width: 1100px;
+    position: relative;
+    bottom: 350px;
+    left: 0;
+    max-width: 1500px;
     font-weight: bold;
     background-color:rgba(166, 172, 177, 0.723) !important;
     border-radius: 10px;
@@ -37,7 +40,7 @@
     margin: 10px 0;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
     .character-select {
         position: relative;
         left: 0;
@@ -45,7 +48,14 @@
         text-align: center;
     }
 
-    .existing-character, .new-character {
+    .existing-character {
+        position: relative;
+        bottom: 0;
+        left: 0;
+        text-align: center;
+    }
+
+    .new-character {
         position: relative;
         bottom: 0;
         left: 0;
@@ -53,21 +63,25 @@
     }
 
     #form-submit {
+        position: relative;
+        bottom: 0;
+        left: 0;
         max-width: 90%;
         margin: 20px auto;
+        padding: 15px;
     }
 }
 
 @media (min-width: 769px) {
     .character-select {
         position: absolute;
-        left: 565px;
-        top: 85px;
+        left: 750px;
+        top: 105px;
     }
 
     .existing-character {
         position: relative;
-        bottom: 750px;
+        bottom: 780px; 
         left: 520px;
     }
 
@@ -78,9 +92,8 @@
     }
 
     #form-submit {
-        position: absolute;
-        max-width: 1100px;
-        top: 750px;
-        left: 200px;
+        position: relative;
+        max-width: 1500px;
+        bottom: 325px;
     }
 }
