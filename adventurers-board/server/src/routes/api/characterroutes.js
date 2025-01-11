@@ -3,9 +3,10 @@ import Character from '../../models/Character.js';
 const router = Router();
 
 // GET all characters by user Id
-router.get('/:user_id', async (_req, res) => {
+router.get('/all/:user_id', async (req, res) => {
     try {
-        const characters = await Character.findAll();
+        const characters = await Character.findAll({ where: { user_id: req.params.user_id }});
+        console.log(req.params.user_id);
         res.status(200).json(characters);
     } catch (error) {
         res.status(500).json({ message: 'Error retrieving characters', error });

@@ -46,10 +46,12 @@ const CharacterSelect = () => {
   const [characterList, setCharacterList] = useState([]);
 
   const user_id = auth.getUserId();
+  console.log(user_id);
 
   useEffect(() => { 
     // Fetch existing characters when the component mounts
-    fetch(`/api/characters?user_id=${user_id}`, {
+    fetch(`/api/characters/all?user_id=${user_id}`, {
+      method: "GET",
       headers: {
         Authorization: `Bearer ${auth.getToken()}`
       }
