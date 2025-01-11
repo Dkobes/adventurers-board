@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Chest from '/src/assets/images/treasure-chest.jpg';
 import './inventory.css';
-import { useParams } from 'react-router-dom';
 import auth from '../../utils/auth';
 
-const Inventory = ({characterId}) => {
-    const { id } = useParams(); // Get the character ID from the URL
+const Inventory = ({ characterId }) => {
     const [items, setItems] = useState([]);
     const [isLoading, setIsLoading] = useState(true); 
     const [itemName, setItemName] = useState('');
@@ -27,7 +25,7 @@ const Inventory = ({characterId}) => {
                     return res.json();
                 })
                 .then(data => {
-                    setItems(data.inventory); // Set the items from the response
+                    setItems(data); // Set the items from the response
                     setIsLoading(false); // Set loading to false
                 })
                 .catch(err => {
@@ -35,7 +33,7 @@ const Inventory = ({characterId}) => {
                     setIsLoading(false); 
                   console.error(err);
                 });
-        }, [id]); // Dependency array includes id to refetch if it changes
+        }, [characterId]); 
 
     const addItem = () => {
         if (itemName) {
