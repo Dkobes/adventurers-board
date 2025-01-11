@@ -18,8 +18,17 @@
     color: black;
 }
 
-#username {
+.sign-out-button {
     position: relative;
+    bottom: 500px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+#username {
+    height: 20px;
 }
 
 #password {

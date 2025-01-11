@@ -99,7 +99,7 @@ const Home = ({ handleLogin }) => {
                 ) : (
                     // else show auth form
                     <form className="auth-form">
-                        <div className="form-group" id="username">
+                        <div className="form-group">
                             <label htmlFor="username">Username:</label>
                             <input
                                 type="text"
@@ -110,7 +110,7 @@ const Home = ({ handleLogin }) => {
                             />
                         </div>
 
-                        <div className="form-group" id="password">
+                        <div className="form-group">
                             <label htmlFor="password">Password:</label>
                             <input
                                 type="password"
