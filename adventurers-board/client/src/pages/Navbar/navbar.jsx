@@ -9,7 +9,7 @@ const Navbar = ({ characterId, setError }) => {
 
     function checkCharacterId() {
         if (characterId == 0) {
-            setError("You must selecte a character first!")
+            setError("You must select a character first!")
             setTimeout(() => {
                 setError(null);
                 navigate("/characterselect");
