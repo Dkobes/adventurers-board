@@ -28,7 +28,7 @@ const alignments = [
   "Chaotic Good", "Chaotic Neutral", "Chaotic Evil"
 ];
 
-const CharacterSelect = ({ characterId, setCharacterId, characterList }) => {
+const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharacterList }) => {
   const [name, setName] = useState('');
   const [characterClass, setCharacterClass] = useState('');
   const [level, setLevel] = useState('');
@@ -49,6 +49,8 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const user_id = auth.getUserId();
+
     const formData = {
       name,
       characterClass,
