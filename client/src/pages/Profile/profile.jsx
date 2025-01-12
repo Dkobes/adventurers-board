@@ -126,7 +126,7 @@ const Profile = () => {
                         <button onClick={handleSave} className="save">Save</button>
                         <button onClick={handleCancel} className="cancel">Cancel</button>
                     </div>) : (
-                <div className="text" id="overlay">
+                <div /*className="overlay"*/>
                     <p className="character-name"> {character.name}</p>
                     <p className="character-bio">Class: {character.characterClass}</p>
                     <p className="character-bio">Level: {character.level}</p>
