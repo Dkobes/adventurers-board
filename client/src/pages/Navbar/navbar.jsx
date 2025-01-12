@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './navbar.css';
+import Auth from '../../utils/auth';
 
 const Navbar = ({ characterId, setError }) => {
 
@@ -19,6 +20,10 @@ const Navbar = ({ characterId, setError }) => {
         }
     }
 
+    const logout = () => {
+        localStorage.removeItem('id_token');
+        window.location.assign('/');
+    };
 
     return (
         <header>
@@ -51,6 +56,11 @@ const Navbar = ({ characterId, setError }) => {
                         onClick={checkCharacterId}
                     >
                         <Link to={`/notes/${characterId}`}>Notes</Link>
+                    </li>
+                    <li>
+                        <button onClick={logout} className="sign-out-button">
+                            Sign Out
+                        </button>
                     </li>
                 </ul>
             </nav>

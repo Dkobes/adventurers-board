@@ -12,7 +12,7 @@ nav ul {
 }
 
 nav ul li {
-    margin: 0px 50px;
+    margin: 0px 45px;
 }
 
 nav ul li a:hover {
@@ -24,4 +24,16 @@ nav ul li a {
     color:cornflowerblue;
     font-weight: bold;
     font-size: 20px;
+}
+
+.sign-out-button {
+    color:cornflowerblue;
+    background-color: black;
+   
+    
+}
+
+.sign-out-button:hover {
+    color: black; /* Text turns black on hover */
+    background-color: cornflowerblue /* Button turns blue on hover */
 }
