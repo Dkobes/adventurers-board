@@ -88,8 +88,8 @@ const Notes = ({ characterId }) => {
                         {notes.map((note, index) => (
                             <li key={note.id}>
                                 {note.name}
-                                <button onClick={() => removeNote(index)} style={{ marginLeft: '10px' }}>
-                                Remove
+                                <button onClick={() => removeNote(index)} className="remove-button" style={{ marginLeft: '10px' }}>
+                                ❌
                                 </button>
                             </li>
                         ))}

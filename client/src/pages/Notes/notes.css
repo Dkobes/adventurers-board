@@ -21,6 +21,14 @@
     left: 870px;
 }
 
+.remove-button {
+    font-size: 12px; /* Adjust the font size */
+    padding: 2px 5px; /* Adjust the padding */
+    background: none; /* Remove default button background */
+    border: none; /* Remove default button border */
+    cursor: pointer; /* Change cursor to pointer */
+}
+
 .list {
     position: absolute;
     left: -450px;
