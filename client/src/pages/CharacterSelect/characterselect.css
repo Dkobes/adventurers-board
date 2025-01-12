@@ -7,24 +7,23 @@
 
 .character-img {
     width: 100%;
-    height: auto;
     opacity: 0.7;
 }
 
 .characterList {
     position: absolute;
-    top: 70%;
+    top: 50%;
     left: 50%;
     transform: translateX(-50%);
     padding: 10px;
     overflow-y: auto;
-    max-height: 130px;
+    max-height: 250px;
     width: 400px;
     background-color: rgba(166, 172, 177, 0.723);
     border-radius: 10px;
     border: 1px solid;
     z-index: 1;
-     list-style-type: none;
+    list-style-type: none;
 }
 
 .character-select {
@@ -39,13 +38,11 @@
 
 .existing-character {
     position: relative;
-    top: -675px;
     left: 135px;
     background-color: rgba(166, 172, 177, 0.723);
     border-radius: 15px;
     border: 1px solid;
     margin-top: 10px;
-    padding-top: -5px;
 }
 
 .new-character {
@@ -79,16 +76,17 @@
 #form-submit {
     position: relative;
     bottom: 350px;
-    left: 0;
+    height: 100px;
     max-width: 1500px;
     font-weight: bold;
+    font-size: 20px;
     background-color:rgba(166, 172, 177, 0.723) !important;
     border-radius: 10px;
     padding: 10px 20px;
     margin: 10px 0;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
     .character-select {
         position: relative;
         left: 0;
@@ -132,15 +130,15 @@
     }
 
     .existing-character {
-        position: relative;
-        bottom: 780px; 
-        left: 520px;
+        position: absolute;
+        bottom: 500px;
+        left: 820px;
     }
 
     .new-character {
-        position: relative;
-        bottom: 300px;
-        left: 260px;
+        position: absolute;
+        bottom: 5px;
+        left: 820px;
     }
 
     .characterList {
@@ -148,8 +146,9 @@
     }
 
     #form-submit {
-        position: relative;
-        max-width: 1500px;
-        bottom: 300px; 
-    }
+        position: absolute;
+        max-width: 1500px; 
+        left: 170px;
+        bottom: -250px;
+    } 
 }
