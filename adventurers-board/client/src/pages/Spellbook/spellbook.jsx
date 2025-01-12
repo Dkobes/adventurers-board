@@ -3,7 +3,7 @@ import auth from '../../utils/auth.js';
 import './spellbook.css'
 import Fantasyspells from '/src/assets/images/spellbook.jpg';
 
-const Spellbook = ({characterId}) => {
+const Spellbook = ({ characterId }) => {
     const [spellcastingAbility, setSpellcastingAbility] = useState('Charisma');
     const [spellcastingModifier, setSpellcastingModifier] = useState(3);
     const [proficiencyBonus, setProficiencyBonus] = useState(2);
@@ -30,7 +30,7 @@ const Spellbook = ({characterId}) => {
             return res.json();
         })
         .then(data => {
-            setSpells(data); // Set the spells from the response
+            setSavedSpells(data); // Set the spells from the response
             setIsLoading(false); // Set loading to false
         })
         .catch(err => {
@@ -81,6 +81,7 @@ useEffect(() => {
             const name = selectedSpell.name;
             const level = selectedSpell.level;
             const description = selectedSpellDetails.desc?.join(' ');
+            const spell = {character_id: characterId, name, level, description};
 
             try {
                 const response = await fetch(`/api/spells/${characterId}`, {
@@ -89,7 +90,7 @@ useEffect(() => {
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${auth.getToken()}`
                     },
-                    body: JSON.stringify({name, level, description})
+                    body: JSON.stringify(spell)
                 })
                 const data = await response.json();
                 const spellData = {...data, index: selectedSpell.index}
