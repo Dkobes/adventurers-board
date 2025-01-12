@@ -70,5 +70,18 @@
     border-radius: 10px; 
     cursor: pointer;
 }
-  
 
+.edit-profile {
+    position: relative;
+    left: 90px;
+    bottom: 1300px;
+    font-size: 28px;
+    font-weight: bold;
+    color: black;
+}
+
+.save, .cancel {
+    padding: 20px;
+    margin: 10px;
+    background-color: #007bff;
+}

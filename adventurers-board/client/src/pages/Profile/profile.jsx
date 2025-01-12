@@ -106,7 +106,7 @@ const Profile = () => {
             <h1 className="title">Character Profile</h1>
             {character ? (
                 isEditing ? (
-                    <div>
+                    <div className="edit-profile">
                         <p>Name: <input type="text" name="name" value={editableCharacter.name} onChange={handleChange} /></p>
                         <p>Class: <select type="text" name="characterClass"  value={editableCharacter.characterClass} onChange={handleChange}><option value="barbarian">Barbarian</option>
                         <option value="bard">Bard</option><option value="cleric">Cleric</option><option value="druid">Druid</option><option value="fighter">Fighter</option>
@@ -124,8 +124,8 @@ const Profile = () => {
                         <p>Intelligence: <input type="number" name="intelligence" value={editableCharacter.intelligence} onChange={handleChange} /></p>
                         <p>Wisdom: <input type="number" name="wisdom" value={editableCharacter.wisdom} onChange={handleChange} /></p>
                         <p>Charisma: <input type="number" name="charisma" value={editableCharacter.charisma} onChange={handleChange} /></p>
-                        <button onClick={handleSave}>Save</button>
-                        <button onClick={handleCancel}>Cancel</button>
+                        <button onClick={handleSave} className="save">Save</button>
+                        <button onClick={handleCancel} className="cancel">Cancel</button>
                     </div>) : (
                 <div className="text" id="overlay">
                     <p className="character-name">Name: {character.name}</p>
