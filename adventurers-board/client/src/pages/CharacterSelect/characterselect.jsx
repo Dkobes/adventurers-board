@@ -101,12 +101,7 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
         Authorization: `Bearer ${auth.getToken()}`,
       },
     })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to delete character");
-        }
-        return res.json();
-      })
+     
       .then(() => {
         // Update the character list by removing the deleted character
         setCharacterList(characterList.filter((character) => character.id !== characterId));
