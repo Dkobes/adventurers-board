@@ -3,7 +3,7 @@ import auth from '../../utils/auth.js';
 import './spellbook.css'
 import Fantasyspells from '/src/assets/images/spellbook.jpg';
 
-const Spellbook = () => {
+const Spellbook = ({characterId}) => {
     const [spellcastingAbility, setSpellcastingAbility] = useState('Charisma');
     const [spellcastingModifier, setSpellcastingModifier] = useState(3);
     const [proficiencyBonus, setProficiencyBonus] = useState(2);
@@ -12,6 +12,7 @@ const Spellbook = () => {
     const [selectedSpell, setSelectedSpell] = useState(null);
     const [selectedSpellDetails, setSelectedSpellDetails] = useState(null);
     const [savedSpells, setSavedSpells] = useState([]);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         fetch('https://www.dnd5eapi.co/api/spells')
@@ -21,17 +22,29 @@ const Spellbook = () => {
     }, []);
 
     useEffect(() => {
-        fetch('/api/spells', {
+        fetch(`/api/spellbooks/characters/${characterId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${auth.getToken()}`
             }
         })
-        .then((response) => response.json())
-        .then((data) => setSavedSpells(data))
-        .catch((error) => console.error('Error fetching saved spells:', error));
-    }, []);
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Failed to fetch character data');
+            }
+            return res.json();
+        })
+        .then(data => {
+            setSpells(data); // Set the spells from the response
+            setIsLoading(false); // Set loading to false
+        })
+        .catch(err => {
+            setError(err.message); // Set error message
+            setIsLoading(false); 
+          console.error(err);
+        });
+}, [characterId]); 
 
     const calculateSpellSaveDC = () => {
         return 8 + proficiencyBonus + spellcastingModifier;
