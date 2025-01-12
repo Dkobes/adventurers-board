@@ -56,6 +56,13 @@
     background-color:bisque;
 }
 
+.delete-button {
+    position: relative;
+    padding: 1px;
+    float: right;
+    border-radius: 10px;
+}
+
 #form-submit {
     position: relative;
     bottom: 350px;

@@ -134,7 +134,7 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
         <h2 className="character-card-option-selected">{character.name} 
         <button className="delete-button"
         onClick={() => handleDeleteCharacter(character.id)}>
-        Delete
+        ❌
       </button></h2>
       ) : (
         <h2 className="character-card-option">{character.name}</h2>
