@@ -13,19 +13,13 @@ const Spellbook = ({characterId}) => {
     const [selectedSpellDetails, setSelectedSpellDetails] = useState(null);
     const [savedSpells, setSavedSpells] = useState([]);
     const [error, setError] = useState(null);
-
-    useEffect(() => {
-        fetch('https://www.dnd5eapi.co/api/spells')
-            .then((response) => response.json())
-            .then((data) => setSpells(data.results))
-            .catch((error) => console.error('Error fetching spells:', error));
-    }, []);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         fetch(`/api/spells/characters/${characterId}`, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${auth.getToken()}`
             }
         })
@@ -45,6 +39,13 @@ const Spellbook = ({characterId}) => {
           console.error(err);
         });
 }, [characterId]); 
+
+useEffect(() => {
+    fetch('https://www.dnd5eapi.co/api/spells')
+        .then((response) => response.json())
+        .then((data) => setSpells(data.results))
+        .catch((error) => console.error('Error fetching spells:', error));
+}, []);
 
     const calculateSpellSaveDC = () => {
         return 8 + proficiencyBonus + spellcastingModifier;
