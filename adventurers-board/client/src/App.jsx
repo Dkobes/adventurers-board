@@ -55,10 +55,10 @@ function App() {
             <Route path="/" element={<Home handleLogin={handleLogin} />} />
             <Route path="/characterselect" element={<CharacterSelect characterId={characterId} setCharacterId={setCharacterId} characterList={characterList} setCharacterList={setCharacterList} />} />
             <Route path="/profile/:id" element={<Profile setCharacterId={setCharacterId} />} />
-            <Route path="/combat/:id" element={<Combat />} />
+            <Route path="/combat/:id" element={<Combat characterId={characterId}/>} />
             <Route path="/inventory/:id" element={<Inventory characterId={characterId}/>} />
-            <Route path="/spellbook/:id" element={<Spellbook />} />
-            <Route path="/notes/:id" element={<Notes />} />
+            <Route path="/spellbook/:id" element={<Spellbook characterId={characterId}/>} />
+            <Route path="/notes/:id" element={<Notes characterId={characterId} />} />
 
 
           </Routes>

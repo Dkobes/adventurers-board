@@ -2,17 +2,26 @@ import { Router } from 'express';
 import Note from '../../models/Note.js';
 const router = Router();
 
+<<<<<<< Updated upstream
 // GET all notes
 router.get('/characters/:character_id', async (_req, res) => {
+=======
+// GET all notes by character
+router.get('/:character_id', async (_req, res) => {
+>>>>>>> Stashed changes
     try {
         const notes = await Note.findAll({
             where: { character_id: req.params.character_id }
         });
+<<<<<<< Updated upstream
         if (inventory.length > 0) {
             res.status(200).json(notes);
         } else {
             res.status(404).json({ message: 'No notes found for this character' });
         }
+=======
+        res.status(200).json(notes);
+>>>>>>> Stashed changes
     } catch (error) {
         res.status(500).json({ message: 'Error retrieving notes', error });
     }

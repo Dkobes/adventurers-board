@@ -3,20 +3,29 @@ import auth from '../../utils/auth.js';
 import NotePaper from '/src/assets/images/note-paper.jpg';
 import './notes.css';
 
+<<<<<<< Updated upstream
 const Notes = ({characterId}) => {
+=======
+const Notes = ({characterId }) => {
+>>>>>>> Stashed changes
     const [notes, setNotes] = useState([]);
     const [noteText, setNoteText] = useState('');
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
+<<<<<<< Updated upstream
         fetch(`/api/notes/characters/${characterId}`, {
+=======
+        fetch(`/api/notes${characterId}`, {
+>>>>>>> Stashed changes
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${auth.getToken()}`
             }
         })
+<<<<<<< Updated upstream
         .then(res => {
             if (!res.ok) {
                 throw new Error('Failed to fetch character data');
@@ -33,6 +42,12 @@ const Notes = ({characterId}) => {
           console.error(err);
         });
 }, [characterId]);
+=======
+        .then((response) => response.json())
+        .then((data) => setNotes(data))
+        .catch((error) => console.error('Error fetching notes:', error));
+    }, [characterId]);
+>>>>>>> Stashed changes
 
     const addNote = async () => {
         if (noteText) {
@@ -43,7 +58,7 @@ const Notes = ({characterId}) => {
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${auth.getToken()}`
                     },
-                    body: JSON.stringify(noteText)
+                    body: JSON.stringify({ character_id: characterId, name: noteText})
                 })
     
                 const data = await response.json();
@@ -94,7 +109,8 @@ const Notes = ({characterId}) => {
                     <ul>
                         <div className="list">
                         {notes.map((note, index) => (
-                            <li key={index}>{note}
+                            <li key={index}>
+                                {note.text}
                                 <button onClick={() => removeNote(index)} style={{ marginLeft: '10px' }}>
                                 Remove
                                 </button>

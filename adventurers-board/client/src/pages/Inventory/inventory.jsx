@@ -38,6 +38,7 @@ const Inventory = ({ characterId }) => {
     const addItem = () => {
         if (itemName) {
             const existingItem = items.find(item => item.name === itemName);
+        
             if (existingItem) {
                 // increase quantity, if one exists, number will increase
                 existingItem.quantity += 1;
@@ -71,8 +72,8 @@ const Inventory = ({ characterId }) => {
                         console.error(err);
                     });
             }
-            setItemName('');
         }
+            setItemName('');
     };
 
     const handleIncrease = (itemName) => {
@@ -147,7 +148,31 @@ const Inventory = ({ characterId }) => {
 
     const handleRemoveItem = (itemName) => {
         setItems(items.filter(item => item.name !== itemName));
-    };
+
+        const itemToRemove = items.find(item => item.name === itemName);
+        fetch(`/api/inventories/${itemToRemove.id}`, { 
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${auth.getToken()}`
+            },
+            body: JSON.stringify()
+        })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Failed to delete item');
+            }
+            return res.json();
+        })
+        .then(data => {
+            console.log('Item deleted:', data);
+        })
+        .catch(err => {
+            setError(err.message);
+            console.error(err);
+        });
+        };
+    
 
     return (
         <div className="inventory-page">
