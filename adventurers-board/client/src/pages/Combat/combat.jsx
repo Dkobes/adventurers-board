@@ -4,7 +4,7 @@ import auth from '../../utils/auth.js'
 import './combat.css';
 import Colosseum from '/src/assets/images/colosseum.jpg';
 
-export default function Combat() {
+export default function Combat({ characterId }) {
     const [weapons, setWeapons] = useState([]);
     const [weaponList, setWeaponList] = useState([]);
     const [spells, setSpells] = useState([]);
@@ -17,10 +17,36 @@ export default function Combat() {
     const [diceCount, setDiceCount] = useState(1);
     const [style, setStyle] = useState({display: 'none'});
 
+
+    useEffect(() => {
+        const loadWeapons = async () => {
+            try {
+                const response = await fetch(`/api/combat/weapons/${characterId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${auth.getToken()}`
+                    }
+                })
+
+                const data = await response.json();
+
+                if (!data.message) {
+                    return setWeapons(data);
+                } else {
+                    return console.log(data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching saved weapons:', error);
+            }
+        }
+        loadWeapons();
+    }, [])
+
     useEffect(() => {
         const getSpellList = async () => {
             try {
-                const response = await fetch('/api/spells', {
+                const response = await fetch(`/api/spells/characters/${characterId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -41,7 +67,7 @@ export default function Combat() {
     }, [])
 
     useEffect(() => {
-        const loadWeapons = async () => {
+        const getWeaponList = async () => {
             try {
                 const response = await fetch('https://www.dnd5eapi.co/api/equipment-categories/weapon')
 
@@ -54,7 +80,7 @@ export default function Combat() {
                 console.error('Error fetching weapons:', error);
             }
         }
-        loadWeapons();
+        getWeaponList();
     }, [])
 
     const skillPrompt = () => {
@@ -186,7 +212,22 @@ export default function Combat() {
                 console.log(data)
                 const dmgLvl = data.damage.damage_dice;
                 const dmg = dmgLvl.split('d');
-                const weapon = {name: data.name, atk: 3, count: dmg[0], type: dmg[1]};
+                const weapon = {name: data.name, attack: 3, dieCount: parseInt(dmg[0]), dieType: parseInt(dmg[1])};
+
+                const post = {character_id: parseInt(id), name: weapon.name, type: 'weapon', attack: weapon.atk, dc: null, dieCount: weapon.dieCount, dieType: weapon.dieType};
+
+                const res = await fetch(`/api/combat/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${auth.getToken()}`
+                    },
+                    body: JSON.stringify(post)
+                })
+
+                const dat = await res.json();
+                console.log(dat)
+
                 return setWeapons([...weapons, weapon])
             } catch (err) {
                 console.error(err);
@@ -194,8 +235,26 @@ export default function Combat() {
         }
     }
 
-    const deleteWeapon = (index) => {
+    const deleteWeapon = async (index) => {
         const newWeapons = weapons.filter((weapon, i) => index !== i);
+        const id = weapons[index].id;
+
+        try {
+            const response = await fetch(`/api/combat/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${auth.getToken()}`
+                }
+            })
+
+            const data = await response.json();
+
+            console.log(data);
+        } catch (error) {
+            console.error('Error deleting weapon:', error);
+        }
+
         setWeapons(newWeapons);
     }
 
@@ -216,17 +275,17 @@ export default function Combat() {
                 <section className='weapons'>
                     <h3>Weapons</h3>
                     {weapons.map((weapon, index) => (
-                        <p key={index}><span>{weapon.name}</span> <button onClick={() => diceRoll(1, 20, weapon.atk)}>To Hit: +{weapon.atk}</button> 
-                        <button onClick={() => diceRoll(weapon.count, weapon.type, 0)}>Damage: {weapon.count}d{weapon.type}</button> <button onClick={() => deleteWeapon(index)}>X</button></p>
+                        <p key={index}><span>{weapon.name}</span> <button onClick={() => diceRoll(1, 20, weapon.attack)}>To Hit: +{weapon.attack}</button>
+                        <button onClick={() => diceRoll(weapon.dieCount, weapon.dieType, 0)}>Damage: {weapon.dieCount}d{weapon.dieType}</button> <button onClick={() => deleteWeapon(index)}>X</button></p>
                     ))}
                     {weaponSelect()}
                 </section>
-                
+               
                 <section className='spells'>
                     <h3>Spells</h3>
                     {spells.map((spell, index) => (
-                        <p key={index}><span>{spell.name}</span> {spell.atk === null ? <span>DC: {spell.dc}</span> : <button onClick={() => diceRoll(1, 20, spell.atk)}>To Hit: +{spell.atk}</button>} 
-                        <button onClick={() => diceRoll(spell.count, spell.type, 0)}>Damage: {spell.count}d{spell.type}</button> <button onClick={() => deleteSpell(index)}>X</button></p>
+                        <p key={index}><span>{spell.name}</span> {spell.attack === null ? <span>DC: {spell.dc}</span> : <button onClick={() => diceRoll(1, 20, spell.attack)}>To Hit: +{spell.attack}</button>}
+                        <button onClick={() => diceRoll(spell.dieCount, spell.dieType, 0)}>Damage: {spell.dieCount}d{spell.dieType}</button> <button onClick={() => deleteSpell(index)}>X</button></p>
                     ))}
                     {spellSelect()}
                 </section>
@@ -234,8 +293,8 @@ export default function Combat() {
                 <section className='skills'>
                     <h3>Skills</h3>
                     {skills.map((skill, index) => (
-                        <p key={index}><span>{skill.name}</span> {skill.atk === null ? <span>DC: {skill.dc}</span> : <button onClick={() => diceRoll(1, 20, skill.atk)}>To Hit: +{skill.atk}</button>} 
-                        <button onClick={() => diceRoll(skill.count, skill.type, 0)}>Damage: {skill.count}d{skill.type}</button> <button onClick={() => deleteSkill(index)}>X</button></p>
+                        <p key={index}><span>{skill.name}</span> {skill.attack === null ? <span>DC: {skill.dc}</span> : <button onClick={() => diceRoll(1, 20, skill.attack)}>To Hit: +{skill.attack}</button>}
+                        <button onClick={() => diceRoll(skill.diceCount, skill.diceType, 0)}>Damage: {skill.diceCount}d{skill.diceType}</button> <button onClick={() => deleteSkill(index)}>X</button></p>
                     ))}
                     {skillPrompt()}
                 </section>
