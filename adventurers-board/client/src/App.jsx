@@ -13,7 +13,7 @@ import auth from "./utils/auth";
 
 
 function App() {
-  const [characterId, setCharacterId] = useState(0);
+  const [characterId, setCharacterId] = useState(null);
   const [userId, setUserId] = useState(); // Add userId state
 
   const [characterList, setCharacterList] = useState([]);

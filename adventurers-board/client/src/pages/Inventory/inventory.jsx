@@ -3,6 +3,7 @@ import Chest from '/src/assets/images/treasure-chest.jpg';
 import './inventory.css';
 import auth from '../../utils/auth';
 
+
 const Inventory = ({ characterId }) => {
     const [items, setItems] = useState([]);
     const [isLoading, setIsLoading] = useState(true); 

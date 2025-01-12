@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import auth from '../../utils/auth.js';
 import NotePaper from '/src/assets/images/note-paper.jpg';
 import './notes.css';
+import { useParams } from 'react-router-dom';
 
-const Notes = ({characterId }) => {
+const Notes = () => {
+    const { characterId } = useParams();
     const [notes, setNotes] = useState([]);
     const [noteText, setNoteText] = useState('');
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`/api/notes${characterId}`, {
+        fetch(`/api/notes/${characterId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -18,7 +20,10 @@ const Notes = ({characterId }) => {
             }
         })
         .then((response) => response.json())
-        .then((data) => setNotes(data))
+        .then((data) => {
+            console.log('Fetched notes:', data); 
+            setNotes(data);
+        })
         .catch((error) => console.error('Error fetching notes:', error));
     }, [characterId]);
 
@@ -82,7 +87,7 @@ const Notes = ({characterId }) => {
                     <ul>
                         <div className="list">
                         {notes.map((note, index) => (
-                            <li key={index}>
+                            <li key={note.id}>
                                 {note.text}
                                 <button onClick={() => removeNote(index)} style={{ marginLeft: '10px' }}>
                                 Remove
