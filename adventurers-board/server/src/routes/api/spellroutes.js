@@ -3,7 +3,7 @@ import Spell from '../../models/Spell.js';
 const router = Router();
 
 // GET all spells
-router.get('/characters/:character_id', async (_req, res) => {
+router.get('/characters/:character_id', async (req, res) => {
     try {
         const spells = await Spell.findAll({
             where: { character_id: req.params.character_id }
