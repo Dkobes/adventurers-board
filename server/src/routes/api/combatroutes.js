@@ -41,6 +41,25 @@ router.get('/spells/:character_id', async (req, res) => {
     }
 });
 
+// GET all combat skills
+router.get('/skills/:character_id', async (req, res) => {
+    try {
+        const skills = await Combat.findAll({
+            where: { 
+                character_id: req.params.character_id,
+                type: 'skill'
+            } // Use character_id to filter
+        });
+        if (skills.length > 0) {
+            res.status(200).json(skills);
+        } else {
+            res.status(404).json({ message: 'No skills found for this character' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Error retrieving skills', error });
+    }
+});
+
 // POST a new combat item
 router.post('/:character_id', async (req, res) => {
     try {

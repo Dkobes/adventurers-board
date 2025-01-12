@@ -69,6 +69,31 @@ export default function Combat({ characterId }) {
     }, [])
 
     useEffect(() => {
+        const loadSkills = async () => {
+            try {
+                const response = await fetch(`/api/combat/skills/${characterId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${auth.getToken()}`
+                    }
+                })
+
+                const data = await response.json();
+
+                if (!data.message) {
+                    return setSkills(data);
+                } else {
+                    return console.log(data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching saved skills:', error);
+            }
+        }
+        loadSkills();
+    }, [])
+
+    useEffect(() => {
         const getSpellList = async () => {
             try {
                 const response = await fetch(`/api/spells/characters/${characterId}`, {
@@ -151,13 +176,47 @@ export default function Combat({ characterId }) {
         )
     }
 
-    const addSkill = (name, modifier, diceAmount, diceValue) => {
-        setSkills([...skills, {name: name, atk: modifier, count: diceAmount, type: diceValue}]);
-        console.log(skills);
+    const addSkill = async (name, modifier, diceAmount, diceValue) => {
+        const newSkill = {name: name, attack: 3, dc: 13, dieCount: parseInt(diceAmount), dieType: parseInt(diceValue)};
+        const post = {character_id: characterId, name: newSkill.name, type: 'skill', attack: newSkill.attack, dc: newSkill.dc, dieCount: newSkill.dieCount, dieType: newSkill.dieType};
+        try {
+            const response = await fetch(`/api/combat/${characterId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${auth.getToken()}`
+                },
+                body: JSON.stringify(post)
+            })
+
+            const data = await response.json();
+
+            return setSkills([...skills, data]);
+        } catch (error) {
+            console.error('Error adding skill', error);
+        }
     }
 
-    const deleteSkill = (index) => {
+    const deleteSkill = async (index) => {
         const newSkills = skills.filter((skill, i) => index !== i);
+        const id = skills[index].id;
+
+        try {
+            const response = await fetch(`/api/combat/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${auth.getToken()}`
+                },
+                body: JSON.stringify()
+            })
+
+            const data = await response.json();
+            return console.log(data);
+        } catch (error) {
+            console.error('Error deleting skill:', error);
+        }
+
         setSkills(newSkills);
     }
 
@@ -197,12 +256,12 @@ export default function Combat({ characterId }) {
 
                 const data = await response.json();
                 console.log(data);
-                const dmgLvl = data.damage.damage_at_slot_level[spellChoice.level] || data.damage.damage_at_character_level[1];
-                const dmg = dmgLvl.split('d');
-                const spell = {name: data.name, attack: !data.damage ? null : 3, dc: data.dc ? data.dc.dc_type.name : null, dieCount: dmg[0], dieType: dmg[1]};
+                const dmgLvl = data.damage ? data.damage.damage_at_slot_level[spellChoice.level] || data.damage.damage_at_character_level[1] : 0
+                const dmg = dmgLvl === 0 ? [0, 0] : dmgLvl.split('d');
+                const spell = {name: data.name, attack: !data.damage ? null : 3, dc: data.dc ? 15 : null, dieCount: parseInt(dmg[0]), dieType: parseInt(dmg[1])};
 
                 const post = {character_id: characterId, name: spell.name, type: 'spell', attack: spell.attack, dc: spell.dc, dieCount: spell.dieCount, dieType: spell.dieType};
-                const res = await fetch(`/api/combat/spells/${characterId}`, {
+                const res = await fetch(`/api/combat/${characterId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -353,7 +412,7 @@ export default function Combat({ characterId }) {
                     <h3>Skills</h3>
                     {skills.map((skill, index) => (
                         <p key={index}><span>{skill.name}</span> {skill.attack === null ? <span>DC: {skill.dc}</span> : <button onClick={() => diceRoll(1, 20, skill.attack)}>To Hit: +{skill.attack}</button>}
-                        <button onClick={() => diceRoll(skill.diceCount, skill.diceType, 0)}>Damage: {skill.diceCount}d{skill.diceType}</button> <button onClick={() => deleteSkill(index)}>X</button></p>
+                        <button onClick={() => diceRoll(skill.dieCount, skill.dieType, 0)}>Damage: {skill.dieCount}d{skill.dieType}</button> <button onClick={() => deleteSkill(index)}>X</button></p>
                     ))}
                     {skillPrompt()}
                 </section>
