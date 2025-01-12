@@ -3,27 +3,41 @@ import auth from '../../utils/auth.js';
 import NotePaper from '/src/assets/images/note-paper.jpg';
 import './notes.css';
 
-const Notes = () => {
+const Notes = ({characterId}) => {
     const [notes, setNotes] = useState([]);
     const [noteText, setNoteText] = useState('');
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        fetch('/api/notes', {
+        fetch(`/api/notes/characters/${characterId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${auth.getToken()}`
             }
         })
-        .then((response) => response.json())
-        .then((data) => setNotes(data))
-        .catch((error) => console.error('Error fetching notes:', error));
-    }, [])
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Failed to fetch character data');
+            }
+            return res.json();
+        })
+        .then(data => {
+            setItems(data); // Set the items from the response
+            setIsLoading(false); // Set loading to false
+        })
+        .catch(err => {
+            setError(err.message); // Set error message
+            setIsLoading(false); 
+          console.error(err);
+        });
+}, [characterId]);
 
     const addNote = async () => {
         if (noteText) {
             try {
-                const response = await fetch('/api/notes', {
+                const response = await fetch(`/api/notes/${characterId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
