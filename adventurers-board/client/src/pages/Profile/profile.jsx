@@ -103,7 +103,6 @@ const Profile = () => {
     return (
         <div className="profile">
             <img src={Vines} alt="Paper covered in vines" className="profile-img"></img>
-            <h1 className="title">Character Profile</h1>
             {character ? (
                 isEditing ? (
                     <div className="edit-profile">
@@ -128,7 +127,7 @@ const Profile = () => {
                         <button onClick={handleCancel} className="cancel">Cancel</button>
                     </div>) : (
                 <div className="text" id="overlay">
-                    <p className="character-name">Name: {character.name}</p>
+                    <p className="character-name"> {character.name}</p>
                     <p className="character-bio">Class: {character.characterClass}</p>
                     <p className="character-bio">Level: {character.level}</p>
                     <p className="character-bio">Background: {character.background}</p>
