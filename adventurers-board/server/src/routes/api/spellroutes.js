@@ -3,9 +3,11 @@ import Spell from '../../models/Spell.js';
 const router = Router();
 
 // GET all spells
-router.get('/', async (_req, res) => {
+router.get('/characters/:character_id', async (_req, res) => {
     try {
-        const spells = await Spell.findAll();
+        const spells = await Spell.findAll({
+            where: { character_id: req.params.character_id }
+        });
         res.status(200).json(spells);
     } catch (error) {
         res.status(500).json({ message: 'Error retrieving spells', error });
@@ -27,7 +29,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST a new spell
-router.post('/', async (req, res) => {
+router.post('/:character_id', async (req, res) => {
     try {
         const newSpell = await Spell.create(req.body);
         res.status(201).json(newSpell);

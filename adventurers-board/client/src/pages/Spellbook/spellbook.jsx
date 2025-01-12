@@ -22,7 +22,7 @@ const Spellbook = ({characterId}) => {
     }, []);
 
     useEffect(() => {
-        fetch(`/api/spellbooks/characters/${characterId}`, {
+        fetch(`/api/spells/characters/${characterId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -77,19 +77,18 @@ const Spellbook = ({characterId}) => {
 
     const handleSaveSpell = async () => {
         if (selectedSpell && !savedSpells.find((spell) => spell.index === selectedSpell.index)) {
-            const character_id = 1;
             const name = selectedSpell.name;
             const level = selectedSpell.level;
             const description = selectedSpellDetails.desc?.join(' ');
 
             try {
-                const response = await fetch('/api/spells', {
+                const response = await fetch(`/api/spells/${characterId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${auth.getToken()}`
                     },
-                    body: JSON.stringify({character_id, name, level, description})
+                    body: JSON.stringify({name, level, description})
                 })
                 const data = await response.json();
                 const spellData = {...data, index: selectedSpell.index}
