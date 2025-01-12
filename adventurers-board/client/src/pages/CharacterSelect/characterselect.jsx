@@ -50,7 +50,6 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const user_id = auth.getUserId();
 
     const formData = {
       name,
@@ -71,7 +70,7 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
     };
     console.log(formData);
 
-    const response = fetch(`api/characters?user_id=${user_id}`, {
+    fetch(`api/characters?user_id=${user_id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -95,6 +94,30 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
       });
   };
 
+  const handleDeleteCharacter = (id) => {
+    fetch(`/api/characters/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${auth.getToken()}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to delete character");
+        }
+        return res.json();
+      })
+      .then(() => {
+        // Update the character list by removing the deleted character
+        setCharacterList(characterList.filter((character) => character.id !== id));
+        alert("Character deleted successfully!");
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Failed to delete character.");
+      });
+  };
+
   return (
     <div className="container">
       <img src={Character} alt="A man puppet-mastering people" className="character-img"></img>
@@ -113,7 +136,11 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
   {characterList.map((character) => (
     <li key={character.id} onClick={() => setCharacterId(character.id)}>
       {characterId === character.id ? (
-        <h2 className="character-card-option-selected">{character.name}</h2>
+        <h2 className="character-card-option-selected">{character.name} 
+        <button className="delete-button"
+        onClick={() => handleDeleteCharacter(character.id)}>
+        Delete
+      </button></h2>
       ) : (
         <h2 className="character-card-option">{character.name}</h2>
       )}
