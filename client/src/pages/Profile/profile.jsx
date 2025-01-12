@@ -107,10 +107,7 @@ const Profile = () => {
                 isEditing ? (
                     <div className="edit-profile">
                         <p>Name: <input type="text" name="name" value={editableCharacter.name} onChange={handleChange} /></p>
-                        <p>Class: <select type="text" name="characterClass"  value={editableCharacter.characterClass} onChange={handleChange}><option value="barbarian">Barbarian</option>
-                        <option value="bard">Bard</option><option value="cleric">Cleric</option><option value="druid">Druid</option><option value="fighter">Fighter</option>
-                        <option value="monk">Monk</option><option value="paladin">Paladin</option><option value="ranger">Ranger</option><option value="rogue">Rogue</option>
-                        <option value="sorcerer">Sorcerer</option><option value="warlock">Warlock</option><option value="wizard">Wizard</option></select></p>
+                        <p>Class: <input type="text" name="characterClass"  value={editableCharacter.characterClass} onChange={handleChange}></input></p>
                         <p>Level: <input type="number" name="level" value={editableCharacter.level} onChange={handleChange} /></p>
                         <p>Background: <input type="text" name="background" value={editableCharacter.background} onChange={handleChange} /></p>
                         <p>Race: <input type="text" name="race" value={editableCharacter.race} onChange={handleChange} /></p>
@@ -128,20 +125,23 @@ const Profile = () => {
                     </div>) : (
                 <div /*className="overlay"*/>
                     <p className="character-name"> {character.name}</p>
-                    <p className="character-bio">Class: {character.characterClass}</p>
-                    <p className="character-bio">Level: {character.level}</p>
-                    <p className="character-bio">Background: {character.background}</p>
-                    <p className="character-bio">Race: {character.race}</p>
-                    <p className="character-bio">Alignment: {character.alignment}</p>
-                    <p className="character-bio">Age: {character.age}</p>
-                    <p className="character-bio">Hair: {character.hair}</p>
-
+                    <div className="traits">
+                    <p >Class: {character.characterClass}</p>
+                    <p >Level: {character.level}</p>
+                    <p >Background: {character.background}</p>
+                    <p >Race: {character.race}</p>
+                    <p >Alignment: {character.alignment}</p>
+                    <p >Age: {character.age}</p>
+                    <p >Hair: {character.hair}</p>
+                    </div>
+                    <div className="stats">
                     <p className="attribute-box">Strength: {character.strength}</p>
                     <p className="attribute-box">Dexterity: {character.dexterity}</p>
                     <p className="attribute-box">Constitution: {character.constitution}</p>
                     <p className="attribute-box">Intelligence: {character.intelligence}</p>
                     <p className="attribute-box">Wisdom: {character.wisdom}</p>
                     <p className="attribute-box">Charisma: {character.charisma}</p>
+                    </div>
                     <button onClick={() => setIsEditing(true)} className="edit">Edit</button>   
                 </div>
             ) ) : (
@@ -309,3 +309,8 @@ export default Profile;
 // }
  
 // export default Profile;
+
+{/* <option value="barbarian">Barbarian</option>
+                        <option value="bard">Bard</option><option value="cleric">Cleric</option><option value="druid">Druid</option><option value="fighter">Fighter</option>
+                        <option value="monk">Monk</option><option value="paladin">Paladin</option><option value="ranger">Ranger</option><option value="rogue">Rogue</option>
+                        <option value="sorcerer">Sorcerer</option><option value="warlock">Warlock</option><option value="wizard">Wizard</option> */}

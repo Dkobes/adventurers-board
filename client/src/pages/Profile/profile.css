@@ -5,30 +5,48 @@
 
 .character-name {
     position: relative;
-    left: 20px;
+    left: 200px;
     bottom: 0;
     margin: 10px;
-    font-size: 25px;
+    top:-900px;
+    font-size: 65px;
     font-weight: bold;
     text-align: center;
     color: black;
 }
 
-.character-bio {
+.traits {
     position: relative;
     font-size: 28px;
     font-weight: bold;
     color: black;
+    top: -900px;
+    left: 200px;
+}
+
+.stats {
+    position: relative;
+    font-size: 28px;
+    font-weight: bold;
+    color: black;
+    top: -1500px;
+    left: 1300px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .attribute-box {
     position: relative;
     bottom: 0;
-    padding: 10px;
-    width: 115px;
-    font-size: 15px;
+    padding: 15px;
+    width: 150px;
+    height: 65px;
+    font-size: 18px;
     font-weight: bold;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: black;
     background-color: rgba(159, 90, 17, 0.447);
     clip-path: polygon(
@@ -41,6 +59,7 @@
         0 50%,
         0 50%
     );
+     
 }
 
 .edit {
@@ -49,7 +68,7 @@
     bottom: 2280px;
     left: 950px;
     margin-top: 20px;
-    padding: 10px 20px; 
+    padding: 5px 10px; 
     font-size: 18px; 
     font-weight: bold; 
     color: white; 
@@ -57,23 +76,34 @@
     border: none; 
     border-radius: 10px; 
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .edit-profile {
     position: relative;
-    left: 90px;
+    left: 350px;
+    top: -950px;
     bottom: 1400px;
     margin: 100px;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: bold;
     color: black;
 }
 
+.edit-profile p {
+    margin: 5px 0; /* Reduce spacing between <p> tags */
+}
+
 .save, .cancel {
-    padding: 20px;
-    margin: 10px;
+    padding: 10px 15px; 
+    margin: 5px; 
+    font-size: 16px; 
     color: white;
     background-color: #007bff;
+    border: none; 
+    border-radius: 5px; 
 }
 
 .overlay {
