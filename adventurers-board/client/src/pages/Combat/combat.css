@@ -3,6 +3,9 @@
 }
 
 .weapons {
+  display: flex;
+  padding: 10px;
+  margin: 15px;
   flex: 1;
   margin-right: 20px;
   background-color: gray;
@@ -10,6 +13,9 @@
 }
 
 .spells {
+  display: flex;
+  padding: 10px;
+  margin: 15px;
   flex: 1;
   background-color: gray;
   border-radius: 15px;
