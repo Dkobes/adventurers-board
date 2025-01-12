@@ -16,7 +16,7 @@
     transform: translateX(-50%);
     padding: 10px;
     overflow-y: auto;
-    max-height: 250px;
+    max-height: 130px;
     width: 400px;
     background-color: rgba(166, 172, 177, 0.723);
     border-radius: 10px;
