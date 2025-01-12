@@ -36,7 +36,8 @@ const Notes = ({ characterId }) => {
                         Authorization: `Bearer ${auth.getToken()}`
                     },
                     body: JSON.stringify(note)
-                })
+                });
+                setNoteText('');
     
                 const data = await response.json();
                 console.log(data);
@@ -45,7 +46,6 @@ const Notes = ({ characterId }) => {
             } catch (error) {
                 console.error('Error saving note:', error);
             }    
-            setNoteText('');
         }
     };
 
