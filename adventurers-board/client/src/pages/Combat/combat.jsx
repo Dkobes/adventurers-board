@@ -44,6 +44,31 @@ export default function Combat({ characterId }) {
     }, [])
 
     useEffect(() => {
+        const loadSpells = async () => {
+            try {
+                const response = await fetch(`/api/combat/spells/${characterId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${auth.getToken()}`
+                    }
+                })
+
+                const data = await response.json();
+
+                if (!data.message) {
+                    return setSpells(data);
+                } else {
+                    return console.log(data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching saved spells:', error);
+            }
+        }
+        loadSpells();
+    }, [])
+
+    useEffect(() => {
         const getSpellList = async () => {
             try {
                 const response = await fetch(`/api/spells/characters/${characterId}`, {
@@ -173,7 +198,21 @@ export default function Combat({ characterId }) {
                 const data = await response.json();
                 const dmgLvl = data.damage.damage_at_slot_level[spellChoice.level] || data.damage.damage_at_character_level[1];
                 const dmg = dmgLvl.split('d');
-                const spell = {name: data.name, atk: !data.damage ? null : 3, dc: data.dc ? data.dc.type.name : null, count: dmg[0], type: dmg[1]};
+                const spell = {name: data.name, attack: !data.damage ? null : 3, dc: data.dc ? data.dc.type.name : null, dieCount: dmg[0], dieType: dmg[1]};
+
+                const post = {character_id: characterId, name: spell.name, type: 'spell', attack: spell.attack, dc: spell.dc, dieCount: spell.dieCount, dieType: spell.dieType};
+                const res = await fetch(`/api/combat/spells/${characterId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${auth.getToken()}`
+                    },
+                    body: JSON.stringify(post)
+                })
+
+                const dat = await res.json();
+                console.log(dat);
+
                 return setSpells([...spells, spell]);
             } catch (err) {
                 console.error(err);
@@ -181,8 +220,26 @@ export default function Combat({ characterId }) {
         }
     }
 
-    const deleteSpell = (index) => {
+    const deleteSpell = async (index) => {
         const newSpells = spells.filter((spell, i) => index !== i);
+        const id = spells[index].id;
+
+        try {
+            const response = await fetch(`/api/combat/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${auth.getToken()}`
+                },
+                body: JSON.stringify()
+            })
+
+            const data = await response.json();
+            return console.log(data);
+        } catch (error) {
+            console.error('Error deleting spell:', error);
+        }
+
         setSpells(newSpells);
     }
 
@@ -245,12 +302,13 @@ export default function Combat({ characterId }) {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${auth.getToken()}`
-                }
+                },
+                body: JSON.stringify()
             })
 
             const data = await response.json();
 
-            console.log(data);
+            return console.log(data);
         } catch (error) {
             console.error('Error deleting weapon:', error);
         }
