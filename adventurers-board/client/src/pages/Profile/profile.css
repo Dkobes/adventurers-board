@@ -12,7 +12,7 @@
 
 .character-name {
     position: relative;
-    left: 60px;
+    left: 20px;
     bottom: 1200px;
     margin: 28px 0;
     font-size: 35px;
@@ -32,9 +32,9 @@
 }
 
 .attribute-box {
-    /*position: relative;
-    bottom: 2270px;
-    left: 855px;*/
+    position: relative;
+    bottom: 2285px;
+    left: 900px;
     margin: 60px 0;
     padding: 35px;
     width: 100px;
@@ -44,10 +44,31 @@
     color: black;
     background-color: rgba(203, 151, 96, 0.447);
     clip-path: polygon(
-        20% 0%, 80% 0%, 100% 50%, 100% 49%, 80% 100%, 20% 100%, 0 50%, 0 50%
+        20% 0%,
+        80% 0%,
+        100% 50%,
+        100% 49%,
+        80% 100%,
+        20% 100%,
+        0 50%,
+        0 50%
     );
 }
 
-
+.edit {
+    position: relative;
+    display: block;
+    bottom: 2280px;
+    left: 950px;
+    margin-top: 20px;
+    padding: 10px 20px; 
+    font-size: 18px; 
+    font-weight: bold; 
+    color: white; 
+    background-color: #007bff; 
+    border: none; 
+    border-radius: 10px; 
+    cursor: pointer;
+}
   
 
