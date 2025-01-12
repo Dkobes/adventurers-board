@@ -69,6 +69,10 @@
     border-radius: 10px;
 }
 
+.spellbook-container {
+    position: relative; /* Ensure the parent container is positioned relative */
+}
+
 .spell-selector {
     position: absolute;
     left: 470px;
@@ -76,6 +80,17 @@
     background-color:rgba(88, 199, 222, 0.587);
     margin: 20px;
     border-radius: 10px;
+}
+
+.selected-spell-details {
+    position: absolute;
+    left: -200px;
+    top: calc(20px + 100% + 20px); /* Position below the spell-selector */
+    background-color: rgba(88, 199, 222, 0.587);
+    margin: 20px;
+    border-radius: 10px;
+    width: 650px; /*Can make this smaller here and do the scroll bar, if this gets smaller will just need to mess with left positioning */
+    padding: 10px; 
 }
 
 .saved-spells {
