@@ -10,7 +10,7 @@
 .text-overlay {
     position : absolute;
     top: 150px;
-    left: 640px;
+    left: 825px;
     font-weight: bold;
     font-size: 20px;
 }
@@ -18,7 +18,7 @@
 .button-overlay {
     position: absolute;
     top: 270px;
-    left: 690px;
+    left: 870px;
 }
 
 .list {
