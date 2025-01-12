@@ -94,8 +94,8 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
       });
   };
 
-  const handleDeleteCharacter = (id) => {
-    fetch(`/api/characters/${id}`, {
+  const handleDeleteCharacter = (characterId) => {
+    fetch(`/api/characters/${characterId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${auth.getToken()}`,
@@ -109,7 +109,7 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
       })
       .then(() => {
         // Update the character list by removing the deleted character
-        setCharacterList(characterList.filter((character) => character.id !== id));
+        setCharacterList(characterList.filter((character) => character.id !== characterId));
         alert("Character deleted successfully!");
       })
       .catch((err) => {
