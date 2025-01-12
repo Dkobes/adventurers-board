@@ -1,111 +1,70 @@
-.spellbook {
-    width: 150%;
-    height: auto;
-    opacity: 0.7;
-}
-
-.overlay {
-    position: absolute;
-    top: 155px;
-}
-
-/* .spellcasting-stats {
-    margin-bottom: 20px;
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-} */
-
-.spellcasting-ability {
-    font-weight: bold;
-    font-size:18px;
-    background-color:rgba(88, 199, 222, 0.587);
-    margin-top: 100px;
-    border-radius: 10px;
-   
-}
-
-.spellcasting-modifier {
-    position: relative;
-    left: 400px;
-    bottom: 28px;
-    font-weight: bold;
-    font-size: 18px;
-    background-color:rgba(88, 199, 222, 0.587);
-    padding: 2px;
-    border-radius: 10px;
-}
-
-.proficiency-bonus {
-    position: relative;
-    left: 800px;
-    bottom: 60px;
-    font-weight: bold;
-    font-size: 18px;
-    background-color:rgba(88, 199, 222, 0.587);
-    border-radius: 10px;
-}
-
-.spell-save-dc {
-    position: relative;
-    left: 175px;
-    bottom: 148px;
-    font-weight: bold;
-    font-size: 18px;
-    background-color:rgba(88, 199, 222, 0.587);
-    margin: 100px;
-    border-radius: 10px;
-}
-
-.spell-attack-bonus {
-    position: relative;
-    left: 640px;
-    bottom: 275px;
-    font-weight: bold;
-    font-size: 18px;
-    background-color:rgba(88, 199, 222, 0.587);
-    margin: 90px;
-    border-radius: 10px;
-}
-
-.spell-levels {
-    position: relative;
-    bottom: 320px;
-    left: 60px;
-    background-color:rgba(88, 199, 222, 0.587);
-    margin:25px;
-    border-radius: 10px;
-}
-
 .spellbook-container {
     position: relative; /* Ensure the parent container is positioned relative */
 }
 
-.spell-selector {
+.spellbook-sheet {
+    position: relative;
+    min-height: 100vh; 
+}
+
+.spellbook {
     position: absolute;
-    left: 520px;
-    bottom: 770px;
-    background-color:rgba(88, 199, 222, 0.587);
-    margin: 20px;
+    top: 0;
+    left: 0;
+    width: 150%; 
+    height: auto; 
+    object-fit: cover; 
+    z-index: -1; 
+    opacity: 0.5; 
+}
+
+.overlay {
+    position: relative; 
+    padding: 20px;
+    width: 150%;
+}
+
+.spellcasting-stats {
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-around; 
+    flex-wrap: wrap; 
+    max-width: 150%;
+}
+
+.spellcasting-ability,
+.spellcasting-modifier,
+.proficiency-bonus,
+.spell-save-dc,
+.spell-attack-bonus {
+    flex: 1 1 calc(20% - 20px); 
+    margin: 10px;
+    padding: 10px;
+    background-color: rgba(88, 199, 222, 0.7);
+    border-radius: 10px;
+    text-align: center;
+    
+}
+
+.spell-levels,
+.spell-selector,
+.saved-spells {
+    display: inline-block;
+    width: 30%; 
+    vertical-align: top;
+    margin: 20px 10px;
+    padding: 10px;
+    background-color: rgba(88, 199, 222, 0.7);
     border-radius: 10px;
 }
 
 .selected-spell-details {
-    position: absolute;
-    left: -200px;
-    top: calc(20px + 100% + 20px); /* Position below the spell-selector */
-    background-color: rgba(88, 199, 222, 0.587);
-    margin: 20px;
-    border-radius: 10px;
-    width: 650px; /*Can make this smaller here and do the scroll bar, if this gets smaller will just need to mess with left positioning */
-    padding: 10px; 
-}
-
-.saved-spells {
     position: relative;
-    left: 900px;
-    bottom: 640px;
-    background-color:rgba(88, 199, 222, 0.587);
-    margin: 50px;
+    margin: 20px auto;
+    max-width: 95%;
+    max-height: 200px; /* Restrict height */
+    overflow-y: auto; /* Add vertical scroll */
+    background-color: rgba(88, 199, 222, 0.7);
+    padding: 15px;
     border-radius: 10px;
 }
