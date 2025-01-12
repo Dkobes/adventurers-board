@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { DiceRoll } from '@dice-roller/rpg-dice-roller';
 import auth from '../../utils/auth.js'
 import './combat.css';
-import Colosseum from '/src/assets/images/colosseum.jpg';
+import Colosseum from '/src/assets/images/Colosseum.jpg';
 
 export default function Combat({ characterId }) {
     const [weapons, setWeapons] = useState([]);
@@ -196,9 +196,10 @@ export default function Combat({ characterId }) {
                 })
 
                 const data = await response.json();
+                console.log(data);
                 const dmgLvl = data.damage.damage_at_slot_level[spellChoice.level] || data.damage.damage_at_character_level[1];
                 const dmg = dmgLvl.split('d');
-                const spell = {name: data.name, attack: !data.damage ? null : 3, dc: data.dc ? data.dc.type.name : null, dieCount: dmg[0], dieType: dmg[1]};
+                const spell = {name: data.name, attack: !data.damage ? null : 3, dc: data.dc ? data.dc.dc_type.name : null, dieCount: dmg[0], dieType: dmg[1]};
 
                 const post = {character_id: characterId, name: spell.name, type: 'spell', attack: spell.attack, dc: spell.dc, dieCount: spell.dieCount, dieType: spell.dieType};
                 const res = await fetch(`/api/combat/spells/${characterId}`, {

@@ -2,6 +2,7 @@ import { Router } from 'express';
 import User from '../../models/User.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import authMiddleware from '../../middleware/auth.js';
 const router = Router();
 
 const getAllUsers = async (_req, res) => {
@@ -71,7 +72,7 @@ router.post('/', async (req, res) => {
   });
 
   // PUT /users/:id - Update a user by id
-router.put('/:id', async (req, res) => {
+router.put('/:id', authMiddleware, async (req, res) => {
     const { id } = req.params;
     const { username, password } = req.body;
     try {
@@ -90,7 +91,7 @@ router.put('/:id', async (req, res) => {
   });
   
   // DELETE /users/:id - Delete a user by id
-  router.delete('/:id', async (req, res) => {
+  router.delete('/:id', authMiddleware, async (req, res) => {
     const { id } = req.params;
     try {
       const user = await User.findByPk(id);
