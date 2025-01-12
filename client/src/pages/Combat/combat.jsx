@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { DiceRoll } from '@dice-roller/rpg-dice-roller';
 import auth from '../../utils/auth.js'
 import './combat.css';
-import Colosseum from '/src/assets/images/colosseum.jpg';
+import Colosseum from '/src/assets/images/Colosseum.jpg';
 
 export default function Combat({ characterId }) {
     const [weapons, setWeapons] = useState([]);
