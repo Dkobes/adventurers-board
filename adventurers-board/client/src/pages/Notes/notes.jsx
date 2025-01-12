@@ -3,51 +3,24 @@ import auth from '../../utils/auth.js';
 import NotePaper from '/src/assets/images/note-paper.jpg';
 import './notes.css';
 
-<<<<<<< Updated upstream
-const Notes = ({characterId}) => {
-=======
 const Notes = ({characterId }) => {
->>>>>>> Stashed changes
     const [notes, setNotes] = useState([]);
     const [noteText, setNoteText] = useState('');
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-<<<<<<< Updated upstream
-        fetch(`/api/notes/characters/${characterId}`, {
-=======
         fetch(`/api/notes${characterId}`, {
->>>>>>> Stashed changes
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${auth.getToken()}`
             }
         })
-<<<<<<< Updated upstream
-        .then(res => {
-            if (!res.ok) {
-                throw new Error('Failed to fetch character data');
-            }
-            return res.json();
-        })
-        .then(data => {
-            setItems(data); // Set the items from the response
-            setIsLoading(false); // Set loading to false
-        })
-        .catch(err => {
-            setError(err.message); // Set error message
-            setIsLoading(false); 
-          console.error(err);
-        });
-}, [characterId]);
-=======
         .then((response) => response.json())
         .then((data) => setNotes(data))
         .catch((error) => console.error('Error fetching notes:', error));
     }, [characterId]);
->>>>>>> Stashed changes
 
     const addNote = async () => {
         if (noteText) {

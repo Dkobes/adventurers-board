@@ -4,6 +4,7 @@ import CharacterSelect from "../CharacterSelect/characterselect";
 import auth from "../../utils/auth";
 import { useParams } from "react-router-dom";
 import "./profile.css"
+import Vines from '/src/assets/images/vine-paper.jpg';
 
 
 const Profile = () => {
@@ -101,7 +102,8 @@ const Profile = () => {
 
     return (
         <div className="profile">
-            <h1>Character Profile</h1>
+            <img src={Vines} alt="Paper covered in vines" className="profile-img"></img>
+            <h1 className="title">Character Profile</h1>
             {character ? (
                 isEditing ? (
                     <div>
@@ -125,22 +127,23 @@ const Profile = () => {
                         <button onClick={handleSave}>Save</button>
                         <button onClick={handleCancel}>Cancel</button>
                     </div>) : (
-                <div>
-                    <p>Name: {character.name}</p>
-                    <p>Class: {character.characterClass}</p>
-                    <p>Level: {character.level}</p>
-                    <p>Background: {character.background}</p>
-                    <p>Race: {character.race}</p>
-                    <p>Alignment: {character.alignment}</p>
-                    <p>Age: {character.age}</p>
-                    <p>Hair: {character.hair}</p>
-                    <p>Strength: {character.strength}</p>
-                    <p>Dexterity: {character.dexterity}</p>
-                    <p>Constitution: {character.constitution}</p>
-                    <p>Intelligence: {character.intelligence}</p>
-                    <p>Wisdom: {character.wisdom}</p>
-                    <p>Charisma: {character.charisma}</p>
-                    <button onClick={() => setIsEditing(true)}>Edit</button>   
+                <div className="text" id="overlay">
+                    <p className="character-name">Name: {character.name}</p>
+                    <p className="character-bio">Class: {character.characterClass}</p>
+                    <p className="character-bio">Level: {character.level}</p>
+                    <p className="character-bio">Background: {character.background}</p>
+                    <p className="character-bio">Race: {character.race}</p>
+                    <p className="character-bio">Alignment: {character.alignment}</p>
+                    <p className="character-bio">Age: {character.age}</p>
+                    <p className="character-bio">Hair: {character.hair}</p>
+
+                    <p className="attribute-box">Strength: {character.strength}</p>
+                    <p className="attribute-box">Dexterity: {character.dexterity}</p>
+                    <p className="attribute-box">Constitution: {character.constitution}</p>
+                    <p className="attribute-box">Intelligence: {character.intelligence}</p>
+                    <p className="attribute-box">Wisdom: {character.wisdom}</p>
+                    <p className="attribute-box">Charisma: {character.charisma}</p>
+                    <button onClick={() => setIsEditing(true)} className="edit">Edit</button>   
                 </div>
             ) ) : (
                 <div>No character data found</div>

@@ -1,0 +1,53 @@
+.profile-img {
+    width: 100%;
+    height: auto;
+}
+
+.title {
+    position: relative;
+    left: 105px;
+    bottom: 1485px;
+    color: black;
+}
+
+.character-name {
+    position: relative;
+    left: 60px;
+    bottom: 1200px;
+    margin: 28px 0;
+    font-size: 35px;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+}
+
+.character-bio {
+    position: relative;
+    bottom: 1175px;
+    margin: 35px 0;
+    padding: 25px;
+    font-size: 28px;
+    font-weight: bold;
+    color: black;
+}
+
+.attribute-box {
+    /*position: relative;
+    bottom: 2270px;
+    left: 855px;*/
+    margin: 60px 0;
+    padding: 35px;
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    background-color: rgba(203, 151, 96, 0.447);
+    clip-path: polygon(
+        20% 0%, 80% 0%, 100% 50%, 100% 49%, 80% 100%, 20% 100%, 0 50%, 0 50%
+    );
+}
+
+
+  
+
