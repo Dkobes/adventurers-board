@@ -21,6 +21,15 @@
   border-radius: 15px;
 }
 
+.skills {
+  display: flex;
+  padding: 10px;
+  margin: 15px;
+  flex: 1;
+  background-color: gray;
+  border-radius: 15px;
+}
+
 .dice {
   margin: 15px;
 }
@@ -38,6 +47,6 @@ span {
 }
 
 .colosseum-img {
-  max-width: 150%;
-  opacity: 0.7;
+  width: 150%;
+  opacity: 0.4;
 }
