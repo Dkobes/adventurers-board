@@ -28,20 +28,30 @@
 .character-select {
     position: relative;
     left: 450px;
-    bottom: 850px;
+    bottom: 815px;
     color: black;
+    background-color: rgba(166, 172, 177, 0.723);
+    border-radius: 15px;
+    border: 1px solid;
+    margin-top: 20px;
 }
 
 .existing-character {
     position: relative;
     bottom: 750px;
     left: 135px;
+    background-color: rgba(166, 172, 177, 0.723);
+    border-radius: 10px;
+    border: 1px solid;
 }
 
 .new-character {
     position: relative;
     bottom: 300px;
     left: -115px;
+    background-color: rgba(166, 172, 177, 0.723);
+    border-radius: 10px;
+    border: 1px solid;
 }
 
 .character-card-option-selected {
