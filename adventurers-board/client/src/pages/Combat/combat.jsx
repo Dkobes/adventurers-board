@@ -6,6 +6,7 @@ import Colosseum from '/src/assets/images/colosseum.jpg';
 
 export default function Combat() {
     const [weapons, setWeapons] = useState([]);
+    const [weaponList, setWeaponList] = useState([]);
     const [spells, setSpells] = useState([]);
     const [spellList, setSpellList] = useState([]);
     const [skillName, setSkillName] = useState('');
@@ -29,15 +30,31 @@ export default function Combat() {
 
                 const data = await response.json()
                 if (!response.ok) {
-                    throw new Error('Invalid response')
+                    throw new Error('Invalid Response')
                 }
-                setSpellList(data);
-                return data;
+                return setSpellList(data);
             } catch (err) {
                 console.error(err);
             }
         }
-        getSpellList();
+        getSpellList()
+    }, [])
+
+    useEffect(() => {
+        const loadWeapons = async () => {
+            try {
+                const response = await fetch('https://www.dnd5eapi.co/api/equipment-categories/weapon')
+
+                const data = await response.json();
+                if (!response.ok) {
+                    throw new Error('Invalid Response')
+                }
+                return setWeaponList(data.equipment);
+            } catch (error) {
+                console.error('Error fetching weapons:', error);
+            }
+        }
+        loadWeapons();
     }, [])
 
     const skillPrompt = () => {
@@ -128,7 +145,9 @@ export default function Combat() {
                 })
 
                 const data = await response.json();
-                const spell = {name: data.name, atk: data.dc || !data.damage ? null : 3, dc: data.dc ? data.dc.type.name : null, count: 1, type: 6};
+                const dmgLvl = data.damage.damage_at_slot_level[spellChoice.level] || data.damage.damage_at_character_level[1];
+                const dmg = dmgLvl.split('d');
+                const spell = {name: data.name, atk: !data.damage ? null : 3, dc: data.dc ? data.dc.type.name : null, count: dmg[0], type: dmg[1]};
                 return setSpells([...spells, spell]);
             } catch (err) {
                 console.error(err);
@@ -141,12 +160,46 @@ export default function Combat() {
         setSpells(newSpells);
     }
 
+    const weaponSelect = () => {
+        return (
+            <div>
+            <label htmlFor='weaponOptions'>Add Weapon: </label>
+            <select id='weaponOptions'>
+                {weaponList.map((weapon, index) => (
+                    <option key={index} value={JSON.stringify(weapon)}>{weapon.name}</option>
+                ))}
+            </select>
+            <button onClick={() => addWeapon(weaponOptions.value)}>Add Weapon</button>
+            </div>
+        )
+    }
+
+    const addWeapon = async (newWeapon) => {
+        const weaponChoice = JSON.parse(newWeapon);
+
+        if (!weapons.find((weapon) => weapon.name === weaponChoice.name)) {
+
+            try {
+                const response = await fetch(`https://www.dnd5eapi.co/api/equipment/${weaponChoice.index}`)
+
+                const data = await response.json();
+                console.log(data)
+                const dmgLvl = data.damage.damage_dice;
+                const dmg = dmgLvl.split('d');
+                const weapon = {name: data.name, atk: 3, count: dmg[0], type: dmg[1]};
+                return setWeapons([...weapons, weapon])
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    }
+
     const deleteWeapon = (index) => {
         const newWeapons = weapons.filter((weapon, i) => index !== i);
         setWeapons(newWeapons);
     }
 
-    function diceRoll(count, type, modifier) {
+    const diceRoll = (count, type, modifier) => {
         const roll = new DiceRoll(`${count}d${type} + ${modifier}`);
         console.log(roll.output);
         setDice(roll.total);
@@ -166,6 +219,7 @@ export default function Combat() {
                         <p key={index}><span>{weapon.name}</span> <button onClick={() => diceRoll(1, 20, weapon.atk)}>To Hit: +{weapon.atk}</button> 
                         <button onClick={() => diceRoll(weapon.count, weapon.type, 0)}>Damage: {weapon.count}d{weapon.type}</button> <button onClick={() => deleteWeapon(index)}>X</button></p>
                     ))}
+                    {weaponSelect()}
                 </section>
                 
                 <section className='spells'>

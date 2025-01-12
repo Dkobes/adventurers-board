@@ -45,11 +45,15 @@
 }
 
 .character-card-option-selected {
-    background-color: rgb(231, 135, 135);
+    background-color: rgb(74, 210, 122);
 }
 
 .character-card-option {
-    background-color: rgb(170, 170, 255);
+    background-color: cornflowerblue;
+}
+
+.character-card-option:hover {
+    background-color:bisque;
 }
 
 #form-submit {
