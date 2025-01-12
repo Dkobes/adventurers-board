@@ -129,6 +129,7 @@ useEffect(() => {
         <div className='spellbook-sheet'>
             <img src={Fantasyspells} alt="An open spellbook" className='spellbook'></img>
             <div className='overlay'>
+        <div className='spellcasting-stats'>
         <div className='spellcasting-ability'>
             <label>Spellcasting Ability: </label>
             <select value={spellcastingAbility}
@@ -165,7 +166,7 @@ useEffect(() => {
         <div className='spell-attack-bonus'>
             <p>Spell Attack Bonus: {calculateSpellAttackBonus()}</p>
         </div>
-
+        </div>
         <div className='spell-levels'>
             <h2>Spell Levels</h2>
             {spellLevels.map((level, index) => (

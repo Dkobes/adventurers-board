@@ -9,18 +9,26 @@
     top: 155px;
 }
 
+/* .spellcasting-stats {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+} */
+
 .spellcasting-ability {
     font-weight: bold;
     font-size:18px;
     background-color:rgba(88, 199, 222, 0.587);
-    margin:48px;
+    margin-top: 100px;
     border-radius: 10px;
+   
 }
 
 .spellcasting-modifier {
     position: relative;
     left: 400px;
-    bottom: 83px;
+    bottom: 28px;
     font-weight: bold;
     font-size: 18px;
     background-color:rgba(88, 199, 222, 0.587);
@@ -31,7 +39,7 @@
 .proficiency-bonus {
     position: relative;
     left: 800px;
-    bottom: 130px;
+    bottom: 60px;
     font-weight: bold;
     font-size: 18px;
     background-color:rgba(88, 199, 222, 0.587);
@@ -41,7 +49,7 @@
 .spell-save-dc {
     position: relative;
     left: 175px;
-    bottom: 200px;
+    bottom: 148px;
     font-weight: bold;
     font-size: 18px;
     background-color:rgba(88, 199, 222, 0.587);
@@ -52,7 +60,7 @@
 .spell-attack-bonus {
     position: relative;
     left: 640px;
-    bottom: 327px;
+    bottom: 275px;
     font-weight: bold;
     font-size: 18px;
     background-color:rgba(88, 199, 222, 0.587);
@@ -62,8 +70,8 @@
 
 .spell-levels {
     position: relative;
-    bottom: 390px;
-    left: 50px;
+    bottom: 320px;
+    left: 60px;
     background-color:rgba(88, 199, 222, 0.587);
     margin:25px;
     border-radius: 10px;
@@ -75,8 +83,8 @@
 
 .spell-selector {
     position: absolute;
-    left: 470px;
-    bottom: 883px;
+    left: 520px;
+    bottom: 770px;
     background-color:rgba(88, 199, 222, 0.587);
     margin: 20px;
     border-radius: 10px;
@@ -95,8 +103,8 @@
 
 .saved-spells {
     position: relative;
-    left: 820px;
-    bottom: 900px;
+    left: 900px;
+    bottom: 640px;
     background-color:rgba(88, 199, 222, 0.587);
     margin: 50px;
     border-radius: 10px;
