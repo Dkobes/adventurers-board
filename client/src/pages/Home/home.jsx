@@ -95,7 +95,7 @@ const Home = ({ handleLogin }) => {
                     // if already loggedin, do not show auth form
                     <div>
 
-                        <button onClick={Auth.logout} className="sign-out-button">
+                        <button onClick={Auth.logout} className="sign-out-button-home">
                             Sign Out
                         </button>
                     </div>
