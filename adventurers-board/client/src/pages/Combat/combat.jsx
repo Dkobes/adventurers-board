@@ -271,7 +271,7 @@ export default function Combat({ characterId }) {
                 const dmg = dmgLvl.split('d');
                 const weapon = {name: data.name, attack: 3, dieCount: parseInt(dmg[0]), dieType: parseInt(dmg[1])};
 
-                const post = {character_id: characterId, name: weapon.name, type: 'weapon', attack: weapon.atk, dc: null, dieCount: weapon.dieCount, dieType: weapon.dieType};
+                const post = {character_id: characterId, name: weapon.name, type: 'weapon', attack: weapon.attack, dc: null, dieCount: weapon.dieCount, dieType: weapon.dieType};
 
                 const res = await fetch(`/api/combat/${characterId}`, {
                     method: 'POST',

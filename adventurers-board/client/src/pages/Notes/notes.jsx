@@ -2,17 +2,15 @@ import React, { useState, useEffect } from 'react';
 import auth from '../../utils/auth.js';
 import NotePaper from '/src/assets/images/note-paper.jpg';
 import './notes.css';
-import { useParams } from 'react-router-dom';
 
-const Notes = () => {
-    const { characterId } = useParams();
+const Notes = ({ characterId }) => {
     const [notes, setNotes] = useState([]);
     const [noteText, setNoteText] = useState('');
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`/api/notes/${characterId}`, {
+        fetch(`/api/notes/characters/${characterId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,6 +27,7 @@ const Notes = () => {
 
     const addNote = async () => {
         if (noteText) {
+            const note = { character_id: characterId, name: noteText}
             try {
                 const response = await fetch(`/api/notes/${characterId}`, {
                     method: 'POST',
@@ -36,7 +35,7 @@ const Notes = () => {
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${auth.getToken()}`
                     },
-                    body: JSON.stringify({ character_id: characterId, name: noteText})
+                    body: JSON.stringify(note)
                 })
     
                 const data = await response.json();
@@ -88,7 +87,7 @@ const Notes = () => {
                         <div className="list">
                         {notes.map((note, index) => (
                             <li key={note.id}>
-                                {note.text}
+                                {note.name}
                                 <button onClick={() => removeNote(index)} style={{ marginLeft: '10px' }}>
                                 Remove
                                 </button>

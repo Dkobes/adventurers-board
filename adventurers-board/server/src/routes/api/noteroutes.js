@@ -3,7 +3,7 @@ import Note from '../../models/Note.js';
 const router = Router();
 
 // GET all notes by character
-router.get('/:character_id', async (_req, res) => {
+router.get('/characters/:character_id', async (req, res) => {
     try {
         const notes = await Note.findAll({
             where: { character_id: req.params.character_id }
