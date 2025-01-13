@@ -16,6 +16,7 @@ function App() {
   const [characterId, setCharacterId] = useState(null);
   const [userId, setUserId] = useState(); // Add userId state
 
+
   const [characterList, setCharacterList] = useState([]);
 
   const [error, setError] = useState(null); // State to hold any error messages

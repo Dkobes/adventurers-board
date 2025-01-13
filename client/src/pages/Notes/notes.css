@@ -41,3 +41,34 @@ textarea {
     width: 200px;
     height: 100px
 }
+
+/* Media Query for screens smaller than 768px */
+@media (max-width: 768px) {
+    .notepaper-img {
+        width: 100%; /* Make the image responsive */
+        height: auto; /* Adjust height automatically */
+    }
+
+    .text-overlay {
+        top: 100px; /* Adjust position for smaller screens */
+        left: 20px; /* Adjust position for smaller screens */
+        font-size: 16px; /* Reduce font size */
+    }
+
+    .button-overlay {
+        top: 150px; /* Adjust position for smaller screens */
+        left: 20px; /* Adjust position for smaller screens */
+    
+    }
+
+    .list {
+        position: relative; /* Change position to relative */
+        left: 0; /* Reset left position */
+        font-size: 14px; /* Reduce font size */
+    }
+
+    textarea {
+        width: 100%; /* Make textarea responsive */
+        height: auto; /* Adjust height automatically */
+    }
+}
