@@ -66,7 +66,14 @@ const Home = ({ handleLogin }) => {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
+<<<<<<< HEAD
             })
+=======
+                    setUsername('');
+                setPassword('');
+                alert("User created successfully. Please sign in.");
+        })
+>>>>>>> cf47f1311cdf9b6118f0bc6bb04c4ad785787640
             .catch((error) => {
                 console.error("Error during registration:", error);
                 alert("An error occurred during registration.");
