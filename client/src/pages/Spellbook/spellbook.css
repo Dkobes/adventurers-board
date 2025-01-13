@@ -52,7 +52,7 @@
 .spell-sections {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    width: 80%;
     margin: 20px 0;
 }
 
@@ -60,9 +60,8 @@
 .spell-selector,
 .saved-spells {
     display: inline-block;
-    width: 20%; 
-    margin: 20px 10px;
-    flex: 1 1 30%;
+    width: 15%; 
+    flex: 1 1 20%;
     margin: 20px 20px;
     padding: 10px;
     max-height: 500px;
