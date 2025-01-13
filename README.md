@@ -45,6 +45,7 @@ Here are the main pages of Adventurer's Board
 ![Homepage Screenshot](/client/src/assets/images/homepagescreenshot.png)
 
 **Character Creation**
+![Character Creation Screenshot](/client/src/assets/images/charactercreationscreenshot.png)
 
 # Credits 
 Collaborators- 
