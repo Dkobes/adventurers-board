@@ -167,6 +167,7 @@ useEffect(() => {
             <p>Spell Attack Bonus: {calculateSpellAttackBonus()}</p>
         </div>
         </div>
+        <div className="spell-sections">
         <div className='spell-levels'>
             <h2>Spell Levels</h2>
             {spellLevels.map((level, index) => (
@@ -216,6 +217,7 @@ useEffect(() => {
                         </li>
                     ))}
                 </ul>
+            </div>
             </div>
         </div>
         </div>
