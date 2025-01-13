@@ -66,17 +66,6 @@ const Home = ({ handleLogin }) => {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
-            // .then(() => {
-            //     handleSignIn();
-            
-            // })
-            //     if (data.token) { // Ensure token exists before logging in
-            //         // Auth.login(data.token);
-            //         handleLogin(data.userId);
-            //         navigate('/characterselect');
-            //     } else {
-            //         alert("Registration failed. Please try again.");
-            //     }
             })
             .catch((error) => {
                 console.error("Error during registration:", error);

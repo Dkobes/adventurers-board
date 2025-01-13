@@ -35,20 +35,20 @@ nav ul li a {
 }
 
 .sign-out-button:hover {
-    color: black; /* Text turns black on hover */
-    background-color: cornflowerblue /* Button turns blue on hover */
+    color: black; 
+    background-color: cornflowerblue 
 }
 
 .error-message {
     color: red;
     background-color: black;
-    position: fixed; /* Use fixed positioning to place it in the viewport */
-    top: 20px; /* Position it near the top */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Adjust for the element's own width */
-    padding: 10px 20px; /* Padding for spacing */
-    border-radius: 5px; /* Rounded corners */
-    z-index: 1000; /* Ensure it's above other elements */
-    text-align: center; /* Center the text */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional shadow for better visibility */
+    position: fixed; 
+    top: 20px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    z-index: 1000; 
+    text-align: center; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
 }

@@ -30,11 +30,11 @@ const Spellbook = ({ characterId }) => {
             return res.json();
         })
         .then(data => {
-            setSavedSpells(data); // Set the spells from the response
-            setIsLoading(false); // Set loading to false
+            setSavedSpells(data); 
+            setIsLoading(false); 
         })
         .catch(err => {
-            setError(err.message); // Set error message
+            setError(err.message); 
             setIsLoading(false); 
           console.error(err);
         });
