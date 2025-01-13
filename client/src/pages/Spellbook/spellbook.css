@@ -46,14 +46,21 @@
     
 }
 
+.spell-sections {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 20px 0;
+}
+
 .spell-levels,
 .spell-selector,
 .saved-spells {
-    display: inline-block;
-    width: 30%; 
-    vertical-align: top;
-    margin: 20px 10px;
+    flex: 1 1 30%;
+    margin: 20px 20px;
     padding: 10px;
+    max-height: 500px;
+    font-size: 18px;
     background-color: rgba(88, 199, 222, 0.7);
     border-radius: 10px;
 }
