@@ -1,22 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './navbar.css';
 import Auth from '../../utils/auth';
 
-const Navbar = ({ characterId, setError }) => {
-
+const Navbar = ({ characterId }) => {
+    const [errorMessage, setErrorMessage] = useState(null); 
     const navigate = useNavigate();
 
     function checkCharacterId() {
-        if (characterId == 0) {
-            setError("You must select a character first!")
+        if (characterId === 0, null || characterId === null) {
+            setErrorMessage("You must select a character first!")
             setTimeout(() => {
-                setError(null);
+                setErrorMessage(null);
                 navigate("/characterselect");
-            }, 3000);
+            }, 2000);
         } else {
-            setError(null);
+            setErrorMessage(null);
         }
     }
 
@@ -25,8 +25,18 @@ const Navbar = ({ characterId, setError }) => {
         window.location.assign('/');
     };
 
+    if (errorMessage) {
+        return (
+            <div className="error-message">
+                {errorMessage}
+            </div>
+        );
+    }
+
+
     return (
         <header>
+         
             <nav>
                 <ul>
                     <li>
