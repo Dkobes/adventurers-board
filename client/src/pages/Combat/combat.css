@@ -1,49 +1,37 @@
 .overlay-combat {
-  position: relative;
-  margin-left: 60px;
-  margin-top: 60px;
-  padding: 20px;
-  width: 130%;
-  bottom: 1400px;
+  position: absolute;
+  top: 40%;
+  width: 100%;
+  margin: 5px;
 }
 
+.colosseum-img {
+  width: 150%;
+  opacity: 0.4;
+}
 
 .combat {
   display: flex;
 }
 
-.weapons {
+.weapons, .spells, .skills {
   display: flex;
-  padding: 10px;
-  margin: 15px;
+  flex-direction: column;
+  padding: 50px;
+  margin: 30px;
   flex: 1;
-  margin-right: 20px;
+  color: white;
   background-color: gray;
   border-radius: 15px;
-}
-
-.spells {
-  display: flex;
-  padding: 10px;
-  margin: 15px;
-  flex: 1;
-  background-color: gray;
-  border-radius: 15px;
-}
-
-.skills {
-  display: flex;
-  padding: 10px;
-  margin: 15px;
-  flex: 1;
-  background-color: gray;
-  border-radius: 15px;
+  overflow-y: auto;
+  height: 450px;
+  max-height: 700px;
 }
 
 .spellSelect, .weaponSelect {
   display: flex;
   flex-direction: column;
-  margin-top: 60px;
+  margin-top: 10px;
 }
 
 .skillPrompt {
@@ -57,8 +45,12 @@
 }
 
 .dice {
-  align-items: center;
-  margin-top: 75px;
+  position: absolute;
+  top: -40%;
+  left: 43%;
+  background-color: gray;
+  padding: 20px;
+  border-radius: 15px;
 }
 
 span {
@@ -73,7 +65,6 @@ span {
   transition: border-color 0.25s;
 }
 
-.colosseum-img {
-  width: 150%;
-  opacity: 0.4;
+@media (min-width:768px) {
+  
 }

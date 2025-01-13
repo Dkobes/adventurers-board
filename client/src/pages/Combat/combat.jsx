@@ -321,10 +321,6 @@ export default function Combat({ characterId }) {
                 {/* Display weapons from inventory with their damage and attack modifiers. Choose spells to display */}
                 <section className='weapons'>
                     <h3>Weapons</h3>
-                    {weapons.map((weapon, index) => (
-                        <p key={index}><span>{weapon.name}</span> <button onClick={() => diceRoll(1, 20, weapon.attack)}>To Hit: +{weapon.attack}</button>
-                        <button onClick={() => diceRoll(weapon.dieCount, weapon.dieType, 0)}>Damage: {weapon.dieCount}d{weapon.dieType}</button> <button onClick={() => deleteWeapon(index)}>X</button></p>
-                    ))}
                     <div className='weaponSelect'>
                         <label htmlFor='weaponOptions'>Add Weapon: </label>
                         <select id='weaponOptions'>
@@ -334,14 +330,14 @@ export default function Combat({ characterId }) {
                         </select>
                         <button onClick={() => addWeapon(weaponOptions.value)}>Add Weapon</button>
                     </div>
+                    {weapons.map((weapon, index) => (
+                        <p key={index}><span>{weapon.name}</span> <button onClick={() => diceRoll(1, 20, weapon.attack)}>To Hit: +{weapon.attack}</button>
+                        <button onClick={() => diceRoll(weapon.dieCount, weapon.dieType, 0)}>Damage: {weapon.dieCount}d{weapon.dieType}</button> <button onClick={() => deleteWeapon(index)}>X</button></p>
+                    ))}
                 </section>
                
                 <section className='spells'>
                     <h3>Spells</h3>
-                    {spells.map((spell, index) => (
-                        <p key={index}><span>{spell.name}</span> {spell.attack === null ? <span>DC: {spell.dc}</span> : <button onClick={() => diceRoll(1, 20, spell.attack)}>To Hit: +{spell.attack}</button>}
-                        <button onClick={() => diceRoll(spell.dieCount, spell.dieType, 0)}>Damage: {spell.dieCount}d{spell.dieType}</button> <button onClick={() => deleteSpell(index)}>X</button></p>
-                    ))}
                     <div className='spellSelect'>
                         <label htmlFor='spellOptions'>Add Spell: </label>
                         <select id='spellOptions'>
@@ -351,14 +347,14 @@ export default function Combat({ characterId }) {
                         </select>
                         <button onClick={() => addSpell(spellOptions.value)}>Add Spell</button>
                     </div>
+                    {spells.map((spell, index) => (
+                        <p key={index}><span>{spell.name}</span> {spell.attack === null ? <span>DC: {spell.dc}</span> : <button onClick={() => diceRoll(1, 20, spell.attack)}>To Hit: +{spell.attack}</button>}
+                        <button onClick={() => diceRoll(spell.dieCount, spell.dieType, 0)}>Damage: {spell.dieCount}d{spell.dieType}</button> <button onClick={() => deleteSpell(index)}>X</button></p>
+                    ))}
                 </section>
 
                 <section className='skills'>
                     <h3>Skills</h3>
-                    {skills.map((skill, index) => (
-                        <p key={index}><span>{skill.name}</span> {skill.attack === null ? <span>DC: {skill.dc}</span> : <button onClick={() => diceRoll(1, 20, skill.attack)}>To Hit: +{skill.attack}</button>}
-                        <button onClick={() => diceRoll(skill.dieCount, skill.dieType, 0)}>Damage: {skill.dieCount}d{skill.dieType}</button> <button onClick={() => deleteSkill(index)}>X</button></p>
-                    ))}
                     <div className='skillPrompt'>
                         <input
                             name='name'
@@ -397,6 +393,10 @@ export default function Combat({ characterId }) {
                         </select>
                         <button onClick={() => addSkill(skillName, modifier.value, skillDice, diceType.value)}>Add Skill</button>
                     </div>
+                    {skills.map((skill, index) => (
+                        <p key={index}><span>{skill.name}</span> {skill.attack === null ? <span>DC: {skill.dc}</span> : <button onClick={() => diceRoll(1, 20, skill.attack)}>To Hit: +{skill.attack}</button>}
+                        <button onClick={() => diceRoll(skill.dieCount, skill.dieType, 0)}>Damage: {skill.dieCount}d{skill.dieType}</button> <button onClick={() => deleteSkill(index)}>X</button></p>
+                    ))}
                 </section>
             </div>
             <div className='dice'>
@@ -412,8 +412,8 @@ export default function Combat({ characterId }) {
                 <button style={style} onClick={() => setDiceName(12)}>d12</button>
                 <button style={style} onClick={() => setDiceName(20)}>d20</button>
                 <button style={style} onClick={() => setDiceName(100)}>d100</button>
+                <h2>{dice}</h2>
             </div>
-            <h2>{dice}</h2>
         </div>
         </div>
     )
