@@ -66,18 +66,10 @@ const Home = ({ handleLogin }) => {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
-            // .then(() => {
-            //     handleSignIn();
-            
-            // })
-            //     if (data.token) { // Ensure token exists before logging in
-            //         // Auth.login(data.token);
-            //         handleLogin(data.userId);
-            //         navigate('/characterselect');
-            //     } else {
-            //         alert("Registration failed. Please try again.");
-            //     }
-            })
+                    setUsername('');
+                setPassword('');
+                alert("User created successfully. Please sign in.");
+        })
             .catch((error) => {
                 console.error("Error during registration:", error);
                 alert("An error occurred during registration.");
