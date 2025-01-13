@@ -316,7 +316,7 @@ export default function Combat({ characterId }) {
             <div className="colosseum">
                 <img src={Colosseum} alt="A colosseum full of people" className="colosseum-img"></img>
             </div>
-            <div className="overlay">
+            <div className="overlay-combat">
             <div className="combat">
                 {/* Display weapons from inventory with their damage and attack modifiers. Choose spells to display */}
                 <section className='weapons'>

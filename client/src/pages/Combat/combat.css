@@ -1,8 +1,12 @@
-.overlay {
-  position: absolute;
-  width: 90%;
+.overlay-combat {
+  position: relative;
   margin-left: 60px;
+  margin-top: 60px;
+  padding: 20px;
+  width: 130%;
+  bottom: 1400px;
 }
+
 
 .combat {
   display: flex;
