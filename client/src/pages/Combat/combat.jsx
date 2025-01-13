@@ -133,49 +133,6 @@ export default function Combat({ characterId }) {
         getWeaponList();
     }, [])
 
-    const skillPrompt = () => {
-        return (
-            <div>
-            <input
-                name='name'
-                type='text'
-                value={skillName}
-                onChange={(event) => setSkillName(event.target.value)}
-                placeholder='Enter name'
-            />
-            <label htmlFor='modifier'> Choose a modifier: </label>
-            <select id='modifier'>
-                <option value='STR'>STR</option>
-                <option value='DEX'>DEX</option>
-                <option value='CON'>CON</option>
-                <option value='INT'>INT</option>
-                <option value='WIS'>WIS</option>
-                <option value='CHA'>CHA</option>
-            </select>
-            <label htmlFor='diceCount'>Number of dice: </label>
-            <input
-                name='diceCount'
-                type='number'
-                value={skillDice}
-                min='1'
-                max='999'
-                onChange={(event) => setSkillDice(event.target.value)}
-            />
-            <label htmlFor='diceType'>Die type: </label>
-            <select id='diceType'>
-                <option value='4'>d4</option>
-                <option value='6'>d6</option>
-                <option value='8'>d8</option>
-                <option value='10'>d10</option>
-                <option value='12'>d12</option>
-                <option value='20'>d20</option>
-                <option value='100'>d100</option>
-            </select>
-            <button onClick={() => addSkill(skillName, modifier.value, skillDice, diceType.value)}>Add Skill</button>
-            </div>
-        )
-    }
-
     const addSkill = async (name, modifier, diceAmount, diceValue) => {
         const newSkill = {name: name, attack: 3, dc: 13, dieCount: parseInt(diceAmount), dieType: parseInt(diceValue)};
         const post = {character_id: characterId, name: newSkill.name, type: 'skill', attack: newSkill.attack, dc: newSkill.dc, dieCount: newSkill.dieCount, dieType: newSkill.dieType};
@@ -218,20 +175,6 @@ export default function Combat({ characterId }) {
         }
 
         setSkills(newSkills);
-    }
-
-    const spellSelect = () => {
-        return (
-            <div>
-            <label htmlFor='spellOptions'>Add Spell: </label>
-            <select id='spellOptions'>
-                {spellList.map((spell, index) => (
-                    <option key={index} value={JSON.stringify(spell)}>{spell.name}</option>
-                ))}
-            </select>
-            <button onClick={() => addSpell(spellOptions.value)}>Add Spell</button>
-            </div>
-        )
     }
 
     const addSpell = async (newSpell) => {
@@ -301,20 +244,6 @@ export default function Combat({ characterId }) {
         }
 
         setSpells(newSpells);
-    }
-
-    const weaponSelect = () => {
-        return (
-            <div>
-            <label htmlFor='weaponOptions'>Add Weapon: </label>
-            <select id='weaponOptions'>
-                {weaponList.map((weapon, index) => (
-                    <option key={index} value={JSON.stringify(weapon)}>{weapon.name}</option>
-                ))}
-            </select>
-            <button onClick={() => addWeapon(weaponOptions.value)}>Add Weapon</button>
-            </div>
-        )
     }
 
     const addWeapon = async (newWeapon) => {
@@ -396,7 +325,15 @@ export default function Combat({ characterId }) {
                         <p key={index}><span>{weapon.name}</span> <button onClick={() => diceRoll(1, 20, weapon.attack)}>To Hit: +{weapon.attack}</button>
                         <button onClick={() => diceRoll(weapon.dieCount, weapon.dieType, 0)}>Damage: {weapon.dieCount}d{weapon.dieType}</button> <button onClick={() => deleteWeapon(index)}>X</button></p>
                     ))}
-                    {weaponSelect()}
+                    <div className='weaponSelect'>
+                        <label htmlFor='weaponOptions'>Add Weapon: </label>
+                        <select id='weaponOptions'>
+                        {weaponList.map((weapon, index) => (
+                            <option key={index} value={JSON.stringify(weapon)}>{weapon.name}</option>
+                        ))}
+                        </select>
+                        <button onClick={() => addWeapon(weaponOptions.value)}>Add Weapon</button>
+                    </div>
                 </section>
                
                 <section className='spells'>
@@ -405,7 +342,15 @@ export default function Combat({ characterId }) {
                         <p key={index}><span>{spell.name}</span> {spell.attack === null ? <span>DC: {spell.dc}</span> : <button onClick={() => diceRoll(1, 20, spell.attack)}>To Hit: +{spell.attack}</button>}
                         <button onClick={() => diceRoll(spell.dieCount, spell.dieType, 0)}>Damage: {spell.dieCount}d{spell.dieType}</button> <button onClick={() => deleteSpell(index)}>X</button></p>
                     ))}
-                    {spellSelect()}
+                    <div className='spellSelect'>
+                        <label htmlFor='spellOptions'>Add Spell: </label>
+                        <select id='spellOptions'>
+                        {spellList.map((spell, index) => (
+                            <option key={index} value={JSON.stringify(spell)}>{spell.name}</option>
+                        ))}
+                        </select>
+                        <button onClick={() => addSpell(spellOptions.value)}>Add Spell</button>
+                    </div>
                 </section>
 
                 <section className='skills'>
@@ -414,7 +359,44 @@ export default function Combat({ characterId }) {
                         <p key={index}><span>{skill.name}</span> {skill.attack === null ? <span>DC: {skill.dc}</span> : <button onClick={() => diceRoll(1, 20, skill.attack)}>To Hit: +{skill.attack}</button>}
                         <button onClick={() => diceRoll(skill.dieCount, skill.dieType, 0)}>Damage: {skill.dieCount}d{skill.dieType}</button> <button onClick={() => deleteSkill(index)}>X</button></p>
                     ))}
-                    {skillPrompt()}
+                    <div className='skillPrompt'>
+                        <input
+                            name='name'
+                            type='text'
+                            value={skillName}
+                            onChange={(event) => setSkillName(event.target.value)}
+                            placeholder='Enter name'
+                        />
+                        <label htmlFor='modifier'> Choose a modifier: </label>
+                        <select id='modifier'>
+                            <option value='STR'>STR</option>
+                            <option value='DEX'>DEX</option>
+                            <option value='CON'>CON</option>
+                            <option value='INT'>INT</option>
+                            <option value='WIS'>WIS</option>
+                            <option value='CHA'>CHA</option>
+                        </select>
+                        <label htmlFor='diceCount'>Number of dice: </label>
+                        <input
+                            id='diceCount'
+                            type='number'
+                            value={skillDice}
+                            min='1'
+                            max='999'
+                            onChange={(event) => setSkillDice(event.target.value)}
+                        />
+                        <label htmlFor='diceType'>Die type: </label>
+                        <select id='diceType'>
+                            <option value='4'>d4</option>
+                            <option value='6'>d6</option>
+                            <option value='8'>d8</option>
+                            <option value='10'>d10</option>
+                            <option value='12'>d12</option>
+                            <option value='20'>d20</option>
+                            <option value='100'>d100</option>
+                        </select>
+                        <button onClick={() => addSkill(skillName, modifier.value, skillDice, diceType.value)}>Add Skill</button>
+                    </div>
                 </section>
             </div>
             <div className='dice'>
