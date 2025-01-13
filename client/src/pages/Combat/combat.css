@@ -65,7 +65,7 @@ span {
   transition: border-color 0.25s;
 }
 
-@media (min-width:768px) and (max-width: 769px) {
+@media (min-width:768px) and (max-width: 1024px) {
   .combat {
     flex-direction: column;
   }
