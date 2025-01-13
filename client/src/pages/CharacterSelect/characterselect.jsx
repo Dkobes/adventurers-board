@@ -149,9 +149,11 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
         <h2>Create a new character</h2>
       </div>
       <form onSubmit={handleSubmit} id="form-submit">
+        <div className='form-pairs'>
         <label>Name:</label>
         <input type="text" required value={name} onChange={(e) => setName(e.target.value)} />
-
+        </div>
+        <div className='form-pairs'>
         <label>Class:</label>
         <select required value={characterClass} onChange={(e) => setCharacterClass(e.target.value)}>
           <option value="">Select Class</option>
@@ -161,7 +163,8 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
             </option>
           ))}
         </select>
-
+        </div>
+        <div className='form-pairs'>
         <label>Level:</label>
         <select required value={level} onChange={(e) => setLevel(e.target.value)}>
           <option value="">Select Level</option>
@@ -171,7 +174,8 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
             </option>
           ))}
         </select>
-
+        </div>
+        <div className='form-pairs'>
         <label>Background:</label>
         <select required value={background} onChange={(e) => setBackground(e.target.value)}>
           <option value="">Select Background</option>
@@ -181,7 +185,8 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
             </option>
           ))}
         </select>
-
+  </div>
+  <div className='form-pairs'>
         <label>Race:</label>
         <select required value={race} onChange={(e) => setRace(e.target.value)}>
           <option value="">Select Race</option>
@@ -191,7 +196,8 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
             </option>
           ))}
         </select>
-
+</div>
+<div className='form-pairs'>
         <label>Alignment:</label>
         <select required value={alignment} onChange={(e) => setAlignment(e.target.value)}>
           <option value="">Select Alignment</option>
@@ -201,7 +207,8 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
             </option>
           ))}
         </select>
-
+</div>
+<div className='form-pairs'>
         <label>Age:</label>
         <input
           type="number"
@@ -209,10 +216,12 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
           min={1}
           onChange={(e) => setAge(Number(e.target.value))}
         />
-
+        </div>
+        <div className='form-pairs'>
         <label>Hair:</label>
         <input type="text" required value={hair} onChange={(e) => setHair(e.target.value)} />
-
+        </div>
+        <div className='form-pairs'>
         <label>Strength:</label>
         <input
           type="number"
@@ -220,7 +229,8 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
           value={strength}
           onChange={(e) => setStrength(e.target.value)}
         />
-
+        </div>
+        <div className='form-pairs'>
         <label>Dexterity:</label>
         <input
           type="number"
@@ -228,7 +238,8 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
           value={dexterity}
           onChange={(e) => setDexterity(e.target.value)}
         />
-
+        </div>
+        <div className='form-pairs'>
         <label>Constitution:</label>
         <input
           type="number"
@@ -236,7 +247,8 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
           value={constitution}
           onChange={(e) => setConstitution(e.target.value)}
         />
-
+        </div>
+        <div className='form-pairs'>
         <label>Intelligence:</label>
         <input
           type="number"
@@ -244,7 +256,8 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
           value={intelligence}
           onChange={(e) => setIntelligence(e.target.value)}
         />
-
+        </div>
+        <div className='form-pairs'>
         <label>Wisdom:</label>
         <input
           type="number"
@@ -252,7 +265,8 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
           value={wisdom}
           onChange={(e) => setWisdom(e.target.value)}
         />
-
+        </div>
+        <div className='form-pairs'>
         <label>Charisma:</label>
         <input
           type="number"
@@ -260,7 +274,7 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
           value={charisma}
           onChange={(e) => setCharisma(e.target.value)}
         />
-
+        </div>
         <button type="submit">Submit</button>
       </form>
     </div>
