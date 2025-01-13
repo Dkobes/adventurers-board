@@ -149,10 +149,8 @@ const CharacterSelect = ({ characterId, setCharacterId, characterList, setCharac
         <h2>Create a new character</h2>
       </div>
       <form onSubmit={handleSubmit} id="form-submit">
-        <div className='form-pairs'>
         <label>Name:</label>
         <input type="text" required value={name} onChange={(e) => setName(e.target.value)} />
-        </div>
         <div className='form-pairs'>
         <label>Class:</label>
         <select required value={characterClass} onChange={(e) => setCharacterClass(e.target.value)}>
