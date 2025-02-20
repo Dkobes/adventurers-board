@@ -19,7 +19,7 @@ class AuthService {
     const token = this.getToken();
     if (token) {
       const decodedToken = jwtDecode(token);
-      return decodedToken.id; // Adjust this based on your token's structure
+      return decodedToken.id; 
     }
     return null; // Return null if there's no token
   }
